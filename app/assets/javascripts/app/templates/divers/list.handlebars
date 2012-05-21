@@ -1,0 +1,15 @@
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+	  <th>Lastname</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each divers}}
+    {{view JustDive.ShowDiverView diverBinding="this"}}
+  {{/each}}
+  </tbody>
+</table>
+

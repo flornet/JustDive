@@ -1,0 +1,20 @@
+<div id="oni">
+<script type="text/x-handlebars">
+  <ul>
+	<li>Connectivity status: {{JustDive.monitor.status}}</li>
+	<li>Logged in as: {{JustDive.identity.administrator_id}}</li>
+  </ul>
+</script>
+</div>
+
+<nav id="mna">
+<script type="text/x-handlebars">
+  {{ view JustDive.MainNavView }}
+</script>
+</nav>
+
+<script type="text/javascript">
+  $(function() {
+	JustDive.start();
+  });
+</script>

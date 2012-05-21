@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JustDive</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<nav>
+<script type="text/x-handlebars">
+	{{#view Ember.Button classBinding="isActive"
+      target="Todos.todosController"
+      action="clearCompletedTodos"}}
+      Accueil
+    {{/view}}
+	{{#view Ember.Button
+      target="JustDive.addressBookController"
+      action="loadPage"}}
+      Carnet d'adresses
+    {{/view}}
+	{{#view Ember.Button classBinding="isActive"
+      target="Todos.todosController"
+      action="clearCompletedTodos"}}
+      Sorties
+    {{/view}}
+</script>
+<% if current_administrator %>
+<%= current_administrator.fullname %>
+<%= link_to 'Déconnexion', {:controller => 'identities', :action => 'destroy', :id => current_administrator.id}, :method => :delete %>
+<% else %>
+<%= link_to 'Se connecter', new_identity_path %>
+<% end %>
+</nav>
+<nav>
+<% if current_administrator %>
+<%= current_administrator.fullname %>
+<%= link_to 'Déconnexion', {:controller => 'identities', :action => 'destroy', :id => current_administrator.id}, :method => :delete %>
+<% else %>
+<%= link_to 'Se connecter', new_identity_path %>
+<% end %>
+</nav>
+<%= yield %>
+
+</body>
+</html>

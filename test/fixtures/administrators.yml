@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dive_club_id: 1
+  email: MyString
+  firstname: MyString
+  lastname: MyString
+
+two:
+  dive_club_id: 1
+  email: MyString
+  firstname: MyString
+  lastname: MyString

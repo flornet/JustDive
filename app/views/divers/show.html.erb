@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dive club:</b>
+  <%= @diver.dive_club_id %>
+</p>
+
+<p>
+  <b>Google contact:</b>
+  <%= @diver.google_contact_id %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @diver.email %>
+</p>
+
+<p>
+  <b>Firstname:</b>
+  <%= @diver.firstname %>
+</p>
+
+<p>
+  <b>Lastname:</b>
+  <%= @diver.lastname %>
+</p>
+
+<p>
+  <b>Ffessm level:</b>
+  <%= @diver.ffessm_level_id %>
+</p>
+
+<p>
+  <b>Ffessm licence number:</b>
+  <%= @diver.ffessm_licence_number %>
+</p>
+
+<p>
+  <b>Medical certificate expires on:</b>
+  <%= @diver.medical_certificate_expires_on %>
+</p>
+
+
+<%= link_to 'Edit', edit_diver_path(@diver) %> |
+<%= link_to 'Back', divers_path %>

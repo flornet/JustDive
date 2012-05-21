@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dive_club_id: 1
+  google_contact_id: MyString
+  email: MyString
+  firstname: MyString
+  lastname: MyString
+  ffessm_level_id: 1
+  ffessm_licence_number: MyString
+  medical_certificate_expires_on: 2012-05-12
+
+two:
+  dive_club_id: 1
+  google_contact_id: MyString
+  email: MyString
+  firstname: MyString
+  lastname: MyString
+  ffessm_level_id: 1
+  ffessm_licence_number: MyString
+  medical_certificate_expires_on: 2012-05-12

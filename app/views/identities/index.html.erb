@@ -1,0 +1,25 @@
+<h1>Listing identities</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @identities.each do |identity| %>
+  <tr>
+    <td><%= identity.email %></td>
+    <td><%= identity.password %></td>
+    <td><%= link_to 'Show', identity %></td>
+    <td><%= link_to 'Edit', edit_identity_path(identity) %></td>
+    <td><%= link_to 'Destroy', identity, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Identity', new_identity_path %>
