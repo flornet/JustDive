@@ -1,17 +1,13 @@
 class IdentitiesController < ApplicationController
 
-  # GET /identities/new
-  # GET /identities/new.json
-  def new
-    @identity = Identity.new
-
+  # GET /identities/get_token.json
+  def get_token
+    @response = {:authenticity_token => form_authenticity_token()}
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => [:identity => @identity, :authenticity_token => form_authenticity_token()] }
+      format.json { render :json => @response }
     end
   end
 
-  # POST /identities
   # POST /identities.json
   def create
     @identity = Identity.new(params[:identity])
@@ -19,11 +15,9 @@ class IdentitiesController < ApplicationController
     respond_to do |format|
       if @identity.save
         session[:administrator_id] = @identity.administrator_id
-    	session[:gdata_client] = @identity.gdata_client
-        format.html { redirect_to :root, :notice => 'Identity was successfully created.' }
-        format.json { render :json => @identity, :status => :created, :location => @identity }
+        session[:gdata_client] = @identity.gdata_client
+        format.json { render :json => @identity, :status => :created }
       else
-        format.html { render :action => "new" }
         format.json { render :json => @identity.errors, :status => :unprocessable_entity }
       end
     end

@@ -1,3 +1,3 @@
 JustDive.MainNavView = JustDive.View.extend({
-  templateName:    'app/templates/main/nav',
+  templateName:    'app/templates/main/nav'
 });

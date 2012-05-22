@@ -2,7 +2,9 @@
 <script type="text/x-handlebars">
   <ul>
 	<li>Connectivity status: {{JustDive.monitor.status}}</li>
-	<li>Logged in as: {{JustDive.identity.administrator_id}}</li>
+	{{#if JustDive.identity.is_logged_in}}
+	<li>Logged in as: {{JustDive.identity.administrator_id}} {{#view JustDive.Button target="JustDive.identityController" action="logout"}}Log out{{/view}}</li>
+	{{/if}}
   </ul>
 </script>
 </div>

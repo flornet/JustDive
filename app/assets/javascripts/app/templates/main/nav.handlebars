@@ -1,1 +1,11 @@
-Main nav view is here!
+{{#if JustDive.identity.is_logged_in}}
+	{{#view JustDive.Button target="JustDive.welcomeController" action="index"}}
+      Accueil
+    {{/view}}
+	{{#view JustDive.Button target="JustDive.addressBookController" action="index"}}
+      Carnet d'adresses
+    {{/view}}
+	{{#view JustDive.Button target="JustDive.eventsController" action="index"}}
+      Sorties
+    {{/view}}
+{{/if}}

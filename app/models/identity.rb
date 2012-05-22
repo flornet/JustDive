@@ -30,10 +30,12 @@ class Identity
         client = GData::Client::Contacts.new
         client.clientlogin(self.email, self.password)
         client.version = 3
+        self.password = nil
         self.gdata_client = client
         self.administrator_id = administrator.id
         return true
       rescue GData::Client::AuthorizationError
+        self.password = nil
         errors.add(:password, 'Authentication failed (Rejected by Google).')
         return false
       end
