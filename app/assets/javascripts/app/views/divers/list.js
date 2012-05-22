@@ -1,8 +1,8 @@
-JustDive.ListDiversView = JustDive.View.extend({
-  templateName:    'app/templates/divers/list',
-  diversBinding: 'JustDive.addressBookController',
+JustDive.views.divers.list = JustDive.View.extend({
+  templateName:    	'app/templates/divers/list',
+  diversBinding: 	'JustDive.controllers.divers',
 
   refreshListing: function() {
-    JustDive.addressBookController.findAll();
+    JustDive.controllers.divers.findAll();
   }
 });

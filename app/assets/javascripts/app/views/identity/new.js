@@ -1,10 +1,7 @@
 JustDive.NewIdentityView = JustDive.View.extend({
   templateName:			'app/templates/identity/new',
   tagName:    			'form',
-  
-  init: function() {
-    this._super();
-  },
+  error: 				'',
 
   didInsertElement: function() {
     this._super();
@@ -13,6 +10,6 @@ JustDive.NewIdentityView = JustDive.View.extend({
 
   submit: function(event) {
     event.preventDefault();
-	JustDive.identity.save();
+	JustDive.identityController.login();
   }
 });

@@ -2,13 +2,12 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>Firstname</th>
-	  <th>Lastname</th>
+      <th>Name</th>
     </tr>
   </thead>
   <tbody>
   {{#each divers}}
-    {{view JustDive.ShowDiverView diverBinding="this"}}
+    {{view JustDive.views.divers.show diverBinding="this"}}
   {{/each}}
   </tbody>
 </table>

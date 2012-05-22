@@ -1,4 +1,10 @@
-JustDive.Diver = JustDive.Object.extend({
+JustDive.models.diver = JustDive.Resource.extend({
+  resourceUrl: '/divers',
+
+  fullname: Ember.computed(function() {
+    return this.get('firstname') + ' ' + this.get('lastname');
+  }).property('firstname', 'lastname')
+  /*
   id: null,
   dive_club_id: null,
   email: null, 
@@ -11,6 +17,6 @@ JustDive.Diver = JustDive.Object.extend({
   storage_id: 'divers',
   
   diverChanged: function () {
-    JustDive.getStorage(this.storage_id).proxy.update(this);
-  }.observes('firstname', 'lastname')
+    //JustDive.getStorage(this.storage_id).proxy.update(this);
+  }.observes('firstname', 'lastname')*/
 });

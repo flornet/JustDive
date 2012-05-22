@@ -1,6 +1,20 @@
 JustDive.addressBookController = JustDive.ArrayController.create({
   content: [],
-
+  
+  _initViews: function() {
+		if (this.views === undefined) {
+			this.views = {
+							divers_list: 	JustDive.views.divers.list.create()
+						};
+		}
+	},
+  
+  index: function() {
+    this._initViews();
+    this.views.divers_list.appendTo(JustDive.viewsContainer);
+    JustDive.controllers.divers.findAll();
+  }
+  /*
   loadPage: function() {
 	var diver = JustDive.Diver.create({ firstname: 'Florent', lastname: 'Jaouali'});
 	this.pushObject(diver);
@@ -52,4 +66,5 @@ JustDive.addressBookController = JustDive.ArrayController.create({
   completeClass: function () {
     return this.get('completed') < 1 ? 'none-completed' : 'some-completed';
   }.property('@each.isDone')
+  */
 });

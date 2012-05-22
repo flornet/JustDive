@@ -6,7 +6,15 @@
 #= require_tree ./templates
 
 JustDive = Ember.Application.create({
-	storages: [],
+	rootElement: '#app',
+	viewsContainer: '#container',
+	controllers: {},
+	models: {},
+	views: {
+		divers: {}
+	},
+	localStorage: null,
+	resourceAdapters: {},
 	monitor: null,
 	identity: null,
 	
@@ -25,6 +33,9 @@ JustDive = Ember.Application.create({
 			return false;
 		}
 		
+		// Maps localStorage
+		app.set('localStorage', localStorage);
+		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -35,6 +46,7 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
+		
 		
 		/*
 		var diversStorage = JustDive.Storage.create({ localStoreId: 'divers'})
@@ -51,6 +63,35 @@ JustDive = Ember.Application.create({
 	start: function() {
 		this.bootstrap();
 	},
+	
+	displayError: function(errorType, e) {
+		var readableError = '';
+		if (errorType == 'jqXHR') {
+			if (e.status !== undefined) {
+				readableError = '<p>' + e.status + ': ' + e.statusText + '</p>';
+				switch (e.status) {
+					case 404:
+						break;
+					default:
+						readableError += '<div>' + e.responseText + '</div>';
+				}
+			} else {
+				readableError = '<p>jqXHR error not recognized...</p>';
+			}
+		} else {
+			readableError = '<p>Error type not recognized...</p>';
+		}
+		jQuery('#main-error-container').html(readableError);
+	},
+	
+	getStorageInfos: function () {
+		var app = this,
+			result = '';
+		for (var i = 0; i < app.localStorage.length; i++){
+			result += '[' + app.localStorage.key(i) + ' ' + app.localStorage.getItem(app.localStorage.key(i)).length + ' bytes ] ';
+		}
+		return result;
+	}.property('localStorage'),
 	
 	getStorage: function (storageId) {
 		return this.storages[storageId];
@@ -95,8 +136,10 @@ JustDive = Ember.Application.create({
 		}
 	}
 });
-JustDive.Object = Ember.Object;
-JustDive.ArrayController = Ember.ArrayController;
-JustDive.View = Ember.View;
-JustDive.CoreObject = Ember.CoreObject;
-JustDive.Button = Ember.Button;
+JustDive.Object 			= Ember.Object.extend();
+JustDive.ArrayController 	= Ember.ArrayController.extend();
+JustDive.View 				= Ember.View.extend();
+JustDive.CoreObject 		= Ember.CoreObject.extend();
+JustDive.Button 			= Ember.Button.extend();
+JustDive.Resource 			= Ember.Resource.extend();
+JustDive.ResourceController = Ember.ResourceController.extend();

@@ -1,17 +1,40 @@
-<div id="oni">
-<script type="text/x-handlebars">
-  <ul>
-	<li>Connectivity status: {{JustDive.monitor.status}}</li>
-	<li>Logged in as: {{JustDive.identity.administrator_id}}</li>
-  </ul>
-</script>
-</div>
+<div id="app" role="main">
+	<header>
+		<script type="text/x-handlebars">
+		  <ul>
+			<li>Connectivity status: {{JustDive.monitor.status}} </li>
+			{{#if JustDive.identity.is_logged_in}}
+			<li>Welcome {{JustDive.identity.email}} 
+				{{#if JustDive.monitor.is_online}}
+					{{#view JustDive.Button target="JustDive.identityController" action="logout"}}Log out{{/view}}
+				{{else}}
+					{{#view JustDive.Button target="JustDive.identityController" action="logout" disabled="disabled"}}Log out{{/view}}
+				{{/if}}
+			</li>
+			{{/if}}
+		  </ul>
+		</script>
+		<nav id="mna">
+			<script type="text/x-handlebars">
+			  {{ view JustDive.MainNavView }}
+			</script>
+		</nav>
+	</header>
+	<div id="container-wrapper">
+		<div id="container"></div>
+	</div>
 
-<nav id="mna">
-<script type="text/x-handlebars">
-  {{ view JustDive.MainNavView }}
-</script>
-</nav>
+	<footer>
+		<script type="text/x-handlebars">
+		<ul>
+			<li>Authenticity Token: {{JustDive.identity.authenticity_token}}</li>
+			<li>Administrator Id: {{JustDive.identity.administrator_id}}</li>
+			<li>LocalStorage Infos: {{JustDive.getStorageInfos}}</li>
+		</ul>
+		</script>
+		<div id="main-error-container"></div>
+	</footer>
+</div>
 
 <script type="text/javascript">
   $(function() {

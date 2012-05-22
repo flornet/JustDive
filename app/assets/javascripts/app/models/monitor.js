@@ -2,7 +2,7 @@ JustDive.Monitor = JustDive.Object.extend({
 	is_online: null,
 		
 	status: function() {
-		if (this.is_online) {
+		if (this.get('is_online')) {
 			return('ONLINE');
 		} else {
 			return('OFFLINE');
@@ -32,19 +32,15 @@ JustDive.Monitor = JustDive.Object.extend({
 	},
 	
 	_addObservers: function() {
-		var app = JustDive;
-		var monitor = this;
-		this.addObserver('is_online', function() {
+		var monitor = this,
+			monitorController = JustDive.monitorController;
+		monitor.addObserver('is_online', function() {
 			if (!monitor.is_online) {
 			// App is going offline
-				if (!app.identity.is_logged_in) {
-					app.identity.showLoginOffline();
-				}
+				monitorController.onOffline();
 			} else {
 			// App is going online
-				if (!app.identity.is_logged_in) {
-					app.identity.showLogin();
-				}
+				monitorController.onOnline();
 			}
 		});
 	}

@@ -1,6 +1,6 @@
-class IdentitiesController < ApplicationController
+class IdentityController < ApplicationController
 
-  # GET /identities/get_token.json
+  # GET /identity/get_token.json
   def get_token
     @response = {:authenticity_token => form_authenticity_token()}
     respond_to do |format|
@@ -8,7 +8,7 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  # POST /identities.json
+  # POST /identity.json
   def create
     @identity = Identity.new(params[:identity])
 
@@ -23,14 +23,14 @@ class IdentitiesController < ApplicationController
     end
   end
 
-  # DELETE /identities/1
-  # DELETE /identities/1.json
+  # DELETE /identity
+  # DELETE /identity.json
   def destroy
     reset_session
 
     respond_to do |format|
-      format.html { redirect_to :root }
-      format.json { head :no_content }
+      #format.json { head :no_content }
+	  format.json { render json: nil, status: :ok }
     end
   end
 end

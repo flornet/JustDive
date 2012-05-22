@@ -1,5 +1,11 @@
 JustDive::Application.routes.draw do
-  resources :identities, :only => [:new, :create, :destroy]
+  resources :identity do
+    collection do
+      get     'get_token'
+      post    'create'
+      delete  'destroy'
+    end
+  end
 
   resources :ffessm_levels
 
