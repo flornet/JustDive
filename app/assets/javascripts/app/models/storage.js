@@ -65,4 +65,3 @@ JustDive.Storage = JustDive.CoreObject.extend({
       return model;
   }
 });
-alert('Loads2');

@@ -19,7 +19,7 @@ class IdentitiesController < ApplicationController
     respond_to do |format|
       if @identity.save
         session[:administrator_id] = @identity.administrator_id
-    		session[:gdata_client] = @identity.gdata_client
+    	session[:gdata_client] = @identity.gdata_client
         format.html { redirect_to :root, :notice => 'Identity was successfully created.' }
         format.json { render :json => @identity, :status => :created, :location => @identity }
       else

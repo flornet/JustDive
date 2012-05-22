@@ -18,7 +18,6 @@ JustDive = Ember.Application.create({
 		if (!app.browser.isCompatible()) {
 			output = '<h1>Your device/browser is not compatible</h1>';
 			errors = app.browser.getCompatibilityErrors();
-			
 			if (errors.length > 0) {
 				output += '<ul><li>' + errors.join('</li><li>') + '</li></ul>';
 			}
@@ -26,9 +25,14 @@ JustDive = Ember.Application.create({
 			return false;
 		}
 		
+		/* 
+		 *	This is needed:
+		 *		1. identity MUST be before monitor,
+		 *		2. 'identity.is_logged_in' is initiated with 'false',
+		 *		3. 'monitor.is_online' is initiated with 'null'
+		 */
 		// Creates an identity
 		app.identity = JustDive.Identity.create();
-		
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
 		
@@ -87,7 +91,6 @@ JustDive = Ember.Application.create({
 					return false;
 				}
 			 */
-			
 			return is_compatible;
 		}
 	}
@@ -96,3 +99,4 @@ JustDive.Object = Ember.Object;
 JustDive.ArrayController = Ember.ArrayController;
 JustDive.View = Ember.View;
 JustDive.CoreObject = Ember.CoreObject;
+JustDive.Button = Ember.Button;
