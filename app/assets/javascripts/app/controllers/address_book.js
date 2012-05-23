@@ -4,7 +4,8 @@ JustDive.addressBookController = JustDive.ArrayController.create({
   _initViews: function() {
 		if (this.views === undefined) {
 			this.views = {
-							divers_list: 	JustDive.views.divers.list.create()
+							divers_list: 	JustDive.views.divers.list.create(),
+							diver_detail:	JustDive.views.divers.detail.create()
 						};
 		}
 	},
@@ -13,6 +14,58 @@ JustDive.addressBookController = JustDive.ArrayController.create({
     this._initViews();
     this.views.divers_list.appendTo(JustDive.viewsContainer);
     JustDive.controllers.divers.findAll();
+  },
+  
+  show: function(diver, isEdit) {
+	var controller = this;
+	if (diver.context) diver = diver.context; // Requested by Handlebars template ie. {{action "show" context="diver"}}
+	diver.findResource()
+		.fail( function(e) {
+		  JustDive.displayError('jqXHR', e);
+		})
+		.done(function() {
+		  // Next goes here
+		  controller._initViews();
+		  if (!controller.views.diver_detail.isAppened) {
+			controller.views.diver_detail.appendTo(JustDive.viewsContainer);
+			controller.views.diver_detail.set('isAppened', true);
+		  }
+		  if (isEdit === true) {
+			controller.views.diver_detail.set('isEditing', true);
+		  } else {
+			controller.views.diver_detail.set('isEditing', false);
+		  }
+		  controller.views.diver_detail.set('diver', diver);
+		});
+  },
+  
+  edit: function(diver) {
+	this.show(diver, true);
+  },
+  
+  update: function(diver) {
+	var controller = this;
+	if (diver.context) diver = diver.context; // Requested by Handlebars template ie. {{action "show" context="diver"}}
+	console.log(diver);
+	diver.saveResource()
+		.fail( function(e) {
+		  JustDive.displayError('jqXHR', e);
+		})
+		.done(function() {
+		  // Next goes here
+		  console.log('done');
+		});
+  },
+  
+  destroy: function(diver) {
+	if (diver.context) diver = diver.context;
+	diver.destroyResource()
+		.fail( function(e) {
+			JustDive.displayError('jqXHR', e);
+		})
+		.done( function() {
+			JustDive.controllers.divers.removeObject(diver);
+		});
   }
   /*
   loadPage: function() {

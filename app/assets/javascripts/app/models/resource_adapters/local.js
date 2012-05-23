@@ -1,9 +1,22 @@
 JustDive.resourceAdapters.local = JustDive.CoreObject.create({
-  localStoreId: null,
-  localStore: null,
+  store_id: null,
   data: null,
+  allowed_requests: ["GET", "POST", "PUT", "DELETE"],
   
   request: function(params) {
+	if (params.type !== undefined) {
+		params.type = params.type.toUpperCase();
+	}
+	if (this.allowed_requests.indexOf(params.type) < 0) {
+		return this._fail('Request "' + params.type + '" is not allowed.');
+	}
+	if (params.url.split('/').length == 0) {
+		return this._fail('Empty URL is not allowed.');
+	}
+	if (params.dataType !== "json") {
+		return this._fail('DataType "' + params.dataType + '" is not recognized.');
+	}
+	this._init(params);
 	switch(params.type) {
 		case "GET":
 					return this._get(params);
@@ -13,50 +26,158 @@ JustDive.resourceAdapters.local = JustDive.CoreObject.create({
 					return this._put(params);
 		case "DELETE":
 					return this._delete(params);
-		default:
-				return {
-				  fail: function(f) { f(error); return this; },
-				  done: function() { return this; },
-				  always: function(f) { f(); return this; }
-				};
 	}
   },
   
+  _init: function(params) {
+	var url_parts = params.url.split('/'),
+		serialized_data;
+	if (url_parts[0] == "") {
+		url_parts.splice(0, 1);
+	}
+	this.store_id = url_parts[0];
+	serialized_data = localStorage.getItem(this.store_id)
+	this.data = (serialized_data && JSON.parse(serialized_data)) || {};
+  },
+/**
+@private
+
+Processes a GET request
+
+* `params` -- the array of request parameters
+
+REQUIRED: `params.url` and `data`
+*/ 
   _get: function(params) {
 	var url_parts = params.url.split('/'),
-		store, data,
 		json = null;
 	if (url_parts[0] == "") {
 		url_parts.splice(0, 1);
 	}
-	store_id = url_parts[0];
-	store = localStorage.getItem(store_id)
-	data = (store && JSON.parse(store)) || {};
 	
 	if (url_parts[1] === undefined) {
 	// fetch all
 		json = [];
-		for (entry in data){
-			json.push(data[entry]);
+		for (entry in this.data){
+			json.push(this.data[entry]);
 		}
 	} else {
-	// fetch a specific entry
-	//...
+		if (url_parts[2] === undefined){
+			// fetch a specific entry
+			if (!this.data || (this.data && !this.data[url_parts[1]])) {
+				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
+			}
+			json = this.data[url_parts[1]];
+		} else {
+			// too many parameters
+			return this._fail('Request "' + params.url + '" was not understood.');
+		}
 	}
+	return this._done(json);
+  },
 
+/**
+@private
+
+Processes a PUT request
+
+* `params` -- the array of request parameters
+
+REQUIRED: `params.url`
+*/ 
+  _put: function(params) {
+	var url_parts = params.url.split('/'),
+		json = null;
+	if (url_parts[0] == "") {
+		url_parts.splice(0, 1);
+	}
+	
+	console.log(params);
+	return this._fail('Debug.');
+	
+	if (url_parts[1] === undefined) {
+		//error (missing ID)
+		return this._fail('Request "' + params.url + '" was not understood.');
+	} else {
+		if (url_parts[2] === undefined){
+			json = {};
+			// fetch a specific entry
+			if (!this.data || (this.data && !this.data[url_parts[1]])) {
+				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
+			}
+			delete this.data[url_parts[1]];
+			if(!this._saveData()) { // Updates the data stored in "localStore"
+				return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
+			}
+		} else {
+			// too many parameters
+			return this._fail('Request "' + params.url + '" was not understood.');
+		}
+	}
+	return this._done(json);
+  },
+  
+/**
+@private
+
+Processes a DELETE request
+
+* `params` -- the array of request parameters
+
+REQUIRED: `params.url`
+*/ 
+  _delete: function(params) {
+	var url_parts = params.url.split('/'),
+		json = null;
+	if (url_parts[0] == "") {
+		url_parts.splice(0, 1);
+	}
+	
+	if (url_parts[1] === undefined) {
+		//error (missing ID)
+		return this._fail('Request "' + params.url + '" was not understood.');
+	} else {
+		if (url_parts[2] === undefined){
+			json = {};
+			// fetch a specific entry
+			if (!this.data || (this.data && !this.data[url_parts[1]])) {
+				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
+			}
+			delete this.data[url_parts[1]];
+			if(!this._saveData()) { // Updates the data stored in "localStore"
+				return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
+			}
+		} else {
+			// too many parameters
+			return this._fail('Request "' + params.url + '" was not understood.');
+		}
+	}
+	return this._done(json);
+  }, 
+    
+  _saveData: function() {
+	if (this.data && this.store_id) {
+		var serialize_data = JSON.stringify(this.data);
+		localStorage.setItem(this.store_id, serialize_data);
+		return true;
+	} else {
+		return false;
+	}
+  },
+  
+  _fail: function(statusText, status) {
 	return {
-          fail: function(f) { 
-			f(error); 
-			return this; 
-		  },
-          done: function(f) { 
-			f(json); 
-			return this; 
-		  },
-          always: function(f) { 
-			f(); 
-			return this; 
-		  }
+          fail: function(f) { f({status: status || 400, statusText: statusText}); return this; },
+          done: function(f) { return this; },
+          always: function(f) { f(); return this; }
+        };
+  },
+  
+  _done: function(json) {
+	return {
+          fail: function(f) { return this; },
+          done: function(f) { f(json); return this; },
+          always: function(f) { f(); return this; }
         };
   },
   
@@ -70,20 +191,6 @@ JustDive.resourceAdapters.local = JustDive.CoreObject.create({
      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
   },
 
-  init: function() {
-    this._super();
-	// Inits Local Storage (client side)
-	if (this.localStoreId !== null) {
-		this.localStore = localStorage.getItem(this.localStoreId);
-	}
-	this.data = (this.localStore && JSON.parse(this.localStore)) || {};
-  },
-  
-  // Save the current state of the **Store** to *localStorage*.
-  proxySave: function() {
-      localStorage.setItem(this.localStoreId, JSON.stringify(this.data));
-  },
-
     // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
     // have an id of it's own.
   proxyCreate: function (model) {
@@ -94,30 +201,6 @@ JustDive.resourceAdapters.local = JustDive.CoreObject.create({
     // Update a model by replacing its copy in `this.data`.
   proxyUpdate: function(model) {
       this.data[model.get('id')] = model.getProperties('id', 'firstname', 'lastname');
-      this.save();
-      return model;
-  },
-
-    // Retrieve a model from `this.data` by id.
-  proxyFind: function(model) {
-      return JustDive.Diver.create(this.data[model.get('id')]);
-  },
-
-    // Return the array of all models currently in storage.
-  proxyFindAll: function() {
-      var result = [];
-      for (var key in this.data)
-      {
-        var diver = JustDive.Diver.create(this.data[key]);
-        result.push(diver);
-      }
-
-      return result;
-    },
-
-    // Delete a model from `this.data`, returning it.
-  proxyRemove: function(model) {
-      delete this.data[model.get('id')];
       this.save();
       return model;
   }

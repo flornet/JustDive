@@ -3,11 +3,12 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
+	  <th>Actions</th>
     </tr>
   </thead>
   <tbody>
   {{#each divers}}
-    {{view JustDive.views.divers.show diverBinding="this"}}
+    {{view JustDive.views.divers.listShow diverBinding="this"}}
   {{/each}}
   </tbody>
 </table>

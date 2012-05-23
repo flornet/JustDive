@@ -1,0 +1,9 @@
+<td>{{diver.id}}</td>
+<td class="data">
+  {{diver.fullname}}
+</td>
+<td>
+<button {{action "show" target="JustDive.addressBookController" context="diver"}}>Show</button>
+<button {{action "edit" target="JustDive.addressBookController" context="diver"}}>Edit</button>
+<button {{action "destroy" target="JustDive.addressBookController" context="diver"}}>Destroy</button>
+</td>

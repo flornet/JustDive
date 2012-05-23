@@ -73,7 +73,9 @@ JustDive = Ember.Application.create({
 					case 404:
 						break;
 					default:
-						readableError += '<div>' + e.responseText + '</div>';
+						if (e.responseText) {
+							readableError += '<div>' + e.responseText + '</div>';
+						}
 				}
 			} else {
 				readableError = '<p>jqXHR error not recognized...</p>';

@@ -1,0 +1,20 @@
+{{#if isEditing}}
+	{{#with diver}}
+		<div class="field">
+			{{view Ember.TextField valueBinding="email" placeholder="Email" size="30" type="email"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="firstname"  placeholder="First Name" size="30"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="lastname"  placeholder="Last Name" size="30"}}
+		</div>
+		<div class="actions"> 
+			<button type="submit">Save</button>
+		</div>	
+	{{/with}}
+{{else}}
+    <p>{{diver.fullname}}</p>
+{{/if}}
+
+<button {{action "destroy"}}>Cancel</button>
