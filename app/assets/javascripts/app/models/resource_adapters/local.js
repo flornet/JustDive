@@ -101,14 +101,14 @@ REQUIRED: `params.url` and `params.data`
 		json = {};
 		object_type = this.store_id.substring(0, this.store_id.length - 1); // Singularization (ie. divers => diver)
 		if (params.data[object_type] === undefined) {
-			return this._fail('Failed to create entry', 400);
+			return this._fail('Failed to create entry (wrong Type)', 400);
 		}
 		
 		object = params.data[object_type];
 		object.id = this._guid();
 		this.data[object.id] = object;
 		if(!this._saveData()) {
-			return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
+			return this._fail('Failed to create entry "' + url_parts[1] + '"', 500);
 		} else {
 			json = object;
 		}
@@ -130,13 +130,15 @@ REQUIRED: `params.url` and `params.data`
 */ 
   _put: function(params) {
 	var url_parts = params.url.split('/'),
-		json = null;
+		json = null, object, object_type;
 	if (url_parts[0] == "") {
 		url_parts.splice(0, 1);
 	}
 	
-	console.log(params);
-	return this._fail('Debug.');
+	if (params.data === undefined) {
+		//error (missing Data)
+		return this._fail('Data is missing');
+	}
 	
 	if (url_parts[1] === undefined) {
 		//error (missing ID)
@@ -144,13 +146,23 @@ REQUIRED: `params.url` and `params.data`
 	} else {
 		if (url_parts[2] === undefined){
 			json = {};
+			object_type = this.store_id.substring(0, this.store_id.length - 1); // Singularization (ie. divers => diver)
+			if (params.data[object_type] === undefined) {
+				return this._fail('Failed to update entry (wrong Type)', 400);
+			}
+			
 			// fetch a specific entry
 			if (!this.data || (this.data && !this.data[url_parts[1]])) {
 				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
 			}
-			delete this.data[url_parts[1]];
+			
+			object = params.data[object_type];
+			object.id = url_parts[1];
+			this.data[object.id] = object;
 			if(!this._saveData()) { // Updates the data stored in "localStore"
-				return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
+				return this._fail('Failed to update entry "' + url_parts[1] + '"', 500);
+			} else {
+				json = object;
 			}
 		} else {
 			// too many parameters

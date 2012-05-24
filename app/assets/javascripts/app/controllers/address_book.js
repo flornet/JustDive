@@ -1,7 +1,7 @@
 JustDive.addressBookController = JustDive.ArrayController.create({
-  content: [],
-  
-  _initViews: function() {
+	content: [],
+
+	_initViews: function() {
 		if (this.views === undefined) {
 			this.views = {
 							divers_list: 	JustDive.views.divers.list.create(),
@@ -9,80 +9,158 @@ JustDive.addressBookController = JustDive.ArrayController.create({
 						};
 		}
 	},
-  
-  index: function() {
-    this._initViews();
-    this.views.divers_list.appendTo(JustDive.viewsContainer);
-    JustDive.controllers.divers.findAll();
-  },
-  
-  show: function(diver, isEdit) {
-	var controller = this;
-	if (diver.context) diver = diver.context; // Requested by Handlebars template ie. {{action "show" context="diver"}}
-	diver.findResource()
-		.fail( function(e) {
-		  JustDive.displayError('jqXHR', e);
-		})
-		.done(function() {
-		  // Next goes here
-		  controller._initViews();
-		  if (!controller.views.diver_detail.isAppened) {
-			controller.views.diver_detail.appendTo(JustDive.viewsContainer);
-			controller.views.diver_detail.set('isAppened', true);
-		  }
-		  if (isEdit === true) {
-			controller.views.diver_detail.set('isEditing', true);
-		  } else {
-			controller.views.diver_detail.set('isEditing', false);
-		  }
-		  controller.views.diver_detail.set('diver', diver);
+/*
+	loadFromRemote: function() {
+		this._initViews();
+		this.views.divers_list.appendTo(JustDive.viewsContainer);
+		JustDive.controllers.divers.setAdapter('remote');
+		JustDive.controllers.divers.findAll();
+	},
+	
+	saveAllToLocal: function() {
+		JustDive.controllers.divers.setAdapter('local');
+		JustDive.controllers.divers.get('content').forEach(function(diver) {
+			diver.saveResource()
+				.fail( function(e) {
+					JustDive.displayError('jqXHR', e);
+				})
+				.done( function() {
+					console.log(diver.id + ': saved to local');
+				});
+			
 		});
-  },
+	},
+*/
 
-	new: function() {
-		//TODO
+/**
+    Index action: loads the data and appends the view
+*/
+	index: function() {
+		this._initViews();
+		this.views.divers_list.appendTo(JustDive.viewsContainer);
+		JustDive.controllers.divers.findAll();
 	},
 
-	fakeCreate: function() {
-		var diver = JustDive.models.diver.create({firstname: 'Boo', lastname: 'Truc', email: 'blop@ccc.com'});
+/**
+    Show action: loads the data and appends the view
+*/
+	show: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context; // Requested by Handlebars template ie. {{action "show" context="diver"}}
+		diver.findResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done(function() {
+				// Next goes here
+				controller._initViews();
+				controller._appendView(view);
+				view.set('isEditing', false);
+				view.set('isCreating', false);
+				view.set('diver', diver);
+			});
+	},
+	
+/**
+    New action: creates an empty 'model' and appends the view
+*/
+	new: function() {
+		var controller = this,
+			view = this.views.diver_detail,
+			diver = JustDive.models.diver.create();
+		controller._initViews();
+		controller._appendView(view);
+		view.set('isCreating', true);
+		view.set('isEditing', true);
+		view.set('diver', diver);
+	},
+ 
+/**
+    Edit action: loads the data and appends the view
+*/ 
+  	edit: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context;
+		diver.findResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done(function() {
+				controller._initViews();
+				controller._appendView(view);
+				view.set('isEditing', true);
+				view.set('isCreating', false);
+				view.set('diver', diver);
+			});
+	},
+	
+/**
+    Create action: save the newly created 'model'
+*/   
+	create: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context;
 		diver.saveResource()
 			.fail( function(e) {
 				JustDive.displayError('jqXHR', e);
 			})
 			.done( function() {
 				JustDive.controllers.divers.pushObject(diver);
+				controller._initViews();
+				controller._appendView(view);
+				view.set('isEditing', false);
+				view.set('isCreating', false);
+				view.set('diver', diver);
 			});
 	},
-  
-  	edit: function(diver) {
-		this.show(diver, true);
+	
+/**
+    Update action: save the updated 'model'
+*/ 
+	update: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context;
+		diver.saveResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done(function() {
+				controller._initViews();
+				controller._appendView(view);
+				view.set('isEditing', false);
+				view.set('isCreating', false);
+				view.set('diver', diver);
+			});
 	},
-  
-  update: function(diver) {
-	var controller = this;
-	if (diver.context) diver = diver.context; // Requested by Handlebars template (ie. {{action "show" context="diver"}})
-	console.log(diver);
-	return false;
-	diver.saveResource()
-		.fail( function(e) {
-		  JustDive.displayError('jqXHR', e);
-		})
-		.done(function() {
-		  // Next goes here
-		  console.log('done');
-		});
-  },
-  
-  destroy: function(diver) {
-	if (diver.context) diver = diver.context;
-	diver.destroyResource()
-		.fail( function(e) {
-			JustDive.displayError('jqXHR', e);
-		})
-		.done( function() {
-			JustDive.controllers.divers.removeObject(diver);
-		});
-  }
+/**
+    Destroy action: destroy the 'model'
+*/  
+	destroy: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context;
+		diver.destroyResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done( function() {
+				if (view.get('diver') === diver) {
+					view.destroy();
+				}
+				JustDive.controllers.divers.removeObject(diver);
+			});
+	},
+	
+	_appendView: function(view) {
+		if (!view.isAppened) {
+			view.appendTo(JustDive.viewsContainer);
+			view.set('isAppened', true);
+		}
+	}
   /*
   loadPage: function() {
 	var diver = JustDive.Diver.create({ firstname: 'Florent', lastname: 'Jaouali'});

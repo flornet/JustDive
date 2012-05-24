@@ -5,14 +5,17 @@ JustDive.views.divers.detail = JustDive.View.extend({
   error: 		'',
   
   destroy: function(event) {
-	event.preventDefault();
+	if (event) event.preventDefault();
 	this.set('isAppened', false);
 	this.remove();
   },
   
   submit: function(event) {
-	console.log(this.diver);
     event.preventDefault();
-	JustDive.addressBookController.update(this.diver);
+	if (this.get('isCreating')) {
+		JustDive.addressBookController.create(this.diver);
+	} else {
+		JustDive.addressBookController.update(this.diver);
+	}
   }
 });

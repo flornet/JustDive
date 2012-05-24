@@ -8,7 +8,10 @@
 	{{#view JustDive.Button target="JustDive.eventsController" action="index"}}
       Sorties
     {{/view}}
-	{{#view JustDive.Button target="JustDive.addressBookController" action="fakeCreate"}}
-      FakeCreate
+	{{#view JustDive.Button target="JustDive.addressBookController" action="loadFromRemote"}}
+      Load divers from remote
+    {{/view}}
+	{{#view JustDive.Button target="JustDive.addressBookController" action="saveAllToLocal"}}
+      Save all divers to local
     {{/view}}
 {{/if}}

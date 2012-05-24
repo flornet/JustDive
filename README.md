@@ -9,5 +9,5 @@ Subjects:
 - Offline App (HTML 5's localstorage, onOnline/onOffline),
 - Google Contacts (read only)
 
-
-(test)
+Notes:
+- Add 'this.$('input:first').focus();' on create/edit views

@@ -1,4 +1,6 @@
 class DiversController < ApplicationController
+  before_filter :administrator_required
+
   # GET /divers.json
   def index
     @divers = Diver.all

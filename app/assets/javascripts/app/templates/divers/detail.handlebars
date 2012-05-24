@@ -1,18 +1,16 @@
 {{#if isEditing}}
-	{{#with diver}}
-		<div class="field">
-			{{view Ember.TextField valueBinding="email" placeholder="Email" size="30" type="email"}}
-		</div>
-		<div class="field">
-			{{view Ember.TextField valueBinding="firstname"  placeholder="First Name" size="30"}}
-		</div>
-		<div class="field">
-			{{view Ember.TextField valueBinding="lastname"  placeholder="Last Name" size="30"}}
-		</div>
-		<div class="actions"> 
-			<button type="submit">Save</button>
-		</div>	
-	{{/with}}
+	<div class="field">
+		{{view Ember.TextField valueBinding="diver.email" placeholder="Email" size="30" type="email"}}
+	</div>
+	<div class="field">
+		{{view Ember.TextField valueBinding="diver.firstname"  placeholder="First Name" size="30"}}
+	</div>
+	<div class="field">
+		{{view Ember.TextField valueBinding="diver.lastname"  placeholder="Last Name" size="30"}}
+	</div>
+	<div class="actions"> 
+		<button type="submit">Save</button>
+	</div>
 {{else}}
     <p>{{diver.fullname}}</p>
 {{/if}}

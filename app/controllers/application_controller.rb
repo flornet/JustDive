@@ -5,12 +5,20 @@ class ApplicationController < ActionController::Base
   private
   def administrator_required
     if !current_administrator
-      redirect_to new_identity_path, :notice => "Login is required"
+		respond_to do |format|
+		  format.html { redirect_to new_identity_path, :notice => "Login is required" }
+		  format.json { render :json => "Login is required", :status => :forbidden }
+		end
     end
   end
   
   def gdata_client_required
-    redirect_to new_identity, :notice => "Login is required (Google session might have expired)" unless !session[:gdata_client].nil?
+	respond_to do |format|
+		if session[:gdata_client].nil?
+		  format.html { redirect_to new_identity, :notice => "Login is required (Google session might have expired)" }
+		  format.json { render :json => "Login is required (Google session might have expired)", :status => :forbidden }
+		end
+	end
   end
   
   def current_administrator 
