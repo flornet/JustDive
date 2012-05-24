@@ -29,8 +29,8 @@ class IdentityController < ApplicationController
     reset_session
 
     respond_to do |format|
-      #format.json { head :no_content }
-	  format.json { render json: nil, status: :ok }
+      format.json { head :no_content }
+	    #format.json { render json: => nil, :status => :ok }
     end
   end
 end

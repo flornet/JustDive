@@ -4,12 +4,14 @@ JustDive.views.divers.detail = JustDive.View.extend({
   tagName:    	'form',
   error: 		'',
   
-  destroy: function() {
+  destroy: function(event) {
+	event.preventDefault();
 	this.set('isAppened', false);
 	this.remove();
   },
   
   submit: function(event) {
+	console.log(this.diver);
     event.preventDefault();
 	JustDive.addressBookController.update(this.diver);
   }

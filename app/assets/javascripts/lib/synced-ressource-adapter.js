@@ -8,8 +8,8 @@ Ember.ResourceAdapter = Ember.Mixin.create({
       }
 
 	  //console.log(this._remoteRequest(params));
-	  return this._localRequest(params);
-      //return this._remoteRequest(params);
+	  //return this._localRequest(params);
+      return this._remoteRequest(params);
     },
 	
 	_localRequest: function(params) {

@@ -1,9 +1,11 @@
 JustDive.models.diver = JustDive.Resource.extend({
-  resourceUrl: '/divers',
-
-  fullname: Ember.computed(function() {
-    return this.get('firstname') + ' ' + this.get('lastname');
-  }).property('firstname', 'lastname')
+	resourceUrl: 		'/divers',
+	resourceName:       'diver',
+	resourceProperties: ['firstname', 'lastname', 'email', 'dive_club_id', 'ffessm_level_id'],
+	
+  	fullname: Ember.computed(function() {
+		return this.get('firstname') + ' ' + this.get('lastname');
+	}).property('firstname', 'lastname')
   /*
   id: null,
   dive_club_id: null,

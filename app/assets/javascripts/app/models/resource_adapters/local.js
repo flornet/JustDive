@@ -79,11 +79,54 @@ REQUIRED: `params.url` and `data`
 /**
 @private
 
+Processes a POST request
+
+* `params` -- the array of request parameters
+
+REQUIRED: `params.url` and `params.data`
+*/ 
+  _post: function(params) {
+	var url_parts = params.url.split('/'),
+		json = null, object_type, object;
+	if (url_parts[0] == "") {
+		url_parts.splice(0, 1);
+	}
+	
+	if (params.data === undefined) {
+		//error (missing Data)
+		return this._fail('Data is missing');
+	}
+
+	if (url_parts[1] === undefined) {
+		json = {};
+		object_type = this.store_id.substring(0, this.store_id.length - 1); // Singularization (ie. divers => diver)
+		if (params.data[object_type] === undefined) {
+			return this._fail('Failed to create entry', 400);
+		}
+		
+		object = params.data[object_type];
+		object.id = this._guid();
+		this.data[object.id] = object;
+		if(!this._saveData()) {
+			return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
+		} else {
+			json = object;
+		}
+	} else {
+		// too many parameters
+		return this._fail('Request "' + params.url + '" was not understood.');
+	}
+	return this._done(json);
+  },
+
+/**
+@private
+
 Processes a PUT request
 
 * `params` -- the array of request parameters
 
-REQUIRED: `params.url`
+REQUIRED: `params.url` and `params.data`
 */ 
   _put: function(params) {
 	var url_parts = params.url.split('/'),
@@ -182,13 +225,13 @@ REQUIRED: `params.url`
   },
   
   // Generate four random hex digits.
-  S4: function () {
+  _S4: function () {
      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
   },
 
   // Generate a pseudo-GUID by concatenating random hexadecimal.
-  guid: function () {
-     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  _guid: function () {
+     return (this._S4()+this._S4()+"-"+this._S4()+"-"+this._S4()+"-"+this._S4()+"-"+this._S4()+this._S4()+this._S4());
   },
 
     // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already

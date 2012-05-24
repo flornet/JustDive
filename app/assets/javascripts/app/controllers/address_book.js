@@ -38,15 +38,31 @@ JustDive.addressBookController = JustDive.ArrayController.create({
 		  controller.views.diver_detail.set('diver', diver);
 		});
   },
+
+	new: function() {
+		//TODO
+	},
+
+	fakeCreate: function() {
+		var diver = JustDive.models.diver.create({firstname: 'Boo', lastname: 'Truc', email: 'blop@ccc.com'});
+		diver.saveResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done( function() {
+				JustDive.controllers.divers.pushObject(diver);
+			});
+	},
   
-  edit: function(diver) {
-	this.show(diver, true);
-  },
+  	edit: function(diver) {
+		this.show(diver, true);
+	},
   
   update: function(diver) {
 	var controller = this;
-	if (diver.context) diver = diver.context; // Requested by Handlebars template ie. {{action "show" context="diver"}}
+	if (diver.context) diver = diver.context; // Requested by Handlebars template (ie. {{action "show" context="diver"}})
 	console.log(diver);
+	return false;
 	diver.saveResource()
 		.fail( function(e) {
 		  JustDive.displayError('jqXHR', e);

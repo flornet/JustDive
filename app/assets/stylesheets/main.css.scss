@@ -48,11 +48,20 @@ footer ul {
 
 
 
-
+.divers-list {
+	border: 1px #ccc solid;
+	background:#eee;
+	padding:2px;
+	width: 600px;
+	float:left;
+}
 .detail-diver {
 	background: #fff;
 	border: 2px #ccc solid;
 	padding: 5px;
+	float:left;
+	width: 200px;
+	margin-left:10px;
 }
 
 
