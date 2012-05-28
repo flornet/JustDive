@@ -130,7 +130,7 @@ REQUIRED: `params.url` and `params.data`
 */ 
   _put: function(params) {
 	var url_parts = params.url.split('/'),
-		json = null, object, object_type;
+		json = null, old_data = null, object, object_type;
 	if (url_parts[0] == "") {
 		url_parts.splice(0, 1);
 	}
@@ -146,6 +146,7 @@ REQUIRED: `params.url` and `params.data`
 	} else {
 		if (url_parts[2] === undefined){
 			json = {};
+			old_data = {};
 			object_type = this.store_id.substring(0, this.store_id.length - 1); // Singularization (ie. divers => diver)
 			if (params.data[object_type] === undefined) {
 				return this._fail('Failed to update entry (wrong Type)', 400);
@@ -158,6 +159,7 @@ REQUIRED: `params.url` and `params.data`
 			
 			object = params.data[object_type];
 			object.id = url_parts[1];
+			old_data = this.data[object.id];
 			this.data[object.id] = object;
 			if(!this._saveData()) { // Updates the data stored in "localStore"
 				return this._fail('Failed to update entry "' + url_parts[1] + '"', 500);
@@ -169,7 +171,7 @@ REQUIRED: `params.url` and `params.data`
 			return this._fail('Request "' + params.url + '" was not understood.');
 		}
 	}
-	return this._done(json);
+	return this._done(json, old_data);
   },
   
 /**
@@ -183,7 +185,8 @@ REQUIRED: `params.url`
 */ 
   _delete: function(params) {
 	var url_parts = params.url.split('/'),
-		json = null;
+		json = null,
+		old_data = null;
 	if (url_parts[0] == "") {
 		url_parts.splice(0, 1);
 	}
@@ -194,10 +197,12 @@ REQUIRED: `params.url`
 	} else {
 		if (url_parts[2] === undefined){
 			json = {};
+			old_data = {};
 			// fetch a specific entry
 			if (!this.data || (this.data && !this.data[url_parts[1]])) {
 				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
 			}
+			old_data = this.data[url_parts[1]];
 			delete this.data[url_parts[1]];
 			if(!this._saveData()) { // Updates the data stored in "localStore"
 				return this._fail('Failed to delete entry "' + url_parts[1] + '"', 500);
@@ -207,7 +212,7 @@ REQUIRED: `params.url`
 			return this._fail('Request "' + params.url + '" was not understood.');
 		}
 	}
-	return this._done(json);
+	return this._done(json, old_data);
   }, 
     
   _saveData: function() {
@@ -228,10 +233,10 @@ REQUIRED: `params.url`
         };
   },
   
-  _done: function(json) {
+  _done: function(json, old_data) {
 	return {
           fail: function(f) { return this; },
-          done: function(f) { f(json); return this; },
+          done: function(f) { f(json, old_data); return this; },
           always: function(f) { f(); return this; }
         };
   },
@@ -244,19 +249,5 @@ REQUIRED: `params.url`
   // Generate a pseudo-GUID by concatenating random hexadecimal.
   _guid: function () {
      return (this._S4()+this._S4()+"-"+this._S4()+"-"+this._S4()+"-"+this._S4()+"-"+this._S4()+this._S4()+this._S4());
-  },
-
-    // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
-    // have an id of it's own.
-  proxyCreate: function (model) {
-      if (!model.get('id')) model.set('id', this.guid());
-      return this.update(model);
-  },
-
-    // Update a model by replacing its copy in `this.data`.
-  proxyUpdate: function(model) {
-      this.data[model.get('id')] = model.getProperties('id', 'firstname', 'lastname');
-      this.save();
-      return model;
   }
 });

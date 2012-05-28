@@ -31,7 +31,10 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 	},
 	
 	_localRequest: function(params) {
-		return JustDive.resourceAdapters.local.request(params);
+		return JustDive.resourceAdapters.local.request(params)
+			   	.done(function(json, old_data) {
+					JustDive.syncCue.pushRequest(params, json, old_data);
+		});
 	},
 	
 	_remoteRequest: function(params) {
@@ -41,11 +44,7 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 	truc: function() {
 		/*
 		1. OnLocalRequestDone() : cue->pushRequest()
-			On stocke chaque requête dans une pile FIFO (CUE)
-			[TIMESTAMP]	[TYPE]	[STORE/TABLE] 	[OLD_DATA]		[NEW_DATA]			
-						POST	DIVER			null			diver.create({bob: turc, ...})
-						PUT		DIVER			diver			diver.update()
-						DELETE	DIVER			diver			null
+
 		2. While (!cue.empty) : cue->execRequest()->popRequest()
 			On dépile dans l'ordre :
 			Si POST : 

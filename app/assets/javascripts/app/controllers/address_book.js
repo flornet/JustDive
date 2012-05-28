@@ -30,7 +30,7 @@ JustDive.addressBookController = JustDive.ArrayController.create({
 			
 		});
 	},
-*/
+//*/
 
 /**
     Index action: loads the data and appends the view
