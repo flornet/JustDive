@@ -84,5 +84,26 @@ JustDive.identityController = JustDive.ArrayController.create({
 	destroyAuthToken: function() {
 		var identity = JustDive.identity;
 		identity.set('authenticity_token', '');
+	},
+	
+	verifyLogin: function() {
+		var identity = JustDive.identity;
+		jQuery.ajax({
+			url: identity.rest_routes.verify,
+			dataType: 'json',
+			success: function(data) {
+				if (data.current_administrator === null) {
+					identity.set('is_logged_in', false);
+				} else {
+					if (data.current_administrator.id !== identity.get('administrator_id')) {
+						// TODO: shold be better handled
+						identity.set('is_logged_in', false);
+					}
+				}
+			},
+			error: function(jqXHR) {
+				JustDive.displayError('jqXHR', jqXHR);
+			}
+		});
 	}
 });

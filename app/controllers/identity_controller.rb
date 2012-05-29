@@ -7,6 +7,14 @@ class IdentityController < ApplicationController
       format.json { render :json => @response }
     end
   end
+  
+  # GET /identity/show.json
+  def show
+    @response = {:current_administrator => current_administrator}
+    respond_to do |format|
+      format.json { render :json => @response }
+    end
+  end
 
   # POST /identity.json
   def create

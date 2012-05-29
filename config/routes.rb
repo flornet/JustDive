@@ -2,6 +2,7 @@ JustDive::Application.routes.draw do
   resources :identity do
     collection do
       get     'get_token'
+	  get	  'show'
       post    'create'
       delete  'destroy'
     end

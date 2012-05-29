@@ -1,10 +1,17 @@
 Ember.ResourceAdapter = Ember.Mixin.create({
 	mode: 'local',
 	
-    _resourceRequest: function(params) {
-      params.url = this._resourceUrl();
+    _resourceRequest: function(params, addToSyncCue) {
       params.dataType = 'json';
+	  
+	  if (params.url === undefined) {
+		params.url = this._resourceUrl();
+	  }
 
+	  if (addToSyncCue === undefined) {
+		addToSyncCue = true;
+	  }
+	  
       if (this._prepareResourceRequest !== undefined) {
         this._prepareResourceRequest(params);
       }
@@ -14,11 +21,8 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 			return this._remoteRequest(params);
 		case 'local':
 		default:
-			return this._localRequest(params);
+			return this._localRequest(params, addToSyncCue);
 	  }
-	  //console.log(this._remoteRequest(params));
-	  //return this._localRequest(params);
-      //return this._remoteRequest(params);
     },
 	
 	setAdapter: function(mode) {
@@ -30,10 +34,15 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 		}
 	},
 	
-	_localRequest: function(params) {
+	_localRequest: function(params, addToSyncCue) {
+		if (addToSyncCue === undefined) {
+			addToSyncCue = true;
+		}
 		return JustDive.resourceAdapters.local.request(params)
 			   	.done(function(json, old_data) {
-					JustDive.syncCue.pushRequest(params, json, old_data);
+					if (addToSyncCue) {
+						JustDive.syncCue.pushRequest(params, json, old_data);
+					}
 		});
 	},
 	

@@ -151,16 +151,22 @@ REQUIRED: `params.url` and `params.data`
 			if (params.data[object_type] === undefined) {
 				return this._fail('Failed to update entry (wrong Type)', 400);
 			}
-			
+
 			// fetch a specific entry
 			if (!this.data || (this.data && !this.data[url_parts[1]])) {
 				return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
 			}
 			
 			object = params.data[object_type];
-			object.id = url_parts[1];
-			old_data = this.data[object.id];
+			if (params.force_id_update) {
+				old_data = this.data[url_parts[1]];
+				delete this.data[url_parts[1]]; // Because datas are indexed by ID in the array, we need to delete the old object
+			} else {
+				object.id = url_parts[1];
+				old_data = this.data[object.id];
+			}
 			this.data[object.id] = object;
+			
 			if(!this._saveData()) { // Updates the data stored in "localStore"
 				return this._fail('Failed to update entry "' + url_parts[1] + '"', 500);
 			} else {

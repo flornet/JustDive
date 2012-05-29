@@ -6,7 +6,8 @@ JustDive.Identity = JustDive.Object.extend({
 	rest_routes: {
 		get_token: 	'/identity/get_token.json',
 		create: 	'/identity.json',
-		destroy: 	'/identity.json'
+		destroy: 	'/identity.json',
+		verify:		'/identity/show.json'
 	},
 	email: 					'',
 	password: 				'',

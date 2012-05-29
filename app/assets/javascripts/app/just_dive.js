@@ -36,6 +36,9 @@ JustDive = Ember.Application.create({
 		// Maps localStorage
 		app.set('localStorage', localStorage);
 		
+		// Creates the syncCue
+		app.syncCue = JustDive.SyncCue.create();
+		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -143,5 +146,39 @@ JustDive.ArrayController 	= Ember.ArrayController.extend();
 JustDive.View 				= Ember.View.extend();
 JustDive.CoreObject 		= Ember.CoreObject.extend();
 JustDive.Button 			= Ember.Button.extend();
-JustDive.Resource 			= Ember.Resource.extend();
-JustDive.ResourceController = Ember.ResourceController.extend();
+
+JustDive.Resource 			= Ember.Resource.extend({
+	updateResourceLocal: function() {
+		var self = this,
+			url;
+		if (self.get('local_id') !== undefined) {
+			url = self.resourceUrl + '/' + self.get('local_id');
+			self.set('local_id', null);
+		} else {
+			url = self._resourceUrl();
+		}
+		return self._resourceRequest({type: 'PUT',
+									  url: url,
+									  force_id_update: true,
+									  data: self.serialize() }, false)
+		  .done(function(json) {
+			// Update properties
+			if (json) self.deserialize(json);
+		  });
+  }
+});
+
+JustDive.ResourceController = Ember.ResourceController.extend({
+	updateLocalObject: function(local_id, data) {
+		var loc = this.get('length') || 0;
+		while(--loc >= 0) {
+		  var curObject = this.objectAt(loc) ;
+		  if (curObject.id === local_id) {
+			curObject.set('local_id', local_id);
+			curObject.set('id', data.id);
+			return curObject.updateResourceLocal();
+		  }
+		}
+		return JustDive.resourceAdapters.local._fail("Unable to find '" + local_id + "' in local data");
+	}
+});

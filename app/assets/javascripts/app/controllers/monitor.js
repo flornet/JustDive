@@ -5,6 +5,7 @@ JustDive.monitorController = JustDive.ArrayController.create({
 		var identity = JustDive.identity,
 		    identityController = JustDive.identityController;
 		identityController.requestAuthToken();
+		identityController.verifyLogin();
 		JustDive.syncCue.startMonitoring();
 		if (!identity.is_logged_in) {
 			identityController.showLogin();
