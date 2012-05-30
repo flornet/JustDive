@@ -65,28 +65,28 @@ JustDive.SyncCue = JustDive.Object.extend({
 	process: function() {
 		var cue = this;
 		if ((!cue.get('is_processing')) && (cue.getRequests().length > 0)) {
+			//cue.optimize(); remove useless requests, merge, ...
+			// On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
 			var requests = cue.getRequests().reverse();
 			var request = requests.pop();
 			var params = {
-				dataType: 'json'
+				dataType: 	'json',
+				type:		request.type,
+				url:		request.url
 			};
-			console.log('Processing request: START');
 			cue.set('is_processing', true);
 			switch (request.type) {
 				case 'POST':
 							var local_id = request.new_data.id;
 							request.new_data.id = null;
 							params.data = {};
-							params.data[request.resource] = request.new_data;
-							params.url = request.url;
-							params.type = 'POST';							
+							params.data[request.resource] = request.new_data;						
 							JustDive.resourceAdapters.remote.request(params)
 								.done(function(json) {
-									JustDive.controllers[request.store].updateLocalObject(local_id, json)
+									// TODO : On met à jour la donnée avec les infos reçues (id / updated_at / created_at);
+									JustDive.controllers[request.store].updateLocalObject(local_id, json, true)
 										.done(function() {
-											cue._save();
-											cue.set('is_processing', false);
-											console.log('Processing request (create): END');
+											cue._saveAndContinue();
 										})
 										.fail(function(error) {
 											alert('ko');
@@ -99,18 +99,72 @@ JustDive.SyncCue = JustDive.Object.extend({
 								});
 							break;
 				case 'PUT':
-							cue._save();
-							cue.set('is_processing', false);
-							console.log('Processing request (update): END');
+							/*
+							On met à jour la donnée avec les infos reçues
+							*/
+							params.type = 'GET';
+							JustDive.resourceAdapters.remote.request(params)
+								.done(function(json) {
+									if (request.old_data.updated_at === json.updated_at) { // On vérifie que OLD_DATA correspond à l'objet sur le serveur
+										params.type = 'PUT';
+										delete request.new_data['id'];
+										delete request.new_data['created_at'];
+										delete request.new_data['updated_at'];
+										params.data = {};
+										params.data[request.resource] = request.new_data;
+										JustDive.resourceAdapters.remote.request(params) // On propoge l'objet;
+											.done(function(json) {
+												console.log('This comes from the server');
+												console.log(json);
+												// TODO : On met à jour la donnée avec les infos reçues (id / updated_at / created_at);
+												JustDive.controllers[request.store].updateLocalObject(json.id, json)
+													.done(function() {
+														cue._saveAndContinue();
+													})
+													.fail(function(error) {
+														alert('ko');
+														console.log(error);
+													})
+											})
+											.fail(function(error) {
+												alert('ko');
+												console.log(error);
+												cue._saveAndContinue();
+											});
+									} else {
+										alert('ko');
+										console.log('Ooops, you must choose which version to keep');
+										cue._saveAndContinue();
+									}
+								})
+								.fail(function(error) {
+									alert('ko');
+									console.log(error);
+								});
+							//cue._saveAndContinue();
 							break;
-				case 'DELETE':
-							cue._save();
-							cue.set('is_processing', false);
-							console.log('Processing request (delete): END');
+				case 'DELETE':					
+							JustDive.resourceAdapters.remote.request(params)
+								.done(function(json) {
+									cue._saveAndContinue();
+								})
+								.fail(function(e) {
+									if (e.status !== 404) {
+										JustDive.displayError('jqXHR', e);
+									} else {
+										cue._saveAndContinue();
+									}
+								});
 							break;
 			}
-			cue.process(); // Forwards to the next request
 		}
+	},
+	
+	_saveAndContinue: function() {
+		var cue = this;
+		cue._save();
+		cue.set('is_processing', false);
+		cue.process(); // Forwards to the next request
 	},
 	
 	_init: function() {

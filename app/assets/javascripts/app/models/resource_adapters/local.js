@@ -165,6 +165,7 @@ REQUIRED: `params.url` and `params.data`
 				object.id = url_parts[1];
 				old_data = this.data[object.id];
 			}
+			console.log(object);
 			this.data[object.id] = object;
 			
 			if(!this._saveData()) { // Updates the data stored in "localStore"

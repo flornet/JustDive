@@ -38,7 +38,7 @@ class DiversController < ApplicationController
 
     respond_to do |format|
       if @diver.update_attributes(params[:diver])
-        format.json { head :no_content }
+        format.json { render :json => @diver, :status => :ok, :location => @diver }
 		    #format.json { render json: nil, status: :ok }
       else
         format.json { render :json => @diver.errors, :status => :unprocessable_entity }

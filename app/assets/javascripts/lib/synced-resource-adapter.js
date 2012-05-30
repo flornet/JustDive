@@ -55,16 +55,6 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 		1. OnLocalRequestDone() : cue->pushRequest()
 
 		2. While (!cue.empty) : cue->execRequest()->popRequest()
-			On dépile dans l'ordre :
-			Si POST : 
-				On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
-				On propage l'objet le plus à jour;
-				On met à jour la donnée avec les infos reçues (id / updated_at / created_at);
-			Si PUT :
-				On vérifie que OLD_DATA correspond à l'objet sur le serveur
-				On propoge l'objet;
-				On met à jour la donnée avec les infos reçues
-			Si DELETE :
 			
 			If Store/Table.lastSync < Now() + Store/Table.atFrequency() :
 				->Sync()

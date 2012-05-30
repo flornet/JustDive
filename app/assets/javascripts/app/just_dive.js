@@ -148,9 +148,12 @@ JustDive.CoreObject 		= Ember.CoreObject.extend();
 JustDive.Button 			= Ember.Button.extend();
 
 JustDive.Resource 			= Ember.Resource.extend({
-	updateResourceLocal: function() {
+	updateResourceLocal: function(force_id_update) {
 		var self = this,
 			url;
+		if (force_id_update !== true) {
+			force_id_update = false;
+		}
 		if (self.get('local_id') !== undefined) {
 			url = self.resourceUrl + '/' + self.get('local_id');
 			self.set('local_id', null);
@@ -159,7 +162,7 @@ JustDive.Resource 			= Ember.Resource.extend({
 		}
 		return self._resourceRequest({type: 'PUT',
 									  url: url,
-									  force_id_update: true,
+									  force_id_update: force_id_update,
 									  data: self.serialize() }, false)
 		  .done(function(json) {
 			// Update properties
@@ -169,16 +172,22 @@ JustDive.Resource 			= Ember.Resource.extend({
 });
 
 JustDive.ResourceController = Ember.ResourceController.extend({
-	updateLocalObject: function(local_id, data) {
+	updateLocalObject: function(id, data, force_id_update) {
+		if (force_id_update !== true) {
+			force_id_update = false;
+		}
 		var loc = this.get('length') || 0;
 		while(--loc >= 0) {
 		  var curObject = this.objectAt(loc) ;
-		  if (curObject.id === local_id) {
-			curObject.set('local_id', local_id);
+		  if (curObject.id.toString() === id.toString()) {
+			if (force_id_update === true) {
+				curObject.set('local_id', local_id);
+			}
+			// TODO Ajouter un for each data pour mettre à jour toutes les propriétés
 			curObject.set('id', data.id);
-			return curObject.updateResourceLocal();
+			return curObject.updateResourceLocal(force_id_update);
 		  }
 		}
-		return JustDive.resourceAdapters.local._fail("Unable to find '" + local_id + "' in local data");
+		return JustDive.resourceAdapters.local._fail("Unable to find '" + id + "' in local data");
 	}
 });

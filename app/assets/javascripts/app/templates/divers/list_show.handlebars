@@ -1,7 +1,14 @@
 <td>{{diver.id}}</td>
-<td class="data">
-  {{diver.fullname}}
-</td>
+<td>{{diver.firstname}}</td>
+<td>{{diver.lastname}}</td> 
+<td>{{diver.email}}</td>
+<td>{{diver.dive_club_id}}</td> 
+<td>{{diver.ffessm_level_id}}</td>
+<td>{{diver.ffessm_licence_number}}</td>
+<td>{{diver.google_contact_id}}</td>
+<td>{{diver.medical_certificate_expires_on}}</td>
+<td>{{diver.created_at}}</td>
+<td>{{diver.updated_at}}</td>
 <td>
 <button {{action "show" target="JustDive.addressBookController" context="diver"}}>Show</button>
 <button {{action "edit" target="JustDive.addressBookController" context="diver"}}>Edit</button>

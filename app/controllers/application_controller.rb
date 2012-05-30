@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def gdata_client_required
 	respond_to do |format|
 		if session[:gdata_client].nil?
-		  format.html { redirect_to new_identity, :notice => "Login is required (Google session might have expired)" }
+		  format.html { redirect_to new_identity_path, :notice => "Login is required (Google session might have expired)" }
 		  format.json { render :json => "Login is required (Google session might have expired)", :status => :forbidden }
 		end
 	end
