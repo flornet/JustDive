@@ -1,0 +1,1 @@
+JustDive.AbstractResource = Ember.Resource.extend();

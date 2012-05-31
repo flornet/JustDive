@@ -1,0 +1,1 @@
+JustDive.Button = Ember.Button.extend();

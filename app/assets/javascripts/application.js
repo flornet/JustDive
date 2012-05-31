@@ -12,7 +12,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require lib/ember.js
-//= require lib/synced-resource-adapter.js
-//= require lib/ember-rest.js
-//= require app/just_dive
+//= require app/main

@@ -1,6 +1,8 @@
-JustDive.models.diver = JustDive.Resource.extend({
-	resourceUrl: 		'/divers',
-	resourceName:       'diver',
+JustDive.models.diver = JustDive.SyncedResource.extend({
+	resourceLocalAdapter: 	JustDive.resourceAdapters.local,
+	resourceRemoteAdapter: 	JustDive.resourceAdapters.remote,
+	resourceUrl: 			'/divers',
+	resourceName:       	'diver',
 	resourceProperties: [
 							'id', 
 							'firstname', 

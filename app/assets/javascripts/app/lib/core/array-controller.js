@@ -1,0 +1,1 @@
+JustDive.ArrayController = Ember.ArrayController.extend();

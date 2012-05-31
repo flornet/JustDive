@@ -1,0 +1,1 @@
+JustDive.UiScreenAdapter = JustDive.UiAbstractAdapter.extend();

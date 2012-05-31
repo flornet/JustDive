@@ -4,10 +4,10 @@ JustDive.Identity = JustDive.Object.extend({
 	is_logged_in: 			false,
 	local_store_id: 		'session',
 	rest_routes: {
-		get_token: 	'/identity/get_token.json',
-		create: 	'/identity.json',
-		destroy: 	'/identity.json',
-		verify:		'/identity/show.json'
+		get_token: 	'/identity/get_token',
+		create: 	'/identity',
+		destroy: 	'/identity',
+		verify:		'/identity/show'
 	},
 	email: 					'',
 	password: 				'',

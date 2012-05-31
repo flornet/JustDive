@@ -5,6 +5,11 @@ JustDive.SyncCue = JustDive.Object.extend({
 	is_monitored: false,
 	is_processing: false,
 	pid: null,
+	dontSendToRemote: [
+							'id',
+							'created_at',
+							'updated_at'
+						],
 
 	pushRequest: function(params, json, old_data) {
 		if (params.type !== undefined) {
@@ -67,6 +72,7 @@ JustDive.SyncCue = JustDive.Object.extend({
 		if ((!cue.get('is_processing')) && (cue.getRequests().length > 0)) {
 			//cue.optimize(); remove useless requests, merge, ...
 			// On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
+			cue.set('is_processing', true);
 			var requests = cue.getRequests().reverse();
 			var request = requests.pop();
 			var params = {
@@ -74,16 +80,14 @@ JustDive.SyncCue = JustDive.Object.extend({
 				type:		request.type,
 				url:		request.url
 			};
-			cue.set('is_processing', true);
 			switch (request.type) {
 				case 'POST':
 							var local_id = request.new_data.id;
-							request.new_data.id = null;
+							request.new_data = cue._filterProperties(request.new_data);
 							params.data = {};
 							params.data[request.resource] = request.new_data;						
 							JustDive.resourceAdapters.remote.request(params)
 								.done(function(json) {
-									// TODO : On met à jour la donnée avec les infos reçues (id / updated_at / created_at);
 									JustDive.controllers[request.store].updateLocalObject(local_id, json, true)
 										.done(function() {
 											cue._saveAndContinue();
@@ -99,24 +103,20 @@ JustDive.SyncCue = JustDive.Object.extend({
 								});
 							break;
 				case 'PUT':
-							/*
-							On met à jour la donnée avec les infos reçues
-							*/
+							
+							// On vérifie que OLD_DATA correspond à l'objet sur le serveur
 							params.type = 'GET';
 							JustDive.resourceAdapters.remote.request(params)
 								.done(function(json) {
-									if (request.old_data.updated_at === json.updated_at) { // On vérifie que OLD_DATA correspond à l'objet sur le serveur
+									if (request.old_data.updated_at === json.updated_at) { 
+										// On propoge l'objet;
 										params.type = 'PUT';
-										delete request.new_data['id'];
-										delete request.new_data['created_at'];
-										delete request.new_data['updated_at'];
+										request.new_data = cue._filterProperties(request.new_data);
 										params.data = {};
 										params.data[request.resource] = request.new_data;
-										JustDive.resourceAdapters.remote.request(params) // On propoge l'objet;
+										JustDive.resourceAdapters.remote.request(params) 
 											.done(function(json) {
-												console.log('This comes from the server');
-												console.log(json);
-												// TODO : On met à jour la donnée avec les infos reçues (id / updated_at / created_at);
+												// On met à jour la donnée avec les infos reçues
 												JustDive.controllers[request.store].updateLocalObject(json.id, json)
 													.done(function() {
 														cue._saveAndContinue();
@@ -129,12 +129,20 @@ JustDive.SyncCue = JustDive.Object.extend({
 											.fail(function(error) {
 												alert('ko');
 												console.log(error);
-												cue._saveAndContinue();
+												//cue._saveAndContinue();
 											});
 									} else {
-										alert('ko');
-										console.log('Ooops, you must choose which version to keep');
-										cue._saveAndContinue();
+										//JustDive.ui.showConfirmation()
+										alert('Ooops, you must choose which version to keep');
+										console.log('We chose to update the local data with the remote data received');
+										JustDive.controllers[request.store].updateLocalObject(json.id, json)
+											.done(function() {
+												cue._saveAndContinue();
+											})
+											.fail(function(error) {
+												alert('ko');
+												console.log(error);
+											})
 									}
 								})
 								.fail(function(error) {
@@ -158,6 +166,14 @@ JustDive.SyncCue = JustDive.Object.extend({
 							break;
 			}
 		}
+	},
+	
+	_filterProperties: function(data) {
+		var cue = this;
+		for (property in cue.dontSendToRemote) {
+			delete data[cue.dontSendToRemote[property]];
+		}
+		return data;
 	},
 	
 	_saveAndContinue: function() {

@@ -1,0 +1,1 @@
+JustDive.Object = Ember.Object.extend();

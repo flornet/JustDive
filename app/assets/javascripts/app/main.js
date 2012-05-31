@@ -1,4 +1,9 @@
+#= require ./vendor/ember/ember.js
+#= require_tree ./lib/ember
+#= require ./vendor/ember/ember-rest.js
 #= require_self
+#= require_tree ./lib/core
+#= require_tree ./lib
 #= require_tree ./models
 #= require_tree ./controllers
 #= require_tree ./views
@@ -8,19 +13,37 @@
 JustDive = Ember.Application.create({
 	rootElement: '#app',
 	viewsContainer: '#container',
-	controllers: {},
 	models: {},
 	views: {
 		divers: {}
 	},
+	controllers: {
+		divers: null
+	},
+	
 	localStorage: null,
-	resourceAdapters: {},
-	monitor: null,
-	identity: null,
+	resourceAdapters: {
+		local: null,
+		remote: null
+	},
+	monitor: 	null,
+	identity: 	null,
+	syncCue: 	null,
+	ui: 		null,
 	
 	bootstrap: function() {
 		var app = this;
 		var output, errors;
+		
+		// Create the controllers
+		app.controllers.divers = JustDive.Controllers.Divers.create();
+		
+		// Create the resource adapters
+		app.resourceAdapters.local = JustDive.ResourceAdapters.Local.create();
+		app.resourceAdapters.remote = JustDive.ResourceAdapters.Remote.create();
+		
+		// Creates the ui adapter
+		app.ui = JustDive.UiScreenAdapter.create();
 		
 		// Check compatibility of browser
 		if (!app.browser.isCompatible()) {
@@ -50,17 +73,6 @@ JustDive = Ember.Application.create({
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
 		
-		
-		/*
-		var diversStorage = JustDive.Storage.create({ localStoreId: 'divers'})
-		JustDive.setStorage('divers', diversStorage);
-		console.log(diversStorage);
-		
-		var divers = diversStorage.proxyFindAll();
-		if(divers.length > 1){
-			JustDive.addressBookController.set('[]', divers);
-		}*/
-		//JustDive.addressBookController.loadAll(<%= @contacts.to_json.html_safe %>);
 	},
 	
 	start: function() {
@@ -139,55 +151,5 @@ JustDive = Ember.Application.create({
 			 */
 			return is_compatible;
 		}
-	}
-});
-JustDive.Object 			= Ember.Object.extend();
-JustDive.ArrayController 	= Ember.ArrayController.extend();
-JustDive.View 				= Ember.View.extend();
-JustDive.CoreObject 		= Ember.CoreObject.extend();
-JustDive.Button 			= Ember.Button.extend();
-
-JustDive.Resource 			= Ember.Resource.extend({
-	updateResourceLocal: function(force_id_update) {
-		var self = this,
-			url;
-		if (force_id_update !== true) {
-			force_id_update = false;
-		}
-		if (self.get('local_id') !== undefined) {
-			url = self.resourceUrl + '/' + self.get('local_id');
-			self.set('local_id', null);
-		} else {
-			url = self._resourceUrl();
-		}
-		return self._resourceRequest({type: 'PUT',
-									  url: url,
-									  force_id_update: force_id_update,
-									  data: self.serialize() }, false)
-		  .done(function(json) {
-			// Update properties
-			if (json) self.deserialize(json);
-		  });
-  }
-});
-
-JustDive.ResourceController = Ember.ResourceController.extend({
-	updateLocalObject: function(id, data, force_id_update) {
-		if (force_id_update !== true) {
-			force_id_update = false;
-		}
-		var loc = this.get('length') || 0;
-		while(--loc >= 0) {
-		  var curObject = this.objectAt(loc) ;
-		  if (curObject.id.toString() === id.toString()) {
-			if (force_id_update === true) {
-				curObject.set('local_id', local_id);
-			}
-			// TODO Ajouter un for each data pour mettre à jour toutes les propriétés
-			curObject.set('id', data.id);
-			return curObject.updateResourceLocal(force_id_update);
-		  }
-		}
-		return JustDive.resourceAdapters.local._fail("Unable to find '" + id + "' in local data");
 	}
 });

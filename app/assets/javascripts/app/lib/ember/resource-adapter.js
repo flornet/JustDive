@@ -1,3 +1,4 @@
+/*
 Ember.ResourceAdapter = Ember.Mixin.create({
 	mode: 'local',
 	
@@ -74,6 +75,6 @@ Ember.ResourceAdapter = Ember.Mixin.create({
 					
 				On cherche les suppression (DELETE) en faisant un diff entre les []d'ids Local et Remote
 				On inscris une ligne dans "sync_operations" local et remote
-			*/
+			
 	}
-});
+});*/

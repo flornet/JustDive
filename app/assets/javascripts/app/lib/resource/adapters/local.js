@@ -1,9 +1,32 @@
-JustDive.resourceAdapters.local = JustDive.CoreObject.create({
-  store_id: null,
-  data: null,
-  allowed_requests: ["GET", "POST", "PUT", "DELETE"],
+if (JustDive.ResourceAdapters === undefined) JustDive.ResourceAdapters = {};
+
+JustDive.ResourceAdapters.Local = JustDive.CoreObject.extend({
+	store_id: 			null,
+	data: 				null,
+	allowed_requests: 	["GET", "POST", "PUT", "DELETE"],
   
-  request: function(params) {
+	_resourceRequest: function(params, addToSyncCue) {
+		params.dataType = 'json';
+		if (params.url === undefined) {
+			params.url = this._resourceUrl();
+		}
+		if (addToSyncCue === undefined) {
+			addToSyncCue = true;
+		}
+		if (this._prepareResourceRequest !== undefined) {
+			this._prepareResourceRequest(params);
+		}
+		console.log('bob');
+		return false;
+		return this._request(params)
+			   	.done(function(json, old_data) {
+					if (addToSyncCue) {
+						JustDive.syncCue.pushRequest(params, json, old_data);
+					}
+				});
+    },
+  
+  _request: function(params) {
 	if (params.type !== undefined) {
 		params.type = params.type.toUpperCase();
 	}
@@ -165,7 +188,6 @@ REQUIRED: `params.url` and `params.data`
 				object.id = url_parts[1];
 				old_data = this.data[object.id];
 			}
-			console.log(object);
 			this.data[object.id] = object;
 			
 			if(!this._saveData()) { // Updates the data stored in "localStore"
