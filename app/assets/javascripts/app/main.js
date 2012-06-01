@@ -1,7 +1,7 @@
 #= require ./vendor/ember/ember.js
-#= require_tree ./lib/ember
 #= require ./vendor/ember/ember-rest.js
 #= require_self
+#= require_tree ./lib/resource
 #= require_tree ./lib/core
 #= require_tree ./lib
 #= require_tree ./models
@@ -11,39 +11,25 @@
 #= require_tree ./templates
 
 JustDive = Ember.Application.create({
-	rootElement: '#app',
-	viewsContainer: '#container',
-	models: {},
-	views: {
-		divers: {}
-	},
-	controllers: {
+	APP_KEY: 			null, // JustDive 'App Key'
+	rootElement: 		'#app',
+	viewsContainer: 	'#container',
+	restControllers:  	Ember.Object.create({
 		divers: null
-	},
+	}),
+	localStorage: 		null,
+	monitor: 			null,
+	identity: 			null,
+	syncCue: 			null,
+	ui: 				null,
 	
-	localStorage: null,
-	resourceAdapters: {
-		local: null,
-		remote: null
+	ready: function() {
+		this.bootstrap();
 	},
-	monitor: 	null,
-	identity: 	null,
-	syncCue: 	null,
-	ui: 		null,
 	
 	bootstrap: function() {
 		var app = this;
 		var output, errors;
-		
-		// Create the controllers
-		app.controllers.divers = JustDive.Controllers.Divers.create();
-		
-		// Create the resource adapters
-		app.resourceAdapters.local = JustDive.ResourceAdapters.Local.create();
-		app.resourceAdapters.remote = JustDive.ResourceAdapters.Remote.create();
-		
-		// Creates the ui adapter
-		app.ui = JustDive.UiScreenAdapter.create();
 		
 		// Check compatibility of browser
 		if (!app.browser.isCompatible()) {
@@ -56,12 +42,23 @@ JustDive = Ember.Application.create({
 			return false;
 		}
 		
-		// Maps localStorage
-		app.set('localStorage', localStorage);
-		
 		// Creates the syncCue
 		app.syncCue = JustDive.SyncCue.create();
 		
+		// Create the REST controllers
+		app.restControllers = {
+			divers: JustDive.Controllers.Rest.Divers.create()
+		};
+		
+		// Creates the ui adapter
+		app.ui = JustDive.UiScreenAdapter.create();
+		
+		// Maps localStorage
+		app.set('localStorage', localStorage);
+		
+		// Initialize the App on first time run
+		app.set('APP_KEY', app.getAppKey());
+		return false;
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -72,11 +69,16 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
-		
 	},
 	
-	start: function() {
-		this.bootstrap();
+	getAppKey: function() {
+		var localStorage = this.get('localStorage');
+		appKey = localStorage.getItem('APP_KEY');
+		if (appKey === null) {
+			// TODO@HERE
+		}
+		console.log(appKey);
+		return 'bob';
 	},
 	
 	displayError: function(errorType, e) {

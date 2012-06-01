@@ -6,9 +6,9 @@
 			{{#if JustDive.identity.is_logged_in}}
 			<li>Welcome {{JustDive.identity.email}} 
 				{{#if JustDive.monitor.is_online}}
-					{{#view JustDive.Button target="JustDive.identityController" action="logout"}}Log out{{/view}}
+					{{#view JustDive.Button target="JustDive.Controllers.Identity" action="logout"}}Log out{{/view}}
 				{{else}}
-					{{#view JustDive.Button target="JustDive.identityController" action="logout" disabled="disabled"}}Log out{{/view}}
+					{{#view JustDive.Button target="JustDive.Controllers.Identity" action="logout" disabled="disabled"}}Log out{{/view}}
 				{{/if}}
 			</li>
 			{{/if}}
@@ -16,7 +16,7 @@
 		</script>
 		<nav id="mna">
 			<script type="text/x-handlebars">
-			  {{ view JustDive.MainNavView }}
+			  {{ view JustDive.Views.Main.Nav }}
 			</script>
 		</nav>
 	</header>
@@ -35,9 +35,3 @@
 		<div id="main-error-container"></div>
 	</footer>
 </div>
-
-<script type="text/javascript">
-  $(function() {
-	JustDive.start();
-  });
-</script>

@@ -1,9 +1,11 @@
-JustDive.monitorController = JustDive.ArrayController.create({
+#= require ../controllers.js
+
+JustDive.Controllers.Monitor = JustDive.ArrayController.create({
 	content: [],
 	
 	onOnline: function() {
 		var identity = JustDive.identity,
-		    identityController = JustDive.identityController;
+		    identityController = JustDive.Controllers.Identity;
 		identityController.requestAuthToken();
 		identityController.verifyLogin();
 		JustDive.syncCue.startMonitoring();
@@ -14,7 +16,7 @@ JustDive.monitorController = JustDive.ArrayController.create({
 	
 	onOffline: function() {
 		var identity = JustDive.identity,
-		    identityController = JustDive.identityController;
+		    identityController = JustDive.Controllers.Identity;
 		identityController.destroyAuthToken();
 		JustDive.syncCue.stopMonitoring();
 		if (!identity.is_logged_in) {

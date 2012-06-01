@@ -1,11 +1,5 @@
-JustDive.SyncedResource = JustDive.AbstractResource.extend({
-	resourceLocalAdapter: Ember.required(),
-	resourceRemoteAdapter: Ember.required(),
-	
-	init: function() {
-		this._super();
-		this._resourceRequest = this.resourceLocalAdapter._resourceRequest;
-	},
+#= require ./abstract.js
+JustDive.Resource.Synced = JustDive.Resource.Abstract.extend(JustDive.Resource.Adapter.Synced, {
 	
 	updateResourceLocal: function(force_id_update) {
 		var self = this,

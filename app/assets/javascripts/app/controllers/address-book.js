@@ -1,10 +1,12 @@
-JustDive.addressBookController = JustDive.ArrayController.create({
+#= require ../controllers.js
+
+JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 	content: [],
 
 	_initViews: function() {
 		if (this.views === undefined) {
 			this.views = {
-							divers_list: 	JustDive.views.divers.list.create(),
+							divers_list: 	JustDive.Views.Divers.List.create(),
 							diver_detail:	JustDive.views.divers.detail.create()
 						};
 		}

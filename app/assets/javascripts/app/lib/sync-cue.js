@@ -1,15 +1,19 @@
-JustDive.SyncCue = JustDive.Object.extend({
-	store_id: 'sync_cue',
-	data: null,
-	allowed_requests: ["POST", "PUT", "DELETE"],
-	is_monitored: false,
-	is_processing: false,
-	pid: null,
-	dontSendToRemote: [
+#= require ./resource/adapter/local.js
+#= require ./resource/adapter/remote.js
+
+JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustDive.Resource.Adapter.Remote, {
+	store_id: 				'sync_cue',
+	data: 					null,
+	allowed_requests: 		["POST", "PUT", "DELETE"],
+	is_monitored: 			false,
+	is_processing: 			false,
+	pid: 					null,
+	dontSendToRemote: 	[
 							'id',
 							'created_at',
 							'updated_at'
 						],
+	controllersBinding:		"JustDive.restControllers",
 
 	pushRequest: function(params, json, old_data) {
 		if (params.type !== undefined) {
@@ -47,7 +51,6 @@ JustDive.SyncCue = JustDive.Object.extend({
 	
 	getRequests: function() {
 		this._init();
-		//console.log(this.data);
 		return this.data;
 	},
 	
@@ -73,22 +76,23 @@ JustDive.SyncCue = JustDive.Object.extend({
 			//cue.optimize(); remove useless requests, merge, ...
 			// On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
 			cue.set('is_processing', true);
-			var requests = cue.getRequests().reverse();
-			var request = requests.pop();
-			var params = {
-				dataType: 	'json',
-				type:		request.type,
-				url:		request.url
-			};
+			var requests 	= cue.getRequests().reverse(),
+				request 	= requests.pop(),
+				controller 	= cue.controllers[request.store],
+				params 		= {
+								dataType: 	'json',
+								type:		request.type,
+								url:		request.url
+							};
 			switch (request.type) {
 				case 'POST':
 							var local_id = request.new_data.id;
 							request.new_data = cue._filterProperties(request.new_data);
 							params.data = {};
 							params.data[request.resource] = request.new_data;						
-							JustDive.resourceAdapters.remote.request(params)
+							cue._requestRemote(params)
 								.done(function(json) {
-									JustDive.controllers[request.store].updateLocalObject(local_id, json, true)
+									controller.updateLocalObject(local_id, json, true)
 										.done(function() {
 											cue._saveAndContinue();
 										})
@@ -106,7 +110,7 @@ JustDive.SyncCue = JustDive.Object.extend({
 							
 							// On vérifie que OLD_DATA correspond à l'objet sur le serveur
 							params.type = 'GET';
-							JustDive.resourceAdapters.remote.request(params)
+							cue._requestRemote(params)
 								.done(function(json) {
 									if (request.old_data.updated_at === json.updated_at) { 
 										// On propoge l'objet;
@@ -114,10 +118,10 @@ JustDive.SyncCue = JustDive.Object.extend({
 										request.new_data = cue._filterProperties(request.new_data);
 										params.data = {};
 										params.data[request.resource] = request.new_data;
-										JustDive.resourceAdapters.remote.request(params) 
+										cue._requestRemote(params) 
 											.done(function(json) {
 												// On met à jour la donnée avec les infos reçues
-												JustDive.controllers[request.store].updateLocalObject(json.id, json)
+												controller.updateLocalObject(json.id, json)
 													.done(function() {
 														cue._saveAndContinue();
 													})
@@ -135,7 +139,7 @@ JustDive.SyncCue = JustDive.Object.extend({
 										//JustDive.ui.showConfirmation()
 										alert('Ooops, you must choose which version to keep');
 										console.log('We chose to update the local data with the remote data received');
-										JustDive.controllers[request.store].updateLocalObject(json.id, json)
+										controller.updateLocalObject(json.id, json)
 											.done(function() {
 												cue._saveAndContinue();
 											})
@@ -152,7 +156,7 @@ JustDive.SyncCue = JustDive.Object.extend({
 							//cue._saveAndContinue();
 							break;
 				case 'DELETE':					
-							JustDive.resourceAdapters.remote.request(params)
+							cue._requestRemote(params)
 								.done(function(json) {
 									cue._saveAndContinue();
 								})

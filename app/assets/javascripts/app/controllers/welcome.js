@@ -1,4 +1,6 @@
-JustDive.welcomeController = JustDive.ArrayController.create({
+#= require ../controllers.js
+
+JustDive.Controllers.Welcome = JustDive.ArrayController.create({
   content: [],
 
   index: function() {

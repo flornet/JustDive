@@ -33,7 +33,7 @@ JustDive.Monitor = JustDive.Object.extend({
 	
 	_addObservers: function() {
 		var monitor = this,
-			monitorController = JustDive.monitorController;
+			monitorController = JustDive.Controllers.Monitor;
 		monitor.addObserver('is_online', function() {
 			if (!monitor.is_online) {
 			// App is going offline

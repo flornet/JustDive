@@ -1,6 +1,6 @@
-if (JustDive.ResourceAdapters === undefined) JustDive.ResourceAdapters = {};
+#= require ../adapter.js
 
-JustDive.ResourceAdapters.Remote = JustDive.CoreObject.extend({
+JustDive.Resource.Adapter.Remote = Ember.Mixin.create({
 
 	_resourceRequest: function(params) {
 		params.dataType = 'json';
@@ -11,10 +11,10 @@ JustDive.ResourceAdapters.Remote = JustDive.CoreObject.extend({
 			this._prepareResourceRequest(params);
 		}
 	  
-		return this._request(params);
+		return this._requestRemote(params);
     },
 
-	_request: function(params) {
+	_requestRemote: function(params) {
 		if (!params.headers) {
 			params.headers = {};
 		}

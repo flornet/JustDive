@@ -1,5 +1,7 @@
-JustDive.models.syncLocalHistory = JustDive.Resource.extend({
-	resourceAdapter: 	JustDive.resourceAdapters.local,
+#= require ../models.js
+#= require ../lib/resource/local.js
+
+JustDive.Models.SyncLocalHistory = JustDive.Resource.Local.extend({
 	resourceUrl: 		'/divers',
 	resourceName:       'diver',
 	resourceProperties: [

@@ -1,5 +1,7 @@
-JustDive.models.syncRemoteHistory = JustDive.Resource.extend({
-	resourceAdapter: 	JustDive.resourceAdapters.remote,
+#= require ../models.js
+#= require ../lib/resource/remote.js
+
+JustDive.Models.SyncRemoteHistory = JustDive.Resource.Remote.extend({
 	resourceUrl: 		'/divers',
 	resourceName:       'diver',
 	resourceProperties: [

@@ -1,12 +1,6 @@
-JustDive.SyncedResourceController = JustDive.AbstractResourceController.extend({
-	
-	init: function() {
-		this._super();
-		console.log('ici');
-		console.log(this.resourceType.resourceLocalAdapter);
-		console.log('ici2');
-		//this._resourceRequest = this.resourceType.get('resourceLocalAdapter')._resourceRequest;
-	},
+#= require ./abstract.js
+#= require ../adapter/synced.js
+JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.extend(JustDive.Resource.Adapter.Synced, {
 	
 	updateLocalObject: function(id, data, force_id_update) {
 		if (force_id_update !== true) {
@@ -25,6 +19,6 @@ JustDive.SyncedResourceController = JustDive.AbstractResourceController.extend({
 			return curObject.updateResourceLocal(force_id_update);
 		  }
 		}
-		return JustDive.resourceAdapters.local._fail("Unable to find '" + id + "' in local data");
+		return this._fail("Unable to find '" + id + "' in local data");
 	}
 });

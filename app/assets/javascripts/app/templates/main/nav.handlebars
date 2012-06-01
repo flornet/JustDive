@@ -1,17 +1,17 @@
 {{#if JustDive.identity.is_logged_in}}
-	{{#view JustDive.Button target="JustDive.welcomeController" action="index"}}
+	{{#view JustDive.Button target="JustDive.Controllers.Welcome" action="index"}}
       Accueil
     {{/view}}
-	{{#view JustDive.Button target="JustDive.addressBookController" action="index"}}
+	{{#view JustDive.Button target="JustDive.Controllers.AddressBook" action="index"}}
       Carnet d'adresses
     {{/view}}
-	{{#view JustDive.Button target="JustDive.eventsController" action="index"}}
+	{{#view JustDive.Button target="JustDive.Controllers.DiveEvents" action="index"}}
       Sorties
     {{/view}}
-	{{#view JustDive.Button target="JustDive.addressBookController" action="loadFromRemote"}}
+	{{#view JustDive.Button target="JustDive.Controllers.AddressBook" action="loadFromRemote"}}
       Load divers from remote
     {{/view}}
-	{{#view JustDive.Button target="JustDive.addressBookController" action="saveAllToLocal"}}
+	{{#view JustDive.Button target="JustDive.Controllers.AddressBook" action="saveAllToLocal"}}
       Save all divers to local
     {{/view}}
 	{{#view JustDive.Button target="JustDive.syncCue" action="getRequests"}}

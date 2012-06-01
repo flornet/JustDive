@@ -1,4 +1,6 @@
-JustDive.views.divers.detail = JustDive.View.extend({
+#= require ../divers.js
+
+JustDive.Views.Divers.Detail = JustDive.View.extend({
   templateName: 'app/templates/divers/detail',
   classNames:   ['detail-diver'],
   tagName:    	'form',
@@ -13,9 +15,9 @@ JustDive.views.divers.detail = JustDive.View.extend({
   submit: function(event) {
     event.preventDefault();
 	if (this.get('isCreating')) {
-		JustDive.addressBookController.create(this.diver);
+		JustDive.Controllers.AddressBook.create(this.diver);
 	} else {
-		JustDive.addressBookController.update(this.diver);
+		JustDive.Controllers.AddressBook.update(this.diver);
 	}
   }
 });

@@ -1,20 +1,22 @@
 JustDive.Identity = JustDive.Object.extend({
-	administrator_id: 		'',
-	authenticity_token: 	'',
-	is_logged_in: 			false,
-	local_store_id: 		'session',
+	administrator_id:	'',
+	authenticity_token:	'',
+	is_logged_in: 		false,
+	local_store_id: 	'session',
 	rest_routes: {
-		get_token: 	'/identity/get_token',
-		create: 	'/identity',
-		destroy: 	'/identity',
-		verify:		'/identity/show'
-	},
-	email: 					'',
-	password: 				'',
+						get_token: 	'/identity/get_token',
+						create: 	'/identity',
+						destroy: 	'/identity',
+						verify:		'/identity/show'
+					},
+	email: 				'',
+	password: 			'',
+	identityController: null,
 	
 	init: function() {
 		var identity = this;
 		identity._super();
+		identity.identityController = JustDive.Controllers.Identity;
 		identity._addObservers();
 		identity.load();
 	},
@@ -40,7 +42,7 @@ JustDive.Identity = JustDive.Object.extend({
 	
 	save: function() {
 		var identity = this,
-			identityController = JustDive.identityController,
+			identityController = this.identityController,
 			identityData,
 			app = JustDive;
 		identityData = {
@@ -78,7 +80,7 @@ JustDive.Identity = JustDive.Object.extend({
 	
 	destroy: function() {
 		var identity = this,
-			identityController = JustDive.identityController,
+			identityController = this.identityController,
 			app = JustDive;
 		jQuery.ajax({
 				url: 		identity.rest_routes.destroy,
@@ -100,7 +102,7 @@ JustDive.Identity = JustDive.Object.extend({
 	
 	_addObservers: function() {
 		var identity = this,
-			identityController = JustDive.identityController;
+			identityController = this.identityController;
 		identity.addObserver('is_logged_in', function() {
 			if (!identity.is_logged_in) {
 			// User is logging out

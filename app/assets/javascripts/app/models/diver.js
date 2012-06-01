@@ -1,6 +1,7 @@
-JustDive.models.diver = JustDive.SyncedResource.extend({
-	resourceLocalAdapter: 	JustDive.resourceAdapters.local,
-	resourceRemoteAdapter: 	JustDive.resourceAdapters.remote,
+#= require ../models.js
+#= require ../lib/resource/synced.js
+
+JustDive.Models.Diver = JustDive.Resource.Synced.extend({
 	resourceUrl: 			'/divers',
 	resourceName:       	'diver',
 	resourceProperties: [

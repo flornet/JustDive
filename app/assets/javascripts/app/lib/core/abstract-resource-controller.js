@@ -1,1 +1,0 @@
-JustDive.AbstractResourceController = Ember.ResourceController.extend();

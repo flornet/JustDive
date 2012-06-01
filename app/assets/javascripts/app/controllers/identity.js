@@ -1,12 +1,14 @@
-JustDive.identityController = JustDive.ArrayController.create({
+#= require ../controllers.js
+
+JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	content: [],
 	
 	_initViews: function() {
 		if (this.views === undefined) {
 			this.views = {
-							login: 			JustDive.NewIdentityView.create(),
-							login_offline: 	JustDive.OfflineIdentityView.create(),
-							welcome: 		JustDive.WelcomeIdentityView.create()
+							login: 			JustDive.Views.Identity.New.create(),
+							login_offline: 	JustDive.Views.Identity.Offline.create(),
+							welcome: 		JustDive.Views.Identity.Welcome.create()
 						};
 		}
 	},
