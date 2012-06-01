@@ -4,21 +4,23 @@ JustDive.Controllers.Monitor = JustDive.ArrayController.create({
 	content: [],
 	
 	onOnline: function() {
-		var identity = JustDive.identity,
-		    identityController = JustDive.Controllers.Identity;
+		var identity 			= JustDive.identity,
+		    identityController 	= JustDive.Controllers.Identity,
+			dataSyncMonitor 	= JustDive.dataSyncMonitor;
 		identityController.requestAuthToken();
 		identityController.verifyLogin();
-		JustDive.syncCue.startMonitoring();
+		dataSyncMonitor.start();
 		if (!identity.is_logged_in) {
 			identityController.showLogin();
 		}
 	},
 	
 	onOffline: function() {
-		var identity = JustDive.identity,
-		    identityController = JustDive.Controllers.Identity;
+		var identity 			= JustDive.identity,
+		    identityController 	= JustDive.Controllers.Identity,
+			dataSyncMonitor 	= JustDive.dataSyncMonitor;
 		identityController.destroyAuthToken();
-		JustDive.syncCue.stopMonitoring();
+		dataSyncMonitor.stop();
 		if (!identity.is_logged_in) {
 			identityController.showLoginOffline();
 		}

@@ -2,11 +2,11 @@
 #= require ../lib/resource/local.js
 
 JustDive.Models.SyncLocalHistory = JustDive.Resource.Local.extend({
-	resourceUrl: 		'/divers',
-	resourceName:       'diver',
+	resourceUrl: 		'/sync_local_histories',
+	resourceName:       'sync_local_history',
 	resourceProperties: [
 							'id', 
-							'resource_name', 
+							'resource_name',
 							'created_at'
 						]
 });

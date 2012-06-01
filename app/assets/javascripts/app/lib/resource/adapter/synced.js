@@ -27,5 +27,27 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 							syncCue.pushRequest(params, json, old_data);
 						}
 					});
-    }	
+    },
+	
+	saveResourceLocal: function() {
+		var self = this;
+
+		if (this.validate !== undefined) {
+		  var error = this.validate();
+		  if (error) {
+			return {
+			  fail: function(f) { f(error); return this; },
+			  done: function() { return this; },
+			  always: function(f) { f(); return this; }
+			};
+		  }
+		}
+		return this._resourceRequest({type: this.isNew() ? 'POST' : 'PUT',
+									  data: this.serialize(),
+									  force_id_create: true}, false)
+		  .done(function(json) {
+			// Update properties
+			if (json) self.deserialize(json);
+		});
+	}
 });

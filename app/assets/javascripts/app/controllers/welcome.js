@@ -5,5 +5,9 @@ JustDive.Controllers.Welcome = JustDive.ArrayController.create({
 
   index: function() {
 	alert('Welcome !');
+  },
+  
+  clearLocalStorage: function() {
+	localStorage.clear();
   }
 });

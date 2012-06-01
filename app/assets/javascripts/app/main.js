@@ -12,6 +12,7 @@
 
 JustDive = Ember.Application.create({
 	APP_KEY: 			null, // JustDive 'App Key'
+	version:			'1.0',
 	rootElement: 		'#app',
 	viewsContainer: 	'#container',
 	restControllers:  	Ember.Object.create({
@@ -20,7 +21,9 @@ JustDive = Ember.Application.create({
 	localStorage: 		null,
 	monitor: 			null,
 	identity: 			null,
+	dataSync:			null,
 	syncCue: 			null,
+	dataSyncMonitor:	null,
 	ui: 				null,
 	
 	ready: function() {
@@ -42,23 +45,26 @@ JustDive = Ember.Application.create({
 			return false;
 		}
 		
-		// Creates the syncCue
-		app.syncCue = JustDive.SyncCue.create();
+		// Maps localStorage
+		app.set('localStorage', localStorage);
+		
+		// Initialize the AppKey on first run
+		app.set('APP_KEY', app.getAppKey());
+		
+		// Creates the Data Syncing components
+		app.dataSync 		= JustDive.DataSync.create();
+		app.syncCue 		= JustDive.SyncCue.create();
+		app.dataSyncMonitor = JustDive.DataSyncMonitor.create();
 		
 		// Create the REST controllers
 		app.restControllers = {
-			divers: JustDive.Controllers.Rest.Divers.create()
+			divers: 				JustDive.Controllers.Rest.Divers.create(),
+			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create()
 		};
 		
 		// Creates the ui adapter
 		app.ui = JustDive.UiScreenAdapter.create();
-		
-		// Maps localStorage
-		app.set('localStorage', localStorage);
-		
-		// Initialize the App on first time run
-		app.set('APP_KEY', app.getAppKey());
-		return false;
+
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -75,10 +81,17 @@ JustDive = Ember.Application.create({
 		var localStorage = this.get('localStorage');
 		appKey = localStorage.getItem('APP_KEY');
 		if (appKey === null) {
-			// TODO@HERE
+			var i = 0,
+				tempKey = '',
+				now = new Date();
+			tempKey += 'JD(' + this.version+ ')_' + now.getFullYear() + '/' + now.getMonth() + '/' + now.getDate() + '_';
+			for (i = 0; i <= 4; i++) {
+				tempKey += (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+			}
+			localStorage.setItem('APP_KEY', tempKey);
+			appKey = localStorage.getItem('APP_KEY');
 		}
-		console.log(appKey);
-		return 'bob';
+		return appKey;
 	},
 	
 	displayError: function(errorType, e) {

@@ -7,32 +7,10 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 		if (this.views === undefined) {
 			this.views = {
 							divers_list: 	JustDive.Views.Divers.List.create(),
-							diver_detail:	JustDive.views.divers.detail.create()
+							diver_detail:	JustDive.Views.Divers.Detail.create()
 						};
 		}
 	},
-/*
-	loadFromRemote: function() {
-		this._initViews();
-		this.views.divers_list.appendTo(JustDive.viewsContainer);
-		JustDive.controllers.divers.setAdapter('remote');
-		JustDive.controllers.divers.findAll();
-	},
-	
-	saveAllToLocal: function() {
-		JustDive.controllers.divers.setAdapter('local');
-		JustDive.controllers.divers.get('content').forEach(function(diver) {
-			diver.saveResource()
-				.fail( function(e) {
-					JustDive.displayError('jqXHR', e);
-				})
-				.done( function() {
-					console.log(diver.id + ': saved to local');
-				});
-			
-		});
-	},
-//*/
 
 /**
     Index action: loads the data and appends the view
@@ -40,7 +18,8 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 	index: function() {
 		this._initViews();
 		this.views.divers_list.appendTo(JustDive.viewsContainer);
-		JustDive.controllers.divers.findAll();
+		JustDive.restControllers.divers.findAll();
+		this.views.divers_list.set('divers', JustDive.restControllers.divers.get('content'));
 	},
 
 /**
@@ -110,7 +89,7 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 				JustDive.displayError('jqXHR', e);
 			})
 			.done( function() {
-				JustDive.controllers.divers.pushObject(diver);
+				JustDive.restControllers.divers.pushObject(diver);
 				controller._initViews();
 				controller._appendView(view);
 				view.set('isEditing', false);
@@ -153,7 +132,7 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 				if (view.get('diver') === diver) {
 					view.destroy();
 				}
-				JustDive.controllers.divers.removeObject(diver);
+				JustDive.restControllers.divers.removeObject(diver);
 			});
 	},
 	

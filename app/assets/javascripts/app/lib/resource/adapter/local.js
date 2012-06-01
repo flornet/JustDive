@@ -112,7 +112,12 @@ REQUIRED: `params.url` and `params.data`
 
 		if (url_parts[1] === undefined) {
 			json = {};
-			object_type = this.store_id.substring(0, this.store_id.length - 1); // Singularization (ie. divers => diver)
+			// Singularization
+			if (this.store_id.substring(this.store_id.length - 3, this.store_id.length) === 'ies') { //ie. sync_local_histories => sync_local_history
+				object_type = this.store_id.substring(0, this.store_id.length - 3) + 'y';
+			} else {
+				object_type = this.store_id.substring(0, this.store_id.length - 1); // ie. divers => diver
+			}
 			if (params.data[object_type] === undefined) {
 				return this._fail('Failed to create entry (wrong Type)', 400);
 			}
@@ -166,8 +171,10 @@ REQUIRED: `params.url` and `params.data`
 				}
 
 				// fetch a specific entry
-				if (!this.data || (this.data && !this.data[url_parts[1]])) {
-					return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
+				if (params.force_id_create !== true) {
+					if (!this.data || (this.data && !this.data[url_parts[1]])) {
+						return this._fail('Entry "' + url_parts[1] + '" was not found.', 404);
+					}
 				}
 				
 				object = params.data[object_type];

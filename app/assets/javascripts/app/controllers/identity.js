@@ -25,6 +25,9 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	
 	onLogin: function() {
 		this.showWelcome();
+		
+		// Initialize the Data
+		JustDive.dataSync.initialize();
 	},	
 	
 	onLogout: function() {

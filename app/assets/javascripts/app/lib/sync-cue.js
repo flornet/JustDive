@@ -13,8 +13,12 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 							'created_at',
 							'updated_at'
 						],
-	controllersBinding:		"JustDive.restControllers",
+	processingFrequency: 	5000,
 
+	getControllers: function() {
+		return JustDive.restControllers;
+	},
+	
 	pushRequest: function(params, json, old_data) {
 		if (params.type !== undefined) {
 			params.type = params.type.toUpperCase();
@@ -53,22 +57,6 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 		this._init();
 		return this.data;
 	},
-	
-	startMonitoring: function() {
-		var cue = this;
-		cue.set('pid', setInterval(function () {
-			cue.process();
-		}, 5000));
-		this.set('is_monitored', true);
-	},
-	
-	stopMonitoring: function() {
-		var cue = this;
-		clearInterval(cue.get('pid'));
-		cue.set('is_monitored', false);
-		cue.set('is_processing', false);
-		cue.set('pid', null);
-	},
 
 	process: function() {
 		var cue = this;
@@ -78,12 +66,13 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 			cue.set('is_processing', true);
 			var requests 	= cue.getRequests().reverse(),
 				request 	= requests.pop(),
-				controller 	= cue.controllers[request.store],
+				controller 	= cue.getControllers()[request.store],
 				params 		= {
 								dataType: 	'json',
 								type:		request.type,
 								url:		request.url
 							};
+
 			switch (request.type) {
 				case 'POST':
 							var local_id = request.new_data.id;
