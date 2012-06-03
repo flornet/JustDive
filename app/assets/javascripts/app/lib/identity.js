@@ -48,7 +48,8 @@ JustDive.Identity = JustDive.Object.extend({
 		identityData = {
 			'identity': {
 							'email': 	identity.get('email'),
-							'password': identity.get('password')
+							'password': identity.get('password'),
+							'app_key':	JustDive.APP_KEY
 						},
 			'utf8': "&#x2713;"
 		};

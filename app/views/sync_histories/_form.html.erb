@@ -1,0 +1,25 @@
+<%= form_for(@sync_history) do |f| %>
+  <% if @sync_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sync_history.errors.count, "error") %> prohibited this sync_history from being saved:</h2>
+
+      <ul>
+      <% @sync_history.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :app_key %><br />
+    <%= f.text_field :app_key %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_name %><br />
+    <%= f.text_field :resource_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

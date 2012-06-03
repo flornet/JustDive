@@ -2,10 +2,10 @@
 #= require ../lib/resource/remote.js
 
 JustDive.Models.SyncRemoteHistory = JustDive.Resource.Remote.extend({
-	resourceUrl: 		'/divers',
-	resourceName:       'diver',
+	resourceUrl: 		'/sync_histories',
+	resourceName:       'sync_history',
 	resourceProperties: [
-							'id', 
+							'id',
 							'resource_name',
 							'created_at'
 						]

@@ -18,7 +18,6 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 		if (this._prepareResourceRequest !== undefined) {
 			this._prepareResourceRequest(params);
 		}
-		
 		return this._requestLocal(params)
 					.done(function(json, old_data) {
 						//console.log('Local request ok');

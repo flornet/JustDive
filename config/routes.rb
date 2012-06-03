@@ -1,4 +1,6 @@
 JustDive::Application.routes.draw do
+  resources :sync_histories
+
   resources :identity do
     collection do
       get     'get_token'
@@ -13,7 +15,11 @@ JustDive::Application.routes.draw do
   resources :dive_clubs
 
   match 'divers/sync' => 'gdata_contacts#sync_divers'
-  resources :divers
+  resources :divers do
+	collection do
+		get	'diff'
+	end
+  end
 
   resources :administrators
 

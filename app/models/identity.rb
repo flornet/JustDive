@@ -3,7 +3,7 @@ class Identity
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :administrator_id, :email, :password, :gdata_client
+  attr_accessor :administrator_id, :email, :password, :gdata_client, :app_key
   
   #validates_presence_of :email, :password
   #validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i

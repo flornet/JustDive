@@ -26,14 +26,21 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	onLogin: function() {
 		this.showWelcome();
 		
+		var dataSyncMonitor = JustDive.dataSyncMonitor,
+			dataSync = JustDive.dataSync;
+		
 		// Initialize the Data
-		JustDive.dataSync.initialize();
+		dataSync.initialize();
+		
+		dataSyncMonitor.start();
 	},	
 	
 	onLogout: function() {
-		var monitor = JustDive.monitor,
-			identityController = this;
+		var monitor 			= JustDive.monitor,
+			identityController 	= this,
+			dataSyncMonitor 	= JustDive.dataSyncMonitor;
 		identityController.destroyAuthToken();
+		dataSyncMonitor.stop();
 		if (!monitor.is_online) {
 			identityController.showLoginOffline();
 		} else {

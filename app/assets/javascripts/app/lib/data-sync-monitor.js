@@ -19,15 +19,27 @@ JustDive.DataSyncMonitor = JustDive.Object.extend({
 		cue.set('is_monitored', true);
 		
 		// Data sync processing
-		
+		dataSync.set('pid', setInterval(function () {
+			dataSync.process();
+		}, dataSync.processingFrequency));
+		dataSync.set('is_monitored', true);
 	},
 	
 	stop: function() {
-		var cue = this.syncCue;
+		var cue 				= this.getSyncCue(),
+			dataSync 			= this.getDataSync();
+			
+		// Stop cue processing
 		clearInterval(cue.get('pid'));
 		cue.set('is_monitored', false);
 		cue.set('is_processing', false);
 		cue.set('pid', null);
+		
+		// Stop data sync processing
+		clearInterval(dataSync.get('pid'));
+		dataSync.set('is_monitored', false);
+		dataSync.set('is_processing', false);
+		dataSync.set('pid', null);
 	}
 	/*
 		1. OnLocalRequestDone() : cue->pushRequest()

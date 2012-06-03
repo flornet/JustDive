@@ -9,9 +9,10 @@ JustDive.Controllers.Monitor = JustDive.ArrayController.create({
 			dataSyncMonitor 	= JustDive.dataSyncMonitor;
 		identityController.requestAuthToken();
 		identityController.verifyLogin();
-		dataSyncMonitor.start();
 		if (!identity.is_logged_in) {
 			identityController.showLogin();
+		} else {
+			dataSyncMonitor.start();
 		}
 	},
 	

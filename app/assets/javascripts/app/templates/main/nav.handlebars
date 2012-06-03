@@ -1,16 +1,6 @@
 {{#if JustDive.identity.is_logged_in}}
-	{{#view JustDive.Button target="JustDive.Controllers.Welcome" action="index"}}
-      Accueil
-    {{/view}}
-	{{#view JustDive.Button target="JustDive.Controllers.AddressBook" action="index"}}
-      Carnet d'adresses
-    {{/view}}
-	{{#view JustDive.Button target="JustDive.Controllers.DiveEvents" action="index"}}
-      Sorties
-    {{/view}}
-	{{#view JustDive.Button target="JustDive.Controllers.Welcome" action="clearLocalStorage"}}
-      Clear Local Storage
-    {{/view}}
-	
-	
+	<button {{action "index" target="JustDive.Controllers.Welcome"}}>Accueil</button>
+	<button {{action "index" target="JustDive.Controllers.AddressBook"}}>Carnet d'adresses</button>
+	<button {{action "index" target="JustDive.Controllers.DiveEvents"}}>Sorties</button>
+	<button {{action "clearLocalStorage" target="JustDive.Controllers.Welcome"}}>Clear Local Storage</button>
 {{/if}}

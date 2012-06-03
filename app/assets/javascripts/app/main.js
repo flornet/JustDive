@@ -1,4 +1,4 @@
-#= require ./vendor/ember/ember.js
+#= require ./vendor/ember/ember-debug.js
 #= require ./vendor/ember/ember-rest.js
 #= require_self
 #= require_tree ./lib/resource
@@ -16,7 +16,9 @@ JustDive = Ember.Application.create({
 	rootElement: 		'#app',
 	viewsContainer: 	'#container',
 	restControllers:  	Ember.Object.create({
-		divers: null
+		divers: 				null,
+		sync_local_histories: 	null,
+		sync_remote_histories: 	null
 	}),
 	localStorage: 		null,
 	monitor: 			null,
@@ -59,7 +61,8 @@ JustDive = Ember.Application.create({
 		// Create the REST controllers
 		app.restControllers = {
 			divers: 				JustDive.Controllers.Rest.Divers.create(),
-			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create()
+			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
+			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
 		};
 		
 		// Creates the ui adapter
@@ -75,6 +78,7 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
+		
 	},
 	
 	getAppKey: function() {

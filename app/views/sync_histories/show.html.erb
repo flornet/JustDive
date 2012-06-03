@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>App key:</b>
+  <%= @sync_history.app_key %>
+</p>
+
+<p>
+  <b>Resource name:</b>
+  <%= @sync_history.resource_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_sync_history_path(@sync_history) %> |
+<%= link_to 'Back', sync_histories_path %>

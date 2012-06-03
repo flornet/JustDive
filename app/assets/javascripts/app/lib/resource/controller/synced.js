@@ -4,15 +4,59 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 	
 	isSynchronizable: true,
 	
-	_resourceStoreId: function() {
-		var url_parts = this._resourceUrl().split('/');
-		if (url_parts[0] == "") {
-			url_parts.splice(0, 1);
-		}
-		return url_parts[0];
+	getDataSync: function() {
+		return JustDive.dataSync;
 	},
 	
-	synchronize: function() {
+	diffSynchronize: function() {
+		var self = this;
+		self.findDiffRemote()
+			.done(function(json) {
+				var created = json.created,
+					updated = json.updated;
+				
+				// Dealing with created data
+				var length 	= created.length,
+					saved 	= 0,
+					failed 	= 0;
+				created.forEach(function(resource) {
+					console.log('Created');
+				});
+				
+				// Dealing with updated data
+				var length 	= updated.length,
+					saved 	= 0,
+					failed 	= 0;
+				updated.forEach(function(resource) {
+					self.updateLocalObject(resource.id, resource, false)
+							.done(function() {
+								saved += 1;
+							})
+							.fail(function(error) {
+								failed += 1;
+								JustDive.displayError('jqXHR', error);
+							})
+							.always( function() {
+								if ((saved + failed) == length) {
+									self.getDataSync().markAsSynced(self._resourceStoreId());
+								}
+							});
+				});
+				
+				/*
+				var length 	= json.length;
+				var saved 	= 0;
+				var failed 	= 0;
+				json.forEach(function(resource) {
+					console.log(resource);
+				});*/
+			})
+			.fail(function(e) {
+				JustDive.displayError('jqXHR', e);
+			});
+	},
+	
+	firstSynchronize: function() {
 		/* First time:
 		 * - Loads remote data,
 		 * - Save them to local storage,
@@ -21,9 +65,9 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		var self = this;
 		self.findAllRemote()
 			.done(function() {
-				var length 	= self.get('length');
-				var saved 	= 0;
-				var failed 	= 0;
+				var length 	= self.get('length'),
+					saved 	= 0,
+					failed 	= 0;
 				self.get('content').forEach(function(resource) {
 					resource.saveResourceLocal()
 						.done( function() {
@@ -35,18 +79,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 						})
 						.always( function() {
 							if ((saved + failed) == length) {
-								console.log('ici');
-								var syncEntry = JustDive.Models.SyncLocalHistory.create({
-																							resource_name: 	self._resourceStoreId(), 
-																							created_at: 	new Date()
-																						});
-								syncEntry.saveResource()
-									.done(function (json) {
-										// TODO: REMOTE > sync_remote_history
-									})
-									.fail(function(e) {
-										JustDive.displayError('jqXHR', e);
-									});
+								self.getDataSync().markAsSynced(self._resourceStoreId());
 							}
 						});
 				});
@@ -72,6 +105,16 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		  });
 	},
 	
+	findDiffRemote: function() {
+		var self = this,
+			params = {
+				dataType: 	'json',
+				type: 		'GET',
+				url:		this._resourceUrl() + '/diff'
+			};
+		return this._requestRemote(params);
+	},
+	
 	updateLocalObject: function(id, data, force_id_update) {
 		if (force_id_update !== true) {
 			force_id_update = false;
@@ -90,5 +133,13 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		  }
 		}
 		return this._fail("Unable to find '" + id + "' in local data");
+	},
+		
+	_resourceStoreId: function() {
+		var url_parts = this._resourceUrl().split('/');
+		if (url_parts[0] == "") {
+			url_parts.splice(0, 1);
+		}
+		return url_parts[0];
 	}
 });

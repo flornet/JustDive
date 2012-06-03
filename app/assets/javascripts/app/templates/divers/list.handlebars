@@ -12,12 +12,12 @@
 		<th>medical_certificate_expires_on</th>
 		<th>created_at</th>
 		<th>updated_at</th>
-		<th>Actions <button {{action "new" target="JustDive.addressBookController" context="diver"}}>New</button></th>
+		<th>Actions <button {{action "new" target="JustDive.Controllers.AddressBook" context="diver"}}>New</button></th>
     </tr>
   </thead>
   <tbody>
   {{#each divers}}
-    {{view JustDive.views.divers.listShow diverBinding="this"}}
+    {{view JustDive.Views.Divers.ListShow diverBinding="this"}}
   {{/each}}
   </tbody>
 </table>

@@ -6,9 +6,9 @@
 			{{#if JustDive.identity.is_logged_in}}
 			<li>Welcome {{JustDive.identity.email}} 
 				{{#if JustDive.monitor.is_online}}
-					{{#view JustDive.Button target="JustDive.Controllers.Identity" action="logout"}}Log out{{/view}}
+					<button {{action "logout" target="JustDive.Controllers.Identity"}}>Log out</button>
 				{{else}}
-					{{#view JustDive.Button target="JustDive.Controllers.Identity" action="logout" disabled="disabled"}}Log out{{/view}}
+					<button disabled="disabled" {{action "logout" target="JustDive.Controllers.Identity"}}>Log out</button>
 				{{/if}}
 			</li>
 			{{/if}}

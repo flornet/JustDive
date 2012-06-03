@@ -3,10 +3,24 @@ class DiversController < ApplicationController
 
   # GET /divers.json
   def index
-    @divers = Diver.all
+    @divers = Diver.where(:dive_club_id => current_administrator.dive_club_id).all
 
     respond_to do |format|
       format.json { render :json => @divers }
+    end
+  end
+  
+  # GET /divers/diff.json
+  def diff
+	sync_date = SyncHistory.where(:app_key => session[:app_key], :resource_name => 'divers').maximum('created_at');
+	#@divers = Diver.where(:dive_club_id => current_administrator.dive_club_id).all
+	new_divers = Diver.find(:all, :conditions => [" dive_club_id = ? AND (created_at > ?)", current_administrator.dive_club_id, sync_date])
+	updated_divers = Diver.find(:all, :conditions => [" dive_club_id = ? AND (updated_at > ?) AND (created_at <> updated_at)", current_administrator.dive_club_id, sync_date])
+	@response = {:created => new_divers, :updated => updated_divers}
+	
+    respond_to do |format|
+	  #format.json { render :json => sync_date}
+      format.json { render :json => @response }
     end
   end
 

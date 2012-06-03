@@ -23,6 +23,7 @@ class IdentityController < ApplicationController
     respond_to do |format|
       if @identity.save
         session[:administrator_id] = @identity.administrator_id
+		session[:app_key] = @identity.app_key
         session[:gdata_client] = @identity.gdata_client
         format.json { render :json => @identity, :status => :created }
       else
