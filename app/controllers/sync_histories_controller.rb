@@ -1,6 +1,4 @@
 class SyncHistoriesController < ApplicationController
-  before_filter :administrator_required
-
   # GET /sync_histories
   # GET /sync_histories.json
   def index
@@ -43,9 +41,9 @@ class SyncHistoriesController < ApplicationController
   # POST /sync_histories.json
   def create
     @sync_history = SyncHistory.new(params[:sync_history])
-	@sync_history.app_key = session[:app_key]
-	
-    respond_to do |format|
+	@sync_history.app_key_id = session[:app_key_id]
+    
+	respond_to do |format|
       if @sync_history.save
         format.html { redirect_to @sync_history, notice: 'Sync history was successfully created.' }
         format.json { render json: @sync_history, status: :created, location: @sync_history }

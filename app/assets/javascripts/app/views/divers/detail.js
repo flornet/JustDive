@@ -12,6 +12,12 @@ JustDive.Views.Divers.Detail = JustDive.View.extend({
 	this.remove();
   },
   
+  edit: function(event) {
+	if (event) event.preventDefault();
+	this.set('isCreating', false);
+	this.set('isEditing', true);
+  },
+  
   submit: function(event) {
     event.preventDefault();
 	if (this.get('isCreating')) {

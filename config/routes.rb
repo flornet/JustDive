@@ -1,6 +1,7 @@
 JustDive::Application.routes.draw do
-  resources :sync_histories
 
+  resources :app_keys
+  resources :sync_histories
   resources :identity do
     collection do
       get     'get_token'
@@ -9,18 +10,14 @@ JustDive::Application.routes.draw do
       delete  'destroy'
     end
   end
-
   resources :ffessm_levels
-
   resources :dive_clubs
-
   match 'divers/sync' => 'gdata_contacts#sync_divers'
   resources :divers do
 	collection do
 		get	'diff'
 	end
   end
-
   resources :administrators
 
   

@@ -18,7 +18,6 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 	index: function() {
 		this._initViews();
 		this.views.divers_list.appendTo(JustDive.viewsContainer);
-		JustDive.restControllers.divers.findAll();
 	},
 
 /**
@@ -48,32 +47,12 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 	new: function() {
 		var controller = this,
 			view = this.views.diver_detail,
-			diver = JustDive.models.diver.create();
+			diver = JustDive.Models.Diver.create();
 		controller._initViews();
 		controller._appendView(view);
 		view.set('isCreating', true);
 		view.set('isEditing', true);
 		view.set('diver', diver);
-	},
- 
-/**
-    Edit action: loads the data and appends the view
-*/ 
-  	edit: function(diver) {
-		var controller = this,
-			view = this.views.diver_detail;
-		if (diver.context) diver = diver.context;
-		diver.findResource()
-			.fail( function(e) {
-				JustDive.displayError('jqXHR', e);
-			})
-			.done(function() {
-				controller._initViews();
-				controller._appendView(view);
-				view.set('isEditing', true);
-				view.set('isCreating', false);
-				view.set('diver', diver);
-			});
 	},
 	
 /**
@@ -92,6 +71,26 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 				controller._initViews();
 				controller._appendView(view);
 				view.set('isEditing', false);
+				view.set('isCreating', false);
+				view.set('diver', diver);
+			});
+	}, 
+ 
+/**
+    Edit action: loads the data and appends the view
+*/ 
+  	edit: function(diver) {
+		var controller = this,
+			view = this.views.diver_detail;
+		if (diver.context) diver = diver.context;
+		diver.findResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done(function() {
+				controller._initViews();
+				controller._appendView(view);
+				view.set('isEditing', true);
 				view.set('isCreating', false);
 				view.set('diver', diver);
 			});

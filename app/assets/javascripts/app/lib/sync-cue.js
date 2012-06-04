@@ -64,15 +64,18 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 			//cue.optimize(); remove useless requests, merge, ...
 			// On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
 			cue.set('is_processing', true);
-			var requests 	= cue.getRequests().reverse(),
-				request 	= requests.pop(),
-				controller 	= cue.getControllers()[request.store],
-				params 		= {
+			var controller,
+				params;
+			
+			var request = cue.getRequests().shift(); 	// gets the request
+			cue.getRequests().unshift(request);			// replace it in the stack (since not done yet)
+
+			controller 	= cue.getControllers()[request.store],
+			params 		= {
 								dataType: 	'json',
 								type:		request.type,
 								url:		request.url
 							};
-
 			switch (request.type) {
 				case 'POST':
 							var local_id = request.new_data.id;
@@ -171,6 +174,7 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 	
 	_saveAndContinue: function() {
 		var cue = this;
+		cue.getRequests().shift(); // Removes the first request (since it ended OK)
 		cue._save();
 		cue.set('is_processing', false);
 		cue.process(); // Forwards to the next request

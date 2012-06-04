@@ -21,8 +21,4 @@ JustDive.Models.Diver = JustDive.Resource.Synced.extend({
   	fullname: Ember.computed(function() {
 		return this.get('firstname') + ' ' + this.get('lastname');
 	}).property('firstname', 'lastname')
-  /*
-  diverChanged: function () {
-    //JustDive.getStorage(this.storage_id).proxy.update(this);
-  }.observes('firstname', 'lastname')*/
 });

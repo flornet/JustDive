@@ -12,6 +12,9 @@ JustDive.DataSyncMonitor = JustDive.Object.extend({
 		var cue 				= this.getSyncCue(),
 			dataSync 			= this.getDataSync();
 		
+		// Initialize the Data
+		dataSync.initialize();
+		
 		// Cue processing
 		cue.set('pid', setInterval(function () {
 			cue.process();

@@ -7,7 +7,8 @@
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
 FfessmLevel.create([
-                    { :name => 'Niveau 1'}, 
+                    { :name => 'Inconnu'},
+					{ :name => 'Niveau 1'}, 
                     { :name => 'Niveau 2'},
                     { :name => 'Niveau 3'},
                     { :name => 'Niveau 4'},

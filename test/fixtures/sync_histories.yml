@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  app_key: MyString
+  app_key_id: 1
   resource_name: MyString
+  last_synced_on: 2012-06-04
 
 two:
-  app_key: MyString
+  app_key_id: 1
   resource_name: MyString
+  last_synced_on: 2012-06-04

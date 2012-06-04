@@ -12,12 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :app_key %><br />
-    <%= f.text_field :app_key %>
+    <%= f.label :app_key_id %><br />
+    <%= f.number_field :app_key_id %>
   </div>
   <div class="field">
     <%= f.label :resource_name %><br />
     <%= f.text_field :resource_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_synced_on %><br />
+    <%= f.date_select :last_synced_on %>
   </div>
   <div class="actions">
     <%= f.submit %>

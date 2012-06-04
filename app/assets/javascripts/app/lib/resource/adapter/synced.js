@@ -3,11 +3,13 @@
 #= require ./local.js
 
 JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.Local, JustDive.Resource.Adapter.Remote, {
-	syncCueBinding: 				"JustDive.syncCue",
+	getSyncCue: function() {
+		return JustDive.syncCue;
+	},
 	
     _resourceRequest: function(params, addToSyncCue) {
-		var syncCue = this.syncCue;
-		if (addToSyncCue === undefined) {
+		var syncCue = this.getSyncCue();
+		if (addToSyncCue !== false) {
 			addToSyncCue = true;
 		}
 		
@@ -18,6 +20,12 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 		if (this._prepareResourceRequest !== undefined) {
 			this._prepareResourceRequest(params);
 		}
+		/*
+		console.log(params);
+		console.log(addToSyncCue);
+		if (params.type !== 'GET')
+			return false;
+		*/
 		return this._requestLocal(params)
 					.done(function(json, old_data) {
 						//console.log('Local request ok');
@@ -48,5 +56,31 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 			// Update properties
 			if (json) self.deserialize(json);
 		});
-	}
+	},
+	
+	updateResourceLocal: function(force_id_update) {
+		var self = this,
+			url,
+			params;
+		if (force_id_update !== true) {
+			force_id_update = false;
+		}
+		if (self.get('local_id') !== undefined) {
+			url = self.resourceUrl + '/' + self.get('local_id');
+			self.set('local_id', null);
+		} else {
+			url = self._resourceUrl();
+		}
+		params = {
+					type: 				'PUT',
+					url: 				url,
+					force_id_update: 	force_id_update,
+					data: 				self.serialize() 
+				};
+		return self._resourceRequest(params, false)
+					  .done(function(json) {
+						// Update properties
+						if (json) self.deserialize(json);
+					  });
+  }
 });

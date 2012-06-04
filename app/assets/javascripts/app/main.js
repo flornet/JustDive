@@ -33,8 +33,9 @@ JustDive = Ember.Application.create({
 	},
 	
 	bootstrap: function() {
-		var app = this;
-		var output, errors;
+		var app = this,
+			output, 
+			errors;
 		
 		// Check compatibility of browser
 		if (!app.browser.isCompatible()) {
@@ -78,7 +79,6 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
-		
 	},
 	
 	getAppKey: function() {

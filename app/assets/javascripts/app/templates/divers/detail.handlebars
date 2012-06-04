@@ -1,18 +1,35 @@
+<p>{{diver.fullname}} <em>Id: {{diver.id}}</em></p>
+
 {{#if isEditing}}
-	<div class="field">
-		{{view Ember.TextField valueBinding="diver.email" placeholder="Email" size="30" type="email"}}
-	</div>
 	<div class="field">
 		{{view Ember.TextField valueBinding="diver.firstname"  placeholder="First Name" size="30"}}
 	</div>
 	<div class="field">
 		{{view Ember.TextField valueBinding="diver.lastname"  placeholder="Last Name" size="30"}}
 	</div>
-	<div class="actions"> 
-		<button type="submit">Save</button>
+	<div class="field">
+		{{view Ember.TextField valueBinding="diver.email" placeholder="Email" size="30" type="email"}}
 	</div>
 {{else}}
-    <p>{{diver.fullname}}</p>
+	<p>{{diver.firstname}}</p>
+	<p>{{diver.lastname}}</p> 
+	<p>{{diver.email}}</p>
 {{/if}}
 
-<button {{action "destroy"}}>Cancel</button>
+<p>DiveClub: {{diver.dive_club_id}}</p>
+<p>Lvel: {{diver.ffessm_level_id}}</p>
+<p>Licence # {{diver.ffessm_licence_number}}</p>
+<p>Medical certificate expires on: {{diver.medical_certificate_expires_on}}</p>
+<ul>
+	<li>{{diver.created_at}}</li>
+	<li>{{diver.updated_at}}</li>
+</ul>
+
+<div class="actions"> 
+	<button {{action "destroy"}}>Cancel</button>
+	{{#if isEditing}}
+		<button type="submit">Save</button>
+	{{else}}
+		<button {{action "edit"}}>Edit</button>
+	{{/if}}
+</div>

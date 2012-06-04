@@ -11,3 +11,17 @@ Subjects:
 
 Notes:
 - Add 'this.$('input:first').focus();' on create/edit views
+
+Diagrams:
+- http://yuml.me/diagram/class/draw
+
+// Cool Class Diagram
+[Diver]1-0..*[DiveClub]
+[DiveClub]0..*-1[DiveEvent]
+[Diver]1-0..*[FfessmLevel]
+[Administrator]1-0..*[DiveClub]
+[AppKey]1-0..*[Administrator]
+[SyncHistory]1-0..*[AppKey]
+[DiveEvent]0..*-1[BoatDeparture]
+[BoatDeparture]0..*-1[DiveaGroup]
+[DiveGroup]0..*-1[Diver]

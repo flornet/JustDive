@@ -7,63 +7,100 @@ JustDive.DataSync = JustDive.Object.extend(JustDive.Resource.Adapter.Local, Just
 	is_processing: 				false,
 	sync_cycle: 				{},
 	pid: 						null,
-	processingFrequency: 		5000,
+	processingFrequency: 		10000,
 	
 	getControllers: function() {
 		return JustDive.restControllers;
+	},
+	
+	getSyncCue: function() {
+		return JustDive.syncCue;
 	},
 	
 	// First run of the app initializes local data
 	initialize: function() {
 		var dataSync 		= this,
 			controllers 	= this.getControllers(),
-			result 			= false,
 			syncController 	= this.getControllers()[this.historiesControllerName],
 			synchronizableControllers = [],
 			controller;
 		
-		// Initialization a the Sync Cycle
-		if (dataSync.get('sync_cycle') === {}) {
-			var cycle = {};
-			for (key in this.getControllers()) {
-				controller = this.getControllers()[key];
-				if (controller.isSynchronizable) {
-					cycle[key] = { 
-								controller: controller, 
-								synchronized: false
-							  };
-				}
-			}
-			dataSync.set('sync_cycle', cycle);
+		if (dataSync.getObjectSize(dataSync.get('sync_cycle')) === 0) {
+			dataSync._initSyncCycle();
 		}
 		
 		// First synchronization of the data
-		if (syncController.isInitialized()) {
-			result = true;
-		} else {
+		if (!syncController.isInitialized()) {
 			dataSync.set('is_processing', true);
 			var cycle = dataSync.get('sync_cycle');
 			for (key in cycle) {
 				var cycleEntry = cycle[key];
-				console.log(cycleEntry);
 				cycleEntry.controller.firstSynchronize();
 			}
 			dataSync.set('is_processing', false);
 		}
-		return result;
 	},
 	
 	process: function() {
 		var dataSync = this;
-		if (!dataSync.get('is_processing')) { // && cue.empty
+		if (!dataSync.get('is_processing') && dataSync.getSyncCue().getRequests().length === 0) {
+			//console.log('Processing data-sync');
 			dataSync.set('is_processing', true);
 			var cycle = dataSync.get('sync_cycle');
 			for (key in cycle) {
 				var cycleEntry = cycle[key];
-				console.log(cycleEntry);
-				cycleEntry.controller.diffSynchronize();
+				if (cycleEntry.synchronized === false) {
+					cycleEntry.controller.diffSynchronize();
+				}
 			}
 		}
+	},
+	
+	_initSyncCycle: function() {
+		// Initialization a the Sync Cycle
+		var dataSync = this,
+			cycle = {};
+		for (key in this.getControllers()) {
+			controller = this.getControllers()[key];
+			if (controller.isSynchronizable) {
+				cycle[key] = { 
+							controller: controller, 
+							synchronized: false
+						  };
+			}
+		}
+		dataSync.set('sync_cycle', cycle);
+	},
+	
+	_checkCycleEndAndContinue: function() {
+		var dataSync = this,
+			synced = 0,
+			syncable = 0;
+		
+		var cycle = dataSync.get('sync_cycle');
+		
+		for (key in cycle) {
+			syncable += 1;
+			if (cycle[key].synchronized === true) {
+				synced += 1;
+			}
+		}
+		
+		if (synced === syncable) {
+			dataSync._initSyncCycle();
+		}
+		
+		dataSync.set('is_processing', false);
+		
+		//if (synced !== syncable) {
+			//dataSync.process();
+		//}
+	},
+	
+	isUpToDate: function(resource_name) {
+		var dataSync = this;
+		dataSync.get('sync_cycle')[resource_name].synchronized = true;
+		dataSync._checkCycleEndAndContinue();
 	},
 
 	markAsSynced: function(resource_name) {
@@ -79,10 +116,10 @@ JustDive.DataSync = JustDive.Object.extend(JustDive.Resource.Adapter.Local, Just
 			.done(function (json) {
 				syncLocalEntry.saveResource()
 					.done(function (json) {
-						console.log(resource_name + ' has been successfully synchronized');
+						//console.log(resource_name + ' has been successfully synchronized');
+						dataSync._checkCycleEndAndContinue();
 						dataSync.get('sync_cycle')[resource_name].synchronized = true;
-						dataSync.set('is_processing', false);
-						dataSync.process();
+						dataSync._checkCycleEndAndContinue();
 					})
 					.fail(function(e) {
 						JustDive.displayError('jqXHR', e);

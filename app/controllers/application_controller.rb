@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   private
   def administrator_required
-    if !current_administrator or session[:app_key].nil?
+    if !current_administrator or session[:app_key_id].nil?
 		respond_to do |format|
 		  format.html { redirect_to new_identity_path, :notice => "Login is required" }
 		  format.json { render :json => "Login is required", :status => :forbidden }

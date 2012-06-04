@@ -18,7 +18,7 @@ class SyncHistoriesControllerTest < ActionController::TestCase
 
   test "should create sync_history" do
     assert_difference('SyncHistory.count') do
-      post :create, sync_history: { app_key: @sync_history.app_key, resource_name: @sync_history.resource_name }
+      post :create, sync_history: { app_key_id: @sync_history.app_key_id, last_synced_on: @sync_history.last_synced_on, resource_name: @sync_history.resource_name }
     end
 
     assert_redirected_to sync_history_path(assigns(:sync_history))
@@ -35,7 +35,7 @@ class SyncHistoriesControllerTest < ActionController::TestCase
   end
 
   test "should update sync_history" do
-    put :update, id: @sync_history, sync_history: { app_key: @sync_history.app_key, resource_name: @sync_history.resource_name }
+    put :update, id: @sync_history, sync_history: { app_key_id: @sync_history.app_key_id, last_synced_on: @sync_history.last_synced_on, resource_name: @sync_history.resource_name }
     assert_redirected_to sync_history_path(assigns(:sync_history))
   end
 

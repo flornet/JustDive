@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602030614) do
+ActiveRecord::Schema.define(:version => 20120604000746) do
 
   create_table "administrators", :force => true do |t|
     t.integer  "dive_club_id"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(:version => 20120602030614) do
   end
 
   add_index "administrators", ["dive_club_id", "email"], :name => "index_administrators_on_dive_club_id_and_email", :unique => true
+
+  create_table "app_keys", :force => true do |t|
+    t.string   "code"
+    t.integer  "administrator_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "dive_clubs", :force => true do |t|
     t.string   "name"
@@ -40,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20120602030614) do
     t.string   "firstname"
     t.string   "lastname"
     t.integer  "ffessm_level_id"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
     t.string   "ffessm_licence_number"
     t.date     "medical_certificate_expires_on"
     t.datetime "created_at",                     :null => false
@@ -67,10 +76,11 @@ ActiveRecord::Schema.define(:version => 20120602030614) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "sync_histories", :force => true do |t|
-    t.string   "app_key"
+    t.integer  "app_key_id"
     t.string   "resource_name"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.date     "last_synced_on"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end

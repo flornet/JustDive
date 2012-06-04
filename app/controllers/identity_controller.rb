@@ -22,9 +22,9 @@ class IdentityController < ApplicationController
 
     respond_to do |format|
       if @identity.save
-        session[:administrator_id] = @identity.administrator_id
-		session[:app_key] = @identity.app_key
-        session[:gdata_client] = @identity.gdata_client
+        session[:administrator_id] 	= @identity.administrator_id
+		session[:app_key_id] 		= @identity.app_key_id
+        session[:gdata_client] 		= @identity.gdata_client
         format.json { render :json => @identity, :status => :created }
       else
         format.json { render :json => @identity.errors, :status => :unprocessable_entity }

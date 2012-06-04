@@ -4,56 +4,85 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 	
 	isSynchronizable: true,
 	
+	init: function() {
+		this._super();
+		this.findAll();
+	},
+	
 	getDataSync: function() {
 		return JustDive.dataSync;
 	},
 	
 	diffSynchronize: function() {
 		var self = this;
+		//TODO: handle deleted data
 		self.findDiffRemote()
 			.done(function(json) {
 				var created = json.created,
 					updated = json.updated;
 				
-				// Dealing with created data
-				var length 	= created.length,
-					saved 	= 0,
-					failed 	= 0;
-				created.forEach(function(resource) {
-					console.log('Created');
-				});
-				
-				// Dealing with updated data
-				var length 	= updated.length,
-					saved 	= 0,
-					failed 	= 0;
-				updated.forEach(function(resource) {
-					self.updateLocalObject(resource.id, resource, false)
-							.done(function() {
-								saved += 1;
-							})
-							.fail(function(error) {
-								failed += 1;
-								JustDive.displayError('jqXHR', error);
-							})
-							.always( function() {
-								if ((saved + failed) == length) {
-									self.getDataSync().markAsSynced(self._resourceStoreId());
-								}
-							});
-				});
-				
-				/*
-				var length 	= json.length;
-				var saved 	= 0;
-				var failed 	= 0;
-				json.forEach(function(resource) {
-					console.log(resource);
-				});*/
+				if (created.length + updated.length === 0) {
+					self.getDataSync().isUpToDate(self._resourceStoreId());
+				} else {
+					if (created.length > 0) {
+						// Dealing with created data
+						var length 	= created.length,
+							saved 	= 0,
+							failed 	= 0;
+						created.forEach(function(jsonResource) {
+							resource = self.get('resourceType').create().deserialize(jsonResource);
+							resource.saveResourceLocal()
+								.done( function() {
+									saved += 1;
+									self.pushObject(resource);
+								})
+								.fail( function(e) {
+									failed += 1;
+									JustDive.displayError('jqXHR', e);
+								})
+								.always( function() {
+									if ((saved + failed) == length) {
+										console.log('Dealing with created data: finished');
+										if (updated.length > 0) {
+											self.processUpdatedObjects(updated);
+										} else {
+											self.getDataSync().markAsSynced(self._resourceStoreId());
+										}
+									}
+								});
+						});
+					} else {
+						self.processUpdatedObjects(updated);
+					}
+				}
 			})
 			.fail(function(e) {
 				JustDive.displayError('jqXHR', e);
 			});
+	},
+	
+	processUpdatedObjects: function(updated) {
+		var self = this;
+		// Dealing with updated data
+		var length 	= updated.length,
+			saved 	= 0,
+			failed 	= 0;
+		updated.forEach(function(resource) {
+			self.updateLocalObject(resource.id, resource, false)
+					.done(function() {
+						saved += 1;
+					})
+					.fail(function(error) {
+						failed += 1;
+						JustDive.displayError('jqXHR', error);
+					})
+					.always( function() {
+						if ((saved + failed) == length) {
+							console.log('Dealing with updated data: finished');
+							self.getDataSync().markAsSynced(self._resourceStoreId());
+						}
+					});
+		});
 	},
 	
 	firstSynchronize: function() {
@@ -68,21 +97,25 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 				var length 	= self.get('length'),
 					saved 	= 0,
 					failed 	= 0;
-				self.get('content').forEach(function(resource) {
-					resource.saveResourceLocal()
-						.done( function() {
-							saved += 1;
-						})
-						.fail( function(e) {
-							failed += 1;
-							JustDive.displayError('jqXHR', e);
-						})
-						.always( function() {
-							if ((saved + failed) == length) {
-								self.getDataSync().markAsSynced(self._resourceStoreId());
-							}
-						});
-				});
+				if (length === 0) { // Empty store
+					self.getDataSync().markAsSynced(self._resourceStoreId());
+				} else {
+					self.get('content').forEach(function(resource) {
+						resource.saveResourceLocal()
+							.done( function() {
+								saved += 1;
+							})
+							.fail( function(e) {
+								failed += 1;
+								JustDive.displayError('jqXHR', e);
+							})
+							.always( function() {
+								if ((saved + failed) == length) {
+									self.getDataSync().markAsSynced(self._resourceStoreId());
+								}
+							});
+					});
+				}
 			})
 			.fail(function(e) {
 				JustDive.displayError('jqXHR', e);
@@ -124,7 +157,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		  var curObject = this.objectAt(loc) ;
 		  if (curObject.id.toString() === id.toString()) {
 			if (force_id_update === true) {
-				curObject.set('local_id', local_id);
+				curObject.set('local_id', id);
 			}
 			for (var key in data) {
 				curObject.set(key, data[key]);

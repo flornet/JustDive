@@ -26,11 +26,7 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	onLogin: function() {
 		this.showWelcome();
 		
-		var dataSyncMonitor = JustDive.dataSyncMonitor,
-			dataSync = JustDive.dataSync;
-		
-		// Initialize the Data
-		dataSync.initialize();
+		var dataSyncMonitor = JustDive.dataSyncMonitor;
 		
 		dataSyncMonitor.start();
 	},	
