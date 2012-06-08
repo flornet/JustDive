@@ -1,35 +1,45 @@
-<p>{{diver.fullname}} <em>Id: {{diver.id}}</em></p>
-
-{{#if isEditing}}
-	<div class="field">
-		{{view Ember.TextField valueBinding="diver.firstname"  placeholder="First Name" size="30"}}
-	</div>
-	<div class="field">
-		{{view Ember.TextField valueBinding="diver.lastname"  placeholder="Last Name" size="30"}}
-	</div>
-	<div class="field">
-		{{view Ember.TextField valueBinding="diver.email" placeholder="Email" size="30" type="email"}}
-	</div>
-{{else}}
-	<p>{{diver.firstname}}</p>
-	<p>{{diver.lastname}}</p> 
-	<p>{{diver.email}}</p>
-{{/if}}
-
-<p>DiveClub: {{diver.dive_club_id}}</p>
-<p>Lvel: {{diver.ffessm_level_id}}</p>
-<p>Licence # {{diver.ffessm_licence_number}}</p>
-<p>Medical certificate expires on: {{diver.medical_certificate_expires_on}}</p>
-<ul>
-	<li>{{diver.created_at}}</li>
-	<li>{{diver.updated_at}}</li>
-</ul>
-
-<div class="actions"> 
-	<button {{action "destroy"}}>Cancel</button>
+<div class="hero-unit">
+	<h1>{{diver.fullname}}</h1>
 	{{#if isEditing}}
-		<button type="submit">Save</button>
+		<div class="field">
+			{{view Ember.TextField valueBinding="diver.firstname"  placeholder="First Name" size="30"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="diver.lastname"  placeholder="Last Name" size="30"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="diver.email" placeholder="Email" size="30" type="email"}}
+		</div>
 	{{else}}
-		<button {{action "edit"}}>Edit</button>
+		<p>{{diver.firstname}}</p>
+		<p>{{diver.lastname}}</p> 
+		<p>{{diver.email}}</p>
+	{{/if}}
+
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>Id</dt>
+        <dd>{{diver.id}}</dd>
+        <dt>Club de plongée</dt>
+        <dd>{{diver.dive_club_id}}</dd>
+        <dt>Niveau</dt>
+        <dd>{{diver.ffessm_level_id}}</dd>
+        <dt>N° licence</dt>
+        <dd>{{diver.ffessm_licence_number}}&nbsp;</dd>
+        <dt>Certificat médical</dt>
+        <dd> {{diver.medical_certificate_expires_on}}&nbsp;</dd>
+		<dt>Créé le</dt>
+        <dd>{{diver.created_at}}</dd>
+		<dt>Modifié le</dt>
+        <dd>{{diver.updated_at}}</dd>
+    </dl>
+</div>
+<div class="actions"> 
+	{{#if isEditing}}
+		<button class="btn" type="button" {{action "destroy"}}>Annuler</button>
+		<button class="btn btn-success" type="submit">Enregistrer</button>
+	{{else}}
+		<button class="btn btn-danger" type="button" {{action "destroy" target="JustDive.Controllers.AddressBook" context="diver"}}>Supprimer</button>
+		<button class="btn btn-primary" type="button" {{action "edit" target="JustDive.Controllers.AddressBook" context="diver"}}>Modifier</button>
 	{{/if}}
 </div>

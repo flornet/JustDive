@@ -1,14 +1,9 @@
-<table>
-  <thead>
-    <tr>
-		<th>Name</th>
-		<th>Actions <button {{action "new" target="JustDive.Controllers.AddressBook" context="diver"}}>New</button></th>
-    </tr>
-  </thead>
-  <tbody>
-  {{#each divers}}
-    {{view JustDive.Views.Divers.ListShow diverBinding="this"}}
-  {{/each}}
-  </tbody>
-</table>
+<div class="btn-group pull-right">
+	<a class="btn" href="#" {{action "new" target="JustDive.Controllers.AddressBook" context="diver"}}><i class="icon-plus"></i></a>
+</div>
+<ul class="nav nav-pills nav-stacked">
+	{{#each divers}}
+		{{view JustDive.Views.Divers.ListShow diverBinding="this"}}
+	{{/each}}
+</ul>
 

@@ -1,6 +1,8 @@
 {{#if JustDive.identity.is_logged_in}}
-	<button {{action "index" target="JustDive.Controllers.Welcome"}}>Accueil</button>
-	<button {{action "index" target="JustDive.Controllers.AddressBook"}}>Carnet d'adresses</button>
-	<button {{action "index" target="JustDive.Controllers.DiveEvents"}}>Sorties</button>
-	<button {{action "clearLocalStorage" target="JustDive.Controllers.Welcome"}}>Clear Local Storage</button>
+<ul class="nav">
+  <li class="active"><a href="#" {{action "index" target="JustDive.Controllers.Welcome"}}>Accueil</a></li>
+  <li><a href="#" {{action "index" target="JustDive.Controllers.AddressBook"}}>Carnet d'adresses</a></li>
+  <li><a href="#" {{action "index" target="JustDive.Controllers.DiveEvents"}}>Sorties</a></li>
+  <li><a href="#" {{action "clearLocalStorage" target="JustDive.Controllers.Welcome"}}>Clear Local Storage</a></li>
+</ul>
 {{/if}}

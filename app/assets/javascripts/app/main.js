@@ -1,5 +1,7 @@
+#= require ./vendor/twitter/bootstrap.js
 #= require ./vendor/ember/ember-debug.js
 #= require ./vendor/ember/ember-rest.js
+
 #= require_self
 #= require_tree ./lib/resource
 #= require_tree ./lib/core
@@ -15,6 +17,7 @@ JustDive = Ember.Application.create({
 	version:			'1.0',
 	rootElement: 		'#app',
 	viewsContainer: 	'#container',
+	leftPanelContainer:	'#left-panel',
 	restControllers:  	Ember.Object.create({
 		divers: 				null,
 		sync_local_histories: 	null,

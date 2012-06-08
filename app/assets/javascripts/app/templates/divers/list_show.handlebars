@@ -1,6 +1,6 @@
-<td>{{diver.fullname}}</td>
-<td>
-<button {{action "show" target="JustDive.Controllers.AddressBook" context="diver"}}>Show</button>
-<button {{action "edit" target="JustDive.Controllers.AddressBook" context="diver"}}>Edit</button>
-<button {{action "destroy" target="JustDive.Controllers.AddressBook" context="diver"}}>Destroy</button>
-</td>
+{{#if diver.is_selected}}
+<li class="active">
+{{else}}
+<li>
+{{/if}}
+<a href="#" {{action "show" target="JustDive.Controllers.AddressBook" context="diver"}}>{{diver.fullname}}</a></li>

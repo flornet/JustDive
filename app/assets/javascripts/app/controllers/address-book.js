@@ -17,7 +17,7 @@ JustDive.Controllers.AddressBook = JustDive.ArrayController.create({
 */
 	index: function() {
 		this._initViews();
-		this.views.divers_list.appendTo(JustDive.viewsContainer);
+		this.views.divers_list.appendTo(JustDive.leftPanelContainer);
 	},
 
 /**

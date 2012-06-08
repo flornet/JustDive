@@ -1,37 +1,71 @@
 <div id="app" role="main">
-	<header>
-		<script type="text/x-handlebars">
-		  <ul>
-			<li>Connectivity status: {{JustDive.monitor.status}} </li>
-			{{#if JustDive.identity.is_logged_in}}
-			<li>Welcome {{JustDive.identity.email}} 
-				{{#if JustDive.monitor.is_online}}
-					<button {{action "logout" target="JustDive.Controllers.Identity"}}>Log out</button>
-				{{else}}
-					<button disabled="disabled" {{action "logout" target="JustDive.Controllers.Identity"}}>Log out</button>
-				{{/if}}
-			</li>
-			{{/if}}
-		  </ul>
-		</script>
-		<nav id="mna">
-			<script type="text/x-handlebars">
-			  {{ view JustDive.Views.Main.Nav }}
-			</script>
-		</nav>
+	<header class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">Just Dive</a>
+				<script type="text/x-handlebars">
+					{{#if JustDive.identity.is_logged_in}}
+						<div class="btn-group pull-right">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-user"></i> {{JustDive.identity.email}}
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								{{#if JustDive.monitor.is_online}}
+									<li><a href="#" {{action "logout" target="JustDive.Controllers.Identity"}}>Sign Out</a></li>
+								{{else}}
+									<li><a href="#" class="disabled">Sign Out</a></li>
+								{{/if}}
+							</ul>
+						</div>
+					{{/if}}
+					<div class="pull-right">
+					{{#if JustDive.monitor.is_online}}
+						<span class="label label-success"><i class="icon-signal icon-white"></i></span>
+					{{else}}
+						<span class="label label-info"><i class="icon-plane icon-white"></i></span>
+					{{/if}}
+					</div>
+				</script>
+				<div class="nav-collapse">
+					<script type="text/x-handlebars">
+					  {{ view JustDive.Views.Main.Nav }}
+					</script>
+				</div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		</div><!--/.navbar-inner -->
 	</header>
-	<div id="container-wrapper">
-		<div id="container"></div>
+	
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3" id="left-panel">
+				<!--Sidebar content-->
+			</div>
+			<div class="span9">
+				<!--Body content-->
+				<div id="container"></div>
+				<div id="main-error-container"></div>
+			</div>
+			
+		</div><!--/row-->
 	</div>
 
-	<footer>
-		<script type="text/x-handlebars">
-		<ul>
-			<li>Authenticity Token: {{JustDive.identity.authenticity_token}}</li>
-			<li>Administrator Id: {{JustDive.identity.administrator_id}}</li>
-			<li>LocalStorage Infos: {{JustDive.getStorageInfos}}</li>
-		</ul>
-		</script>
-		<div id="main-error-container"></div>
+	<footer class="navbar navbar-fixed-bottom">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<script type="text/x-handlebars">
+					<ul class="nav">
+						<li><span class="navbar-text">Authenticity Token: {{JustDive.identity.authenticity_token}}</span></li>
+						<li><span class="navbar-text">Administrator Id: {{JustDive.identity.administrator_id}}</span></li>
+						<li><span class="navbar-text">LocalStorage Infos: {{JustDive.getStorageInfos}}</span></li>
+					</ul>
+				</script>
+			</div><!--/.container-fluid -->
+		</div><!--/.navbar-inner -->
 	</footer>
 </div>
