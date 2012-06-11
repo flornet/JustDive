@@ -2,7 +2,7 @@
 
 JustDive.Views.Divers.Detail = JustDive.View.extend({
   templateName: 'app/templates/divers/detail',
-  classNames:   ['detail-diver'],
+  classNames:   ['diver-details'],
   tagName:    	'form',
   error: 		'',
   

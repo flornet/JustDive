@@ -1,0 +1,27 @@
+<h1>Listing dive_events</h1>
+
+<table>
+  <tr>
+    <th>Dive club</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dive_events.each do |dive_event| %>
+  <tr>
+    <td><%= dive_event.dive_club_id %></td>
+    <td><%= dive_event.start_date %></td>
+    <td><%= dive_event.end_date %></td>
+    <td><%= link_to 'Show', dive_event %></td>
+    <td><%= link_to 'Edit', edit_dive_event_path(dive_event) %></td>
+    <td><%= link_to 'Destroy', dive_event, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dive event', new_dive_event_path %>

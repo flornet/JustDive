@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dive_event_id: 1
+  boat_id: 1
+  departure_date: 2012-06-11
+
+two:
+  dive_event_id: 1
+  boat_id: 1
+  departure_date: 2012-06-11

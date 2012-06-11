@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dive club:</b>
+  <%= @dive_role.dive_club_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @dive_role.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_dive_role_path(@dive_role) %> |
+<%= link_to 'Back', dive_roles_path %>

@@ -1,0 +1,35 @@
+<h1>Listing dive_groups</h1>
+
+<table>
+  <tr>
+    <th>Boat departure</th>
+    <th>Estimated dive time</th>
+    <th>Estimated dive depth</th>
+    <th>Realized dive time</th>
+    <th>Realized dive depth</th>
+    <th>Immersion start time</th>
+    <th>Immersion end time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dive_groups.each do |dive_group| %>
+  <tr>
+    <td><%= dive_group.boat_departure_id %></td>
+    <td><%= dive_group.estimated_dive_time %></td>
+    <td><%= dive_group.estimated_dive_depth %></td>
+    <td><%= dive_group.realized_dive_time %></td>
+    <td><%= dive_group.realized_dive_depth %></td>
+    <td><%= dive_group.immersion_start_time %></td>
+    <td><%= dive_group.immersion_end_time %></td>
+    <td><%= link_to 'Show', dive_group %></td>
+    <td><%= link_to 'Edit', edit_dive_group_path(dive_group) %></td>
+    <td><%= link_to 'Destroy', dive_group, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dive group', new_dive_group_path %>

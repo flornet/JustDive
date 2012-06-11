@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  boat_departure_id: 1
+  estimated_dive_time: 1
+  estimated_dive_depth: 1
+  realized_dive_time: 1
+  realized_dive_depth: 1
+  immersion_start_time: 2012-06-11
+  immersion_end_time: 2012-06-11
+
+two:
+  boat_departure_id: 1
+  estimated_dive_time: 1
+  estimated_dive_depth: 1
+  realized_dive_time: 1
+  realized_dive_depth: 1
+  immersion_start_time: 2012-06-11
+  immersion_end_time: 2012-06-11

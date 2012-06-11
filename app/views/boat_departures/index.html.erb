@@ -1,0 +1,27 @@
+<h1>Listing boat_departures</h1>
+
+<table>
+  <tr>
+    <th>Dive event</th>
+    <th>Boat</th>
+    <th>Departure date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @boat_departures.each do |boat_departure| %>
+  <tr>
+    <td><%= boat_departure.dive_event_id %></td>
+    <td><%= boat_departure.boat_id %></td>
+    <td><%= boat_departure.departure_date %></td>
+    <td><%= link_to 'Show', boat_departure %></td>
+    <td><%= link_to 'Edit', edit_boat_departure_path(boat_departure) %></td>
+    <td><%= link_to 'Destroy', boat_departure, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Boat departure', new_boat_departure_path %>

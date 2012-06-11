@@ -18,10 +18,12 @@ Diagrams:
 // Cool Class Diagram
 [Diver]1-0..*[DiveClub]
 [DiveClub]0..*-1[DiveEvent]
+[DiveClub]0..*-1[Boat]
 [Diver]1-0..*[FfessmLevel]
 [Administrator]1-0..*[DiveClub]
 [AppKey]1-0..*[Administrator]
 [SyncHistory]1-0..*[AppKey]
 [DiveEvent]0..*-1[BoatDeparture]
-[BoatDeparture]0..*-1[DiveaGroup]
+[BoatDeparture]0..*-1[DiveGroup]
+[BoatDeparture]1..*-1[Boat]
 [DiveGroup]0..*-1[Diver]

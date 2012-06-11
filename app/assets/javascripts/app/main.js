@@ -65,6 +65,7 @@ JustDive = Ember.Application.create({
 		// Create the REST controllers
 		app.restControllers = {
 			divers: 				JustDive.Controllers.Rest.Divers.create(),
+			dive_roles:				JustDive.Controllers.Rest.DiveRoles.create(),
 			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
 			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
 		};

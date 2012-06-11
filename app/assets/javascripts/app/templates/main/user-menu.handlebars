@@ -1,0 +1,24 @@
+{{#if JustDive.identity.is_logged_in}}
+	<div class="btn-group pull-right">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<i class="icon-user"></i> {{JustDive.identity.email}}
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="#" {{action "index" target="JustDive.Controllers.ClubAdmin"}}>Configuration du club</a>
+			<li class="divider"></li>
+			{{#if JustDive.monitor.is_online}}
+				<li><a href="#" {{action "logout" target="JustDive.Controllers.Identity"}}>Déconnexion</a></li>
+			{{else}}
+				<li><a href="#" class="disabled">Sign Out</a></li>
+			{{/if}}
+		</ul>
+	</div>
+{{/if}}
+<div class="pull-right">
+{{#if JustDive.monitor.is_online}}
+	<span class="label label-success"><i class="icon-signal icon-white"></i></span>
+{{else}}
+	<span class="label label-info"><i class="icon-plane icon-white"></i></span>
+{{/if}}
+</div>

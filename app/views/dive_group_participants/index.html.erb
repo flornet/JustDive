@@ -1,0 +1,27 @@
+<h1>Listing dive_group_participants</h1>
+
+<table>
+  <tr>
+    <th>Dive group</th>
+    <th>Diver</th>
+    <th>Dive role</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dive_group_participants.each do |dive_group_participant| %>
+  <tr>
+    <td><%= dive_group_participant.dive_group_id %></td>
+    <td><%= dive_group_participant.diver_id %></td>
+    <td><%= dive_group_participant.dive_role_id %></td>
+    <td><%= link_to 'Show', dive_group_participant %></td>
+    <td><%= link_to 'Edit', edit_dive_group_participant_path(dive_group_participant) %></td>
+    <td><%= link_to 'Destroy', dive_group_participant, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dive group participant', new_dive_group_participant_path %>
