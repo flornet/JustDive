@@ -27,3 +27,22 @@ Diagrams:
 [BoatDeparture]0..*-1[DiveGroup]
 [BoatDeparture]1..*-1[Boat]
 [DiveGroup]0..*-1[Diver]
+
+
+
+Routes:
+
+/home => ?
+/evenements/
+/evenements/mon-evenement/
+/evenements/mon-evenement/mon-depart-bateau/
+/evenements/mon-evenement/mon-depart-bateau/ma-palanquée/
+
+/carnet-adresses/
+/carnet-adresses/mon-contact
+
+/club-config/
+/club-config/roles/
+/club-config/roles/mon-role
+/club-config/bateaux/
+/club-config/bateaux/mon-bateau

@@ -1,0 +1,40 @@
+<header class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="#">Just Dive</a>
+			{{ view JustDive.Views.Main.UserMenu }}
+			<div class="nav-collapse">
+			  {{ view JustDive.Views.Main.Nav }}
+			</div><!--/.nav-collapse -->
+		</div><!--/.container-fluid -->
+	</div><!--/.navbar-inner -->
+</header>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div id="main-error-container"></div>
+		</div>
+	</div><!--/row-->
+	
+	<div class="row-fluid">
+		{{dynamicView}}
+	</div><!--/row-->
+</div>
+
+<footer class="navbar navbar-fixed-bottom">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<ul class="nav">
+				<li><span class="navbar-text">Authenticity Token: {{JustDive.identity.authenticity_token}}</span></li>
+				<li><span class="navbar-text">Administrator Id: {{JustDive.identity.administrator_id}}</span></li>
+				<li><span class="navbar-text">LocalStorage Infos: {{JustDive.getStorageInfos}}</span></li>
+			</ul>
+		</div><!--/.container-fluid -->
+	</div><!--/.navbar-inner -->
+</footer>

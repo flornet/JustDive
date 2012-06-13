@@ -1,29 +1,10 @@
 #= require ../divers.js
 
-JustDive.Views.Divers.Detail = JustDive.View.extend({
+JustDive.Views.Divers.Detail = JustDive.CrudFormView.extend({
   templateName: 'app/templates/divers/detail',
   classNames:   ['diver-details'],
-  tagName:    	'form',
-  error: 		'',
   
-  destroy: function(event) {
-	if (event) event.preventDefault();
-	this.set('isAppened', false);
-	this.remove();
-  },
-  
-  edit: function(event) {
-	if (event) event.preventDefault();
-	this.set('isCreating', false);
-	this.set('isEditing', true);
-  },
-  
-  submit: function(event) {
-    event.preventDefault();
-	if (this.get('isCreating')) {
-		JustDive.Controllers.AddressBook.create(this.diver);
-	} else {
-		JustDive.Controllers.AddressBook.update(this.diver);
-	}
+  getCrudController: function() {
+	return JustDive.Controllers.AddressBook;
   }
 });

@@ -2,32 +2,32 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<div class="btn-group pull-left">
-				<a class="btn btn-inverse" href="#!club-admin/dive-roles"><i class="icon-chevron-left icon-white"></i>Retour</a>
+				<a class="btn btn-inverse" href="#!club-admin/boats"><i class="icon-chevron-left icon-white"></i>Retour</a>
 			</div>
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">{{view.diveRole.name}}</span></li>
+				<li><span class="navbar-text">{{view.boat.name}}</span></li>
 			</ul>
 		</div>
 	</div>
 </div>
 
 <div class="hero-unit">
-	<h1>{{view.diveRole.name}}</h1>
+	<h1>{{view.boat.name}}</h1>
 	{{#if view.isEditing}}
 		<div class="field">
-			{{view Ember.TextField valueBinding="view.diveRole.name"  placeholder="Name" size="30"}}
+			{{view Ember.TextField valueBinding="view.boat.name"  placeholder="Name" size="30"}}
 		</div>
 	{{/if}}
 
 	<hr />
 	<dl class="dl-horizontal">
 		<dt>Id</dt>
-        <dd>{{view.diveRole.id}}</dd>
+        <dd>{{view.boat.id}}</dd>
 		<dt>Créé le</dt>
-        <dd>{{view.diveRole.created_at}}</dd>
+        <dd>{{view.boat.created_at}}</dd>
 		<dt>Modifié le</dt>
-        <dd>{{view.diveRole.updated_at}}</dd>
+        <dd>{{view.boat.updated_at}}</dd>
     </dl>
 </div>
 <div class="actions"> 

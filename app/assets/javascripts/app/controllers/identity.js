@@ -3,16 +3,6 @@
 JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	content: [],
 	
-	_initViews: function() {
-		if (this.views === undefined) {
-			this.views = {
-							login: 			JustDive.Views.Identity.New.create(),
-							login_offline: 	JustDive.Views.Identity.Offline.create(),
-							welcome: 		JustDive.Views.Identity.Welcome.create()
-						};
-		}
-	},
-	
 	login: function() {
 		var identity = JustDive.identity;
 		identity.save();
@@ -24,55 +14,23 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	},
 	
 	onLogin: function() {
-		this.showWelcome();
-		
 		var dataSyncMonitor = JustDive.dataSyncMonitor;
-		
 		dataSyncMonitor.start();
 	},	
 	
 	onLogout: function() {
 		var monitor 			= JustDive.monitor,
 			identityController 	= this,
-			dataSyncMonitor 	= JustDive.dataSyncMonitor;
+			dataSyncMonitor 	= JustDive.dataSyncMonitor,
+			router 				= JustDive.router;
 		identityController.destroyAuthToken();
 		dataSyncMonitor.stop();
 		if (!monitor.is_online) {
-			identityController.showLoginOffline();
+			router.set('location', 'account/network-required');
 		} else {
 			identityController.requestAuthToken();
-			identityController.showLogin();
+			router.set('location', 'account/login');
 		}
-	},
-	
-	/**
-	Shows the login panel
-	*/
-	showLogin: function() {
-		this._initViews();
-		this.views.login_offline.remove();
-		this.views.welcome.remove();
-		this.views.login.appendTo(JustDive.viewsContainer);
-	},
-	
-	/**
-	Shows the login panel when offline
-	*/
-	showLoginOffline: function() {
-		this._initViews();
-		this.views.welcome.remove();
-		this.views.login.remove();
-		this.views.login_offline.appendTo(JustDive.viewsContainer);
-	},
-	
-	/**
-	Shows the welcome panel
-	*/
-	showWelcome: function() {
-		this._initViews();
-		this.views.login.remove();
-		this.views.login_offline.remove();
-		this.views.welcome.appendTo(JustDive.viewsContainer);
 	},
 	
 	requestAuthToken: function() {

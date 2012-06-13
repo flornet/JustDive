@@ -6,17 +6,17 @@
 			</div>
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">Roles</span></li>
+				<li><span class="navbar-text">Bateaux</span></li>
 			</ul>
 			<div class="btn-group pull-right">
-				<a class="btn" href="#!club-admin/dive-roles/new"><i class="icon-plus"></i></a>
+				<a class="btn" href="#!club-admin/boats/new"><i class="icon-plus"></i></a>
 			</div>
 		</div>
 	</div>
 </div>
 
 <ul class="nav nav-pills nav-stacked">
-	{{#each view.diveRoles}}
-		{{view JustDive.Views.DiveRoles.ListShow diveRoleBinding="this"}}
+	{{#each view.boats}}
+		{{view JustDive.Views.Boats.ListShow boatBinding="this"}}
 	{{/each}}
 </ul>
