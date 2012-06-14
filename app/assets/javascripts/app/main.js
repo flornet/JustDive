@@ -1,5 +1,6 @@
 #= require ./vendor/twitter/bootstrap.js
 #= require ./vendor/twitter/bootstrap-datepicker.js
+#= require ./vendor/twitter/bootstrap-datepicker.fr.js
 #= require ./vendor/ember/ember-debug-pre.js
 #= require ./vendor/ember/ember-rest.js
 #= require ./vendor/ember/ember-routemanager.js
@@ -25,6 +26,7 @@ JustDive = Ember.Application.create({
 		dive_events:			null,
 		dive_roles:				null,
 		boats:					null,
+		boat_departures:		null,
 		sync_local_histories: 	null,
 		sync_remote_histories: 	null
 	}),
@@ -82,6 +84,7 @@ JustDive = Ember.Application.create({
 			dive_roles:				JustDive.Controllers.Rest.DiveRoles.create(),
 			dive_events:			JustDive.Controllers.Rest.DiveEvents.create(),
 			boats:					JustDive.Controllers.Rest.Boats.create(),
+			boat_departures:		JustDive.Controllers.Rest.BoatDepartures.create(),
 			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
 			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
 		});

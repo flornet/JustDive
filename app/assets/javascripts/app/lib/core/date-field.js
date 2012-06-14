@@ -32,6 +32,7 @@ JustDive.DateField = Ember.View.extend(Ember.TextSupport,
 
   didInsertElement: function() {
 	$(this.get('element')).datepicker({
+										language: 	"fr",
 										format: 	"yyyy-mm-dd",
 										weekStart: 	1
 									});

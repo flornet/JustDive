@@ -1,83 +1,38 @@
-class BoatDeparturesController < ApplicationController
-  # GET /boat_departures
-  # GET /boat_departures.json
-  def index
-    @boat_departures = BoatDeparture.all
+class BoatDeparturesController < SyncedController
+  before_filter :administrator_required
+  before_filter :dive_event_required, :except => [:diff]
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @boat_departures }
-    end
+  def dive_event_required
+	if !params[:dive_event_id].nil?
+		dive_event = current_dive_club.dive_events.find(params[:dive_event_id])
+		if dive_event
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+  end
+  
+  def resource
+	return current_dive_club.dive_events.find(params[:dive_event_id]).boat_departures
+  end
+  
+  def resourceName
+	return 'boat_departure'
   end
 
-  # GET /boat_departures/1
-  # GET /boat_departures/1.json
-  def show
-    @boat_departure = BoatDeparture.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @boat_departure }
-    end
-  end
-
-  # GET /boat_departures/new
-  # GET /boat_departures/new.json
-  def new
-    @boat_departure = BoatDeparture.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @boat_departure }
-    end
-  end
-
-  # GET /boat_departures/1/edit
-  def edit
-    @boat_departure = BoatDeparture.find(params[:id])
-  end
-
-  # POST /boat_departures
-  # POST /boat_departures.json
-  def create
-    @boat_departure = BoatDeparture.new(params[:boat_departure])
-
-    respond_to do |format|
-      if @boat_departure.save
-        format.html { redirect_to @boat_departure, :notice => 'Boat departure was successfully created.' }
-        format.json { render :json => @boat_departure, :status => :created, :location => @boat_departure }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @boat_departure.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /boat_departures/1
-  # PUT /boat_departures/1.json
-  def update
-    @boat_departure = BoatDeparture.find(params[:id])
-
-    respond_to do |format|
-      if @boat_departure.update_attributes(params[:boat_departure])
-        format.html { redirect_to @boat_departure, :notice => 'Boat departure was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @boat_departure.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /boat_departures/1
-  # DELETE /boat_departures/1.json
-  def destroy
-    @boat_departure = BoatDeparture.find(params[:id])
-    @boat_departure.destroy
-
-    respond_to do |format|
-      format.html { redirect_to boat_departures_url }
-      format.json { head :no_content }
-    end
-  end
+#  # GET /dive_event/diff.json
+#  def diff
+#	app_key_id 				= session[:app_key_id]
+#	sync_date 				= SyncHistory.where(:app_key_id => app_key_id, :resource_name => 'boat_departures').maximum('created_at');
+#	new_boat_departures 	= BoatDeparture.findCreatedDiff(app_key_id, sync_date)
+#	updated_boat_departures	= BoatDeparture.findUpdatedDiff(app_key_id, sync_date)
+#	@response = {:created => new_boat_departures, :updated => updated_boat_departures}
+#	
+#    respond_to do |format|
+#      format.json { render :json => @response }
+#    end
+#  end
 end

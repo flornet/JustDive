@@ -1,4 +1,4 @@
-class BoatDeparture < ActiveRecord::Base
+class BoatDeparture < Synced
   attr_accessible :boat_id, :departure_date, :dive_event_id, :created_by_app_key_id, :last_updated_by_app_key_id
   
   belongs_to :boat

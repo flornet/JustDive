@@ -1,0 +1,46 @@
+<div class="navbar subnav">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="btn-group pull-left">
+				<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
+			</div>
+			<ul class="nav pull-left">
+				<li class="divider-vertical"></li>
+				<li><span class="navbar-text">{{view.boatDeparture.title}}</span></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="hero-unit">
+	<h1>{{view.boatDeparture.title}}</h1>
+	{{#if view.isEditing}}
+		<div class="field">
+			{{view JustDive.DateField valueBinding="view.boatDeparture.departure_date"  placeholder="Departure date"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="view.boatDeparture.boat_id"  placeholder="Boat"}}
+		</div>
+	{{/if}}
+
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>Id</dt>
+        <dd>{{view.boatDeparture.id}}</dd>
+		<dt>Id évènement</dt>
+        <dd>{{view.boatDeparture.dive_event_id}}</dd>
+		<dt>Créé le</dt>
+        <dd>{{view.boatDeparture.created_at}}</dd>
+		<dt>Modifié le</dt>
+        <dd>{{view.boatDeparture.updated_at}}</dd>
+    </dl>
+</div>
+<div class="actions"> 
+	{{#if view.isEditing}}
+		<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+		<button class="btn" type="button" {{action "stopEditMode"}}>Annuler</button>
+		<button class="btn btn-success" type="submit">Enregistrer</button>
+	{{else}}
+		<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+	{{/if}}
+</div>
