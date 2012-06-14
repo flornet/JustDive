@@ -1,4 +1,5 @@
 #= require ./vendor/twitter/bootstrap.js
+#= require ./vendor/twitter/bootstrap-datepicker.js
 #= require ./vendor/ember/ember-debug-pre.js
 #= require ./vendor/ember/ember-rest.js
 #= require ./vendor/ember/ember-routemanager.js
@@ -21,6 +22,7 @@ JustDive = Ember.Application.create({
 	leftPanelContainer:	'#left-panel',
 	restControllers:  	Ember.Object.create({
 		divers: 				null,
+		dive_events:			null,
 		dive_roles:				null,
 		boats:					null,
 		sync_local_histories: 	null,
@@ -78,6 +80,7 @@ JustDive = Ember.Application.create({
 		app.set('restControllers', {
 			divers: 				JustDive.Controllers.Rest.Divers.create(),
 			dive_roles:				JustDive.Controllers.Rest.DiveRoles.create(),
+			dive_events:			JustDive.Controllers.Rest.DiveEvents.create(),
 			boats:					JustDive.Controllers.Rest.Boats.create(),
 			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
 			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
@@ -85,7 +88,9 @@ JustDive = Ember.Application.create({
 		
 		// Creates the ui adapter
 		app.ui = JustDive.UiScreenAdapter.create();
-
+		//$(window).trigger('resize');
+		
+		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -96,6 +101,8 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
+		
+		
 	},
 	
 	getAppKey: function() {

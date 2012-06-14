@@ -2,32 +2,35 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<div class="btn-group pull-left">
-				<a class="btn btn-inverse" href="#!club-admin/boats"><i class="icon-chevron-left icon-white"></i>Bateaux</a>
+				<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
 			</div>
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">{{view.boat.name}}</span></li>
+				<li><span class="navbar-text">{{view.diveEvent.title}}</span></li>
 			</ul>
 		</div>
 	</div>
 </div>
 
 <div class="hero-unit">
-	<h1>{{view.boat.name}}</h1>
+	<h1>{{view.diveEvent.title}}</h1>
 	{{#if view.isEditing}}
 		<div class="field">
-			{{view Ember.TextField valueBinding="view.boat.name"  placeholder="Name" size="30"}}
+			{{view JustDive.DateField valueBinding="view.diveEvent.start_date"  placeholder="Start date"}}
+		</div>
+		<div class="field">
+			{{view JustDive.DateField valueBinding="view.diveEvent.end_date"  placeholder="End date"}}
 		</div>
 	{{/if}}
 
 	<hr />
 	<dl class="dl-horizontal">
 		<dt>Id</dt>
-        <dd>{{view.boat.id}}</dd>
+        <dd>{{view.diveEvent.id}}</dd>
 		<dt>Créé le</dt>
-        <dd>{{view.boat.created_at}}</dd>
+        <dd>{{view.diveEvent.created_at}}</dd>
 		<dt>Modifié le</dt>
-        <dd>{{view.boat.updated_at}}</dd>
+        <dd>{{view.diveEvent.updated_at}}</dd>
     </dl>
 </div>
 <div class="actions"> 

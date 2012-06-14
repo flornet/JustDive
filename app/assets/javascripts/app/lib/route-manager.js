@@ -15,6 +15,10 @@
 #= require ../views/boats/list.js
 #= require ../views/boats/list-show.js
 #= require ../views/boats/detail.js
+#= require ../views/dive-events/index.js
+#= require ../views/dive-events/list.js
+#= require ../views/dive-events/list-show.js
+#= require ../views/dive-events/detail.js
 
 JustDive.RouteManager = Ember.RouteManager.extend({
   account: JustDive.LayoutState.create({
@@ -67,7 +71,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								this._super(stateManager, transition);
 								var view = this.get('view');
 								var diverRoleId = stateManager.getPath('params.id');
-								diveRole = JustDive.restControllers.dive_roles.findObject(diverRoleId);
+								var diveRole = JustDive.restControllers.dive_roles.findObject(diverRoleId);
 								if (diveRole !== false) {
 									view.set('diveRole', diveRole);
 									view.setShowing();
@@ -97,7 +101,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								this._super(stateManager, transition);
 								var view = this.get('view');
 								var boatId = stateManager.getPath('params.id');
-								boat = JustDive.restControllers.boats.findObject(boatId);
+								var boat = JustDive.restControllers.boats.findObject(boatId);
 								if (boat !== false) {
 									view.set('boat', boat);
 									view.setShowing();
@@ -134,12 +138,49 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								this._super(stateManager, transition);
 								var view = this.get('view');
 								var diverId = stateManager.getPath('params.id');
-								diver = JustDive.restControllers.divers.findObject(diverId);
+								var diver = JustDive.restControllers.divers.findObject(diverId);
 								if (diver !== false) {
 									view.set('diver', diver);
 									view.setShowing();
 								} else {
 									JustDive.router.set('location', 'address-book');
+								}
+							}
+	})
+  }),
+  
+  diveEvents: JustDive.LayoutState.create({
+	route: 		'dive-events',
+	viewClass: 	JustDive.Views.Layouts.SplitScreen,
+	leftPanel:  JustDive.Views.DiveEvents.List,
+	
+	index:				JustDive.LayoutState.create({
+							viewClass: JustDive.Views.DiveEvents.Index
+	}),
+	
+	new:				JustDive.LayoutState.create({
+							route: 	'new',
+							viewClass: JustDive.Views.DiveEvents.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								this.get('view').set('diveEvent', JustDive.Models.DiveEvent.create());
+								this.get('view').setCreating();
+							}
+	}),
+	
+	show:				JustDive.LayoutState.create({
+							route: 	':id',
+							viewClass: JustDive.Views.DiveEvents.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var view = this.get('view');
+								var diveEventId = stateManager.getPath('params.id');
+								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
+								if (diveEvent !== false) {
+									view.set('diveEvent', diveEvent);
+									view.setShowing();
+								} else {
+									JustDive.router.set('location', 'dive-events');
 								}
 							}
 	})

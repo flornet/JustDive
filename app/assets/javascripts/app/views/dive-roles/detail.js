@@ -5,6 +5,6 @@ JustDive.Views.DiveRoles.Detail = JustDive.CrudFormView.extend({
   classNames:   ['dive-role-details'],
   
   getCrudController: function() {
-	return JustDive.Controllers.DiveRole;
+	return JustDive.Controllers.Routed.DiveRole;
   }
 });

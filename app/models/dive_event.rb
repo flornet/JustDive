@@ -1,4 +1,4 @@
-class DiveEvent < ActiveRecord::Base
+class DiveEvent < Synced
   attr_accessible :dive_club_id, :end_date, :start_date, :created_by_app_key_id, :last_updated_by_app_key_id
   
   belongs_to :dive_club

@@ -5,6 +5,6 @@ JustDive.Views.Divers.Detail = JustDive.CrudFormView.extend({
   classNames:   ['diver-details'],
   
   getCrudController: function() {
-	return JustDive.Controllers.AddressBook;
+	return JustDive.Controllers.Routed.Diver;
   }
 });

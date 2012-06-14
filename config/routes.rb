@@ -12,12 +12,17 @@ JustDive::Application.routes.draw do
   end
  
   resources :boat_departures
-  resources :dive_events 
   resources :dive_group_participants
   resources :dive_groups
   resources :ffessm_levels
   resources :dive_clubs
 
+  resources :dive_events do
+	collection do
+		get	'diff'
+	end
+  end 
+  
   resources :dive_roles do
 	collection do
 		get	'diff'

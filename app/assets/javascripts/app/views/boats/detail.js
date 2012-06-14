@@ -5,6 +5,6 @@ JustDive.Views.Boats.Detail = JustDive.CrudFormView.extend({
   classNames:   ['boat-details'],
   
   getCrudController: function() {
-	return JustDive.Controllers.Boat;
+	return JustDive.Controllers.Routed.Boat;
   }
 });

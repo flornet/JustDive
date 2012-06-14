@@ -1,5 +1,4 @@
 class DiversController < SyncedController
-  
   def resource
 	return current_dive_club.divers
   end
@@ -20,5 +19,4 @@ class DiversController < SyncedController
       format.json { render :json => @response }
     end
   end
-
 end
