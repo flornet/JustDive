@@ -6,7 +6,7 @@ class SyncHistoriesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @sync_histories }
+      format.json { render :json => @sync_histories }
     end
   end
 
@@ -17,7 +17,7 @@ class SyncHistoriesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @sync_history }
+      format.json { render :json => @sync_history }
     end
   end
 
@@ -28,7 +28,7 @@ class SyncHistoriesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @sync_history }
+      format.json { render :json => @sync_history }
     end
   end
 
@@ -45,11 +45,11 @@ class SyncHistoriesController < ApplicationController
     
 	respond_to do |format|
       if @sync_history.save
-        format.html { redirect_to @sync_history, notice: 'Sync history was successfully created.' }
-        format.json { render json: @sync_history, status: :created, location: @sync_history }
+        format.html { redirect_to @sync_history, :notice => 'Sync history was successfully created.' }
+        format.json { render :json => @sync_history, :status => :created, :location => @sync_history }
       else
-        format.html { render action: "new" }
-        format.json { render json: @sync_history.errors, status: :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @sync_history.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -61,11 +61,11 @@ class SyncHistoriesController < ApplicationController
 
     respond_to do |format|
       if @sync_history.update_attributes(params[:sync_history])
-        format.html { redirect_to @sync_history, notice: 'Sync history was successfully updated.' }
+        format.html { redirect_to @sync_history, :notice => 'Sync history was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @sync_history.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @sync_history.errors, :status => :unprocessable_entity }
       end
     end
   end
