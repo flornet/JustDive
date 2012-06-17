@@ -1,0 +1,9 @@
+<div class="btn-group pull-right">
+	<a class="btn" href="#!dive-events/new"><i class="icon-plus"></i></a>
+</div>
+
+<ul class="nav nav-pills nav-stacked">
+	{{#each view.diveEvents}}
+		{{view JustDive.Views.DiveEvents.ListShow diveEventBinding="this"}}
+	{{/each}}
+</ul>

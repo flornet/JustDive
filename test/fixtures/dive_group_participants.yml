@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dive_group_id: 1
+  diver_id: 1
+  dive_role_id: 1
+
+two:
+  dive_group_id: 1
+  diver_id: 1
+  dive_role_id: 1

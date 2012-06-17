@@ -1,0 +1,45 @@
+<%= form_for(@dive_group) do |f| %>
+  <% if @dive_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dive_group.errors.count, "error") %> prohibited this dive_group from being saved:</h2>
+
+      <ul>
+      <% @dive_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :boat_departure_id %><br />
+    <%= f.number_field :boat_departure_id %>
+  </div>
+  <div class="field">
+    <%= f.label :estimated_dive_time %><br />
+    <%= f.number_field :estimated_dive_time %>
+  </div>
+  <div class="field">
+    <%= f.label :estimated_dive_depth %><br />
+    <%= f.number_field :estimated_dive_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :realized_dive_time %><br />
+    <%= f.number_field :realized_dive_time %>
+  </div>
+  <div class="field">
+    <%= f.label :realized_dive_depth %><br />
+    <%= f.number_field :realized_dive_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :immersion_start_time %><br />
+    <%= f.date_select :immersion_start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :immersion_end_time %><br />
+    <%= f.date_select :immersion_end_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

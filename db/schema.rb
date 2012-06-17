@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604000746) do
+ActiveRecord::Schema.define(:version => 20120611132003) do
 
   create_table "administrators", :force => true do |t|
     t.integer  "dive_club_id"
@@ -31,6 +31,25 @@ ActiveRecord::Schema.define(:version => 20120604000746) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "boat_departures", :force => true do |t|
+    t.integer  "dive_event_id"
+    t.integer  "boat_id"
+    t.date     "departure_date"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "boats", :force => true do |t|
+    t.integer  "dive_club_id"
+    t.string   "name"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "dive_clubs", :force => true do |t|
     t.string   "name"
     t.string   "ffessm_licence_number"
@@ -39,6 +58,49 @@ ActiveRecord::Schema.define(:version => 20120604000746) do
   end
 
   add_index "dive_clubs", ["name"], :name => "index_dive_clubs_on_name", :unique => true
+
+  create_table "dive_events", :force => true do |t|
+    t.integer  "dive_club_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "dive_group_participants", :force => true do |t|
+    t.integer  "dive_group_id"
+    t.integer  "diver_id"
+    t.integer  "dive_role_id"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "dive_groups", :force => true do |t|
+    t.integer  "boat_departure_id"
+    t.integer  "estimated_dive_time"
+    t.integer  "estimated_dive_depth"
+    t.integer  "realized_dive_time"
+    t.integer  "realized_dive_depth"
+    t.date     "immersion_start_time"
+    t.date     "immersion_end_time"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "dive_roles", :force => true do |t|
+    t.integer  "dive_club_id"
+    t.string   "name"
+    t.integer  "created_by_app_key_id"
+    t.integer  "last_updated_by_app_key_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
   create_table "divers", :force => true do |t|
     t.integer  "dive_club_id"

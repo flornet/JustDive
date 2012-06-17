@@ -1,8 +1,8 @@
 <div class="btn-group pull-right">
-	<a class="btn" href="#" {{action "new" target="JustDive.Controllers.AddressBook" context="diver"}}><i class="icon-plus"></i></a>
+	<a class="btn" href="#!address-book/new"><i class="icon-plus"></i></a>
 </div>
 <ul class="nav nav-pills nav-stacked">
-	{{#each divers}}
+	{{#each view.divers}}
 		{{view JustDive.Views.Divers.ListShow diverBinding="this"}}
 	{{/each}}
 </ul>

@@ -1,6 +1,10 @@
 #= require ./vendor/twitter/bootstrap.js
-#= require ./vendor/ember/ember-debug.js
+#= require ./vendor/twitter/bootstrap-datepicker.js
+#= require ./vendor/twitter/bootstrap-datepicker.fr.js
+#= require ./vendor/ember/ember-debug-pre.js
 #= require ./vendor/ember/ember-rest.js
+#= require ./vendor/ember/ember-routemanager.js
+#= require ./vendor/ember/ember-layout.js
 
 #= require_self
 #= require_tree ./lib/resource
@@ -15,11 +19,14 @@
 JustDive = Ember.Application.create({
 	APP_KEY: 			null, // JustDive 'App Key'
 	version:			'1.0',
-	rootElement: 		'#app',
 	viewsContainer: 	'#container',
 	leftPanelContainer:	'#left-panel',
 	restControllers:  	Ember.Object.create({
 		divers: 				null,
+		dive_events:			null,
+		dive_roles:				null,
+		boats:					null,
+		boat_departures:		null,
 		sync_local_histories: 	null,
 		sync_remote_histories: 	null
 	}),
@@ -29,6 +36,7 @@ JustDive = Ember.Application.create({
 	dataSync:			null,
 	syncCue: 			null,
 	dataSyncMonitor:	null,
+	router:				null,
 	ui: 				null,
 	
 	ready: function() {
@@ -62,16 +70,30 @@ JustDive = Ember.Application.create({
 		app.syncCue 		= JustDive.SyncCue.create();
 		app.dataSyncMonitor = JustDive.DataSyncMonitor.create();
 		
+		// Creates the Layout
+		app.layout = JustDive.Views.Main.Layout.create();
+		app.layout.appendTo('body');
+		
+		// Creates the Router
+		app.router = JustDive.RouteManager.create({rootView: app.layout});
+		app.router.start();
+		
 		// Create the REST controllers
-		app.restControllers = {
+		app.set('restControllers', {
 			divers: 				JustDive.Controllers.Rest.Divers.create(),
+			dive_roles:				JustDive.Controllers.Rest.DiveRoles.create(),
+			dive_events:			JustDive.Controllers.Rest.DiveEvents.create(),
+			boats:					JustDive.Controllers.Rest.Boats.create(),
+			boat_departures:		JustDive.Controllers.Rest.BoatDepartures.create(),
 			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
 			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
-		};
+		});
 		
 		// Creates the ui adapter
 		app.ui = JustDive.UiScreenAdapter.create();
-
+		//$(window).trigger('resize');
+		
+		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -82,6 +104,8 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
+		
+		
 	},
 	
 	getAppKey: function() {
@@ -131,14 +155,6 @@ JustDive = Ember.Application.create({
 		}
 		return result;
 	}.property('localStorage'),
-	
-	getStorage: function (storageId) {
-		return this.storages[storageId];
-	},
-	
-	setStorage: function (storageId, storage) {
-		this.storages[storageId] = storage;
-	},
 	
 	browser: {
 		_compatibilityErrors : [],

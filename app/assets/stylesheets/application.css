@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require bootstrap.css.scss
+ *= require bootstrap-datepicker.css.scss
  *= require post-bootstrap.css.scss
  *= require bootstrap-responsive.css.scss
  *= require main.css.scss

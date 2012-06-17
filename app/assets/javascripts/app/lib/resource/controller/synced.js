@@ -167,6 +167,17 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		}
 		return this._fail("Unable to find '" + id + "' in local data");
 	},
+	
+	findObject: function(id) {
+		var loc = this.get('length') || 0;
+		while(--loc >= 0) {
+		  var curObject = this.objectAt(loc) ;
+		  if (curObject.id.toString() === id.toString()) {
+			return curObject;
+		  }
+		}
+		return false;
+	},
 		
 	_resourceStoreId: function() {
 		var url_parts = this._resourceUrl().split('/');

@@ -1,5 +1,5 @@
 JustDive::Application.routes.draw do
-
+  resources :administrators
   resources :app_keys
   resources :sync_histories
   resources :identity do
@@ -10,17 +10,42 @@ JustDive::Application.routes.draw do
       delete  'destroy'
     end
   end
+ 
+  resources :dive_group_participants
+  resources :dive_groups
   resources :ffessm_levels
   resources :dive_clubs
+
+  resources :boat_departures do
+	collection do
+		get	'diff'
+	end
+  end 
+  
+  resources :dive_events do
+	collection do
+		get	'diff'
+	end
+  end 
+  
+  resources :dive_roles do
+	collection do
+		get	'diff'
+	end
+  end
+  
+  resources :boats do
+	collection do
+		get	'diff'
+	end
+  end
+
   match 'divers/sync' => 'gdata_contacts#sync_divers'
   resources :divers do
 	collection do
 		get	'diff'
 	end
   end
-  resources :administrators
-
-  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

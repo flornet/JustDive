@@ -1,0 +1,44 @@
+<div class="navbar subnav">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="btn-group pull-left">
+				<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
+			</div>
+			<ul class="nav pull-left">
+				<li class="divider-vertical"></li>
+				<li><span class="navbar-text">{{view.diveEvent.title}}</span></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="hero-unit">
+	<h1>{{view.diveEvent.title}}</h1>
+	{{#if view.isEditing}}
+		<div class="field">
+			{{view JustDive.DateField valueBinding="view.diveEvent.start_date"  placeholder="Start date"}}
+		</div>
+		<div class="field">
+			{{view JustDive.DateField valueBinding="view.diveEvent.end_date"  placeholder="End date"}}
+		</div>
+	{{/if}}
+
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>Id</dt>
+        <dd>{{view.diveEvent.id}}</dd>
+		<dt>Créé le</dt>
+        <dd>{{view.diveEvent.created_at}}</dd>
+		<dt>Modifié le</dt>
+        <dd>{{view.diveEvent.updated_at}}</dd>
+    </dl>
+</div>
+<div class="actions"> 
+	{{#if view.isEditing}}
+		<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+		<button class="btn" type="button" {{action "stopEditMode"}}>Annuler</button>
+		<button class="btn btn-success" type="submit">Enregistrer</button>
+	{{else}}
+		<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+	{{/if}}
+</div>

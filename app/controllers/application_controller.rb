@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
     nil
   end
   
+  def current_dive_club
+	return current_administrator.dive_club unless current_administrator.nil?
+  end
+  
 end
