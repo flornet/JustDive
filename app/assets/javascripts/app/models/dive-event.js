@@ -12,9 +12,11 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 							'updated_at'
 						],
 	title: Ember.computed(function() {
-		var start 	= new Date(this.get('start_date')),
-			end 	= new Date(this.get('end_date')),
+		var start 	= new Date(),
+			end 	= new Date(),
 			output;
+		start.fromISOFormat(this.get('start_date'));
+		end.fromISOFormat(this.get('end_date'));
 		if (start.getMonth() === end.getMonth()) {
 			output = start.getDate() + ' au ' + end.getDate() + ' ' + $.fn.datepicker.dates['fr']['months'][start.getMonth()];	//06 au 07 juin
 		} else {

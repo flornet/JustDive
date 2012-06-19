@@ -13,7 +13,8 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 							'updated_at'
 						],
 	title: Ember.computed(function() {
-		var date = new Date(this.get('departure_date'));
+		var date = new Date();
+		date.fromISOFormat(this.get('departure_date'));
 		return date.getDate() + ' ' + $.fn.datepicker.dates['fr']['months'][date.getMonth()];
 	}).property('departure_date')
 });

@@ -201,6 +201,25 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								}
 								
 							}
+	}),
+	boatDepartureShow:				JustDive.LayoutState.create({
+							route: 	':id/boat-departures/:boat_departure_id',
+							viewClass: JustDive.Views.BoatDepartures.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var view = this.get('view');
+								var diveEventId = stateManager.getPath('params.id');
+								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
+								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
+								var boatDeparture = JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								if ((diveEvent !== false) && (boatDeparture !== false)) {
+									view.set('diveEvent', diveEvent);
+									view.set('boatDeparture', boatDeparture);
+									view.setShowing();
+								} else {
+									JustDive.router.set('location', 'dive-events');
+								}
+							}
 	})
   })
 });
