@@ -2,18 +2,18 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<div class="btn-group pull-left">
-				<a class="btn btn-inverse" href="#" {{action "show" target="JustDive.Controllers.Routed.DiveGroup" context="view.diveGroup"}}><i class="icon-chevron-left icon-white"></i>{{view.diveGroup.title}}</a>
+				<a class="btn btn-inverse" href="#" {{action "show" target="JustDive.Controllers.Routed.DiveGroup" context="view"}}><i class="icon-chevron-left icon-white"></i>{{view.diveGroup.title}}</a>
 			</div>
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">{{view.diveGroupParticipant.title}}</span></li>
+				<li><span class="navbar-text">{{view.diveGroupParticipant.diver.fullname}}</span></li>
 			</ul>
 		</div>
 	</div>
 </div>
 
 <div class="hero-unit">
-	<h1>{{view.diveGroupParticipant.title}}</h1>
+	<h1>{{view.diveGroupParticipant.diver.fullname}}</h1>
 	{{#if view.isEditing}}
 		<div class="input-append">
 			{{view JustDive.Select viewName="select"
