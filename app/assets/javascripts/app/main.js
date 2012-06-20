@@ -22,13 +22,15 @@ JustDive = Ember.Application.create({
 	viewsContainer: 	'#container',
 	leftPanelContainer:	'#left-panel',
 	restControllers:  	Ember.Object.create({
-		divers: 				null,
-		dive_events:			null,
-		dive_roles:				null,
-		boats:					null,
-		boat_departures:		null,
-		sync_local_histories: 	null,
-		sync_remote_histories: 	null
+		divers: 					null,
+		dive_events:				null,
+		dive_roles:					null,
+		boats:						null,
+		boat_departures:			null,
+		dive_groups:				null,
+		dive_group_participants: 	null,
+		sync_local_histories: 		null,
+		sync_remote_histories: 		null
 	}),
 	localStorage: 		null,
 	monitor: 			null,
@@ -80,13 +82,15 @@ JustDive = Ember.Application.create({
 		
 		// Create the REST controllers
 		app.set('restControllers', {
-			divers: 				JustDive.Controllers.Rest.Divers.create(),
-			dive_roles:				JustDive.Controllers.Rest.DiveRoles.create(),
-			dive_events:			JustDive.Controllers.Rest.DiveEvents.create(),
-			boats:					JustDive.Controllers.Rest.Boats.create(),
-			boat_departures:		JustDive.Controllers.Rest.BoatDepartures.create(),
-			sync_local_histories: 	JustDive.Controllers.Rest.SyncLocalHistories.create(),
-			sync_remote_histories:	JustDive.Controllers.Rest.SyncRemoteHistories.create()
+			divers: 					JustDive.Controllers.Rest.Divers.create(),
+			dive_roles:					JustDive.Controllers.Rest.DiveRoles.create(),
+			dive_events:				JustDive.Controllers.Rest.DiveEvents.create(),
+			boats:						JustDive.Controllers.Rest.Boats.create(),
+			boat_departures:			JustDive.Controllers.Rest.BoatDepartures.create(),
+			dive_groups:				JustDive.Controllers.Rest.DiveGroups.create(),
+			dive_group_participants: 	JustDive.Controllers.Rest.DiveGroupParticipants.create(),
+			sync_local_histories: 		JustDive.Controllers.Rest.SyncLocalHistories.create(),
+			sync_remote_histories:		JustDive.Controllers.Rest.SyncRemoteHistories.create()
 		});
 		
 		// Creates the ui adapter

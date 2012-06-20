@@ -1,83 +1,39 @@
-class DiveGroupParticipantsController < ApplicationController
-  # GET /dive_group_participants
-  # GET /dive_group_participants.json
-  def index
-    @dive_group_participants = DiveGroupParticipant.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @dive_group_participants }
-    end
+class DiveGroupParticipantsController < SyncedController
+  def resource
+    return current_dive_club.dive_group_participants
   end
-
-  # GET /dive_group_participants/1
-  # GET /dive_group_participants/1.json
-  def show
-    @dive_group_participant = DiveGroupParticipant.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @dive_group_participant }
-    end
+  
+  def resourceName
+	return 'dive_group_participant'
   end
-
-  # GET /dive_group_participants/new
-  # GET /dive_group_participants/new.json
-  def new
-    @dive_group_participant = DiveGroupParticipant.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @dive_group_participant }
-    end
-  end
-
-  # GET /dive_group_participants/1/edit
-  def edit
-    @dive_group_participant = DiveGroupParticipant.find(params[:id])
-  end
-
-  # POST /dive_group_participants
-  # POST /dive_group_participants.json
+  
+  # POST /[model].json
   def create
-    @dive_group_participant = DiveGroupParticipant.new(params[:dive_group_participant])
+    @model = DiveGroupParticipant.new(params[resourceName])
+	if @model.created_by_app_key_id.nil?
+		@model.created_by_app_key_id = session[:app_key_id]
+	end
 
     respond_to do |format|
-      if @dive_group_participant.save
-        format.html { redirect_to @dive_group_participant, notice: 'Dive group participant was successfully created.' }
-        format.json { render :json => @dive_group_participant, :status => :created, :location => @dive_group_participant }
+      if @model.save
+        format.json { render :json => @model, :status => :created, :location => @model }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @dive_group_participant.errors, :status => :unprocessable_entity }
+        format.json { render :json => @model.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /dive_group_participants/1
-  # PUT /dive_group_participants/1.json
+  # PUT /[model]/1.json
   def update
-    @dive_group_participant = DiveGroupParticipant.find(params[:id])
-
+    @model = DiveGroupParticipant.find(params[:id])
+	@model.last_updated_by_app_key_id = session[:app_key_id]
+	
     respond_to do |format|
-      if @dive_group_participant.update_attributes(params[:dive_group_participant])
-        format.html { redirect_to @dive_group_participant, notice: 'Dive group participant was successfully updated.' }
-        format.json { head :no_content }
+      if @model.update_attributes(params[resourceName])
+        format.json { render :json => @model, :status => :ok, :location => @model }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @dive_group_participant.errors, :status => :unprocessable_entity }
+        format.json { render :json => @model.errors, :status => :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /dive_group_participants/1
-  # DELETE /dive_group_participants/1.json
-  def destroy
-    @dive_group_participant = DiveGroupParticipant.find(params[:id])
-    @dive_group_participant.destroy
-
-    respond_to do |format|
-      format.html { redirect_to dive_group_participants_url }
-      format.json { head :no_content }
     end
   end
 end

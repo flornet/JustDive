@@ -10,12 +10,22 @@ JustDive::Application.routes.draw do
       delete  'destroy'
     end
   end
- 
-  resources :dive_group_participants
-  resources :dive_groups
+
   resources :ffessm_levels
   resources :dive_clubs
+  
+  resources :dive_group_participants do
+	collection do
+		get	'diff'
+	end
+  end 
 
+  resources :dive_groups do
+	collection do
+		get	'diff'
+	end
+  end 
+  
   resources :boat_departures do
 	collection do
 		get	'diff'

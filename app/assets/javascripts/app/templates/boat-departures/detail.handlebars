@@ -2,7 +2,7 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<div class="btn-group pull-left">
-				<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
+				<a class="btn btn-inverse" href="#" {{action "show" target="JustDive.Controllers.Routed.DiveEvent" context="view.diveEvent"}}><i class="icon-chevron-left icon-white"></i>{{view.diveEvent.title}}</a>
 			</div>
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
@@ -19,8 +19,15 @@
 			{{view JustDive.DateField valueBinding="view.boatDeparture.departure_date"  placeholder="Departure date"}}
 		</div>
 		<div class="field">
-			{{view Ember.TextField valueBinding="view.boatDeparture.boat_id"  placeholder="Boat"}}
+			 {{view JustDive.Select viewName="select"
+                          contentBinding="JustDive.restControllers.boats"
+                          optionLabelPath="content.name"
+                          optionValuePath="content.id"
+                          prompt="Bateau :"
+                          valueBinding="view.boatDeparture.boat_id"}}
 		</div>
+	{{else}}
+		<p>{{view.boatDeparture.boat_id}}</p>
 	{{/if}}
 
 	<hr />
@@ -44,3 +51,8 @@
 		<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
 	{{/if}}
 </div>
+
+{{#unless view.isEditing}}
+	<h2>Palanquées</h2>
+	{{ view JustDive.Views.DiveGroups.List diveEventBinding="view.diveEvent" boatDepartureBinding="view.boatDeparture"}}
+{{/unless}}

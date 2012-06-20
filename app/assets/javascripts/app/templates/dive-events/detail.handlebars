@@ -43,3 +43,7 @@
 	{{/if}}
 </div>
 
+{{#unless view.isEditing}}
+	<h2>Départs bateau</h2>
+	{{ view JustDive.Views.BoatDepartures.List diveEventBinding="view.diveEvent"}}
+{{/unless}}

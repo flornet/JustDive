@@ -20,6 +20,8 @@
 #= require ../views/dive-events/list-show.js
 #= require ../views/dive-events/detail.js
 #= require ../views/boat-departures/detail.js
+#= require ../views/dive-groups/detail.js
+#= require ../views/dive-group-participants/detail.js
 
 JustDive.RouteManager = Ember.RouteManager.extend({
   account: JustDive.LayoutState.create({
@@ -215,6 +217,96 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								if ((diveEvent !== false) && (boatDeparture !== false)) {
 									view.set('diveEvent', diveEvent);
 									view.set('boatDeparture', boatDeparture);
+									view.setShowing();
+								} else {
+									JustDive.router.set('location', 'dive-events');
+								}
+							}
+	}),
+	diveGroupNew:		JustDive.LayoutState.create({
+							route: 	':id/boat-departures/:boat_departure_id/dive-groups/new',
+							viewClass: JustDive.Views.DiveGroups.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var diveEventId 	= stateManager.getPath('params.id');
+								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
+								var diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId);
+								var boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								if ((diveEvent !== false) && (boatDeparture !== false)) {
+									this.get('view').set('diveEvent', diveEvent);
+									this.get('view').set('boatDeparture', boatDeparture);
+									this.get('view').set('diveGroup', JustDive.Models.DiveGroup.create({boat_departure_id: boatDeparture.id}));
+									this.get('view').setCreating();
+								} else {
+									JustDive.router.set('location', 'dive-events');
+								}
+								
+							}
+	}),
+	diveGroupShow:				JustDive.LayoutState.create({
+							route: 	':id/boat-departures/:boat_departure_id/dive-groups/:dive_group_id',
+							viewClass: JustDive.Views.DiveGroups.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var view = this.get('view');
+								var diveEventId = stateManager.getPath('params.id');
+								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
+								var diveGroupId = stateManager.getPath('params.dive_group_id');
+								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
+								var boatDeparture = JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								var diveGroup = JustDive.restControllers.dive_groups.findObject(diveGroupId);
+								if ((diveEvent !== false) && (boatDeparture !== false) && (diveGroup !== false)) {
+									view.set('diveEvent', diveEvent);
+									view.set('boatDeparture', boatDeparture);
+									view.set('diveGroup', diveGroup);
+									view.setShowing();
+								} else {
+									JustDive.router.set('location', 'dive-events');
+								}
+							}
+	}),
+	diveGroupParticipantNew:	JustDive.LayoutState.create({
+							route: 	':id/boat-departures/:boat_departure_id/dive-groups/:dive_group_id/participants/new',
+							viewClass: JustDive.Views.DiveGroupParticipants.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var diveEventId 	= stateManager.getPath('params.id');
+								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
+								var diveGroupId 	= stateManager.getPath('params.dive_group_id');
+								var diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId);
+								var boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								var diveGroup 		= JustDive.restControllers.dive_groups.findObject(diveGroupId);
+								if ((diveEvent !== false) && (boatDeparture !== false) && (diveGroup !== false)) {
+									this.get('view').set('diveEvent', diveEvent);
+									this.get('view').set('boatDeparture', boatDeparture);
+									this.get('view').set('diveGroup', diveGroup);
+									this.get('view').set('diveGroupParticipant', JustDive.Models.DiveGroupParticipant.create({dive_group_id: diveGroup.id}));
+									this.get('view').setCreating();
+								} else {
+									JustDive.router.set('location', 'dive-events');
+								}
+								
+							}
+	}),
+	diveGroupParticipantShow:	JustDive.LayoutState.create({
+							route: 	':id/boat-departures/:boat_departure_id/dive-groups/:dive_group_id/participants/:participant_id',
+							viewClass: JustDive.Views.DiveGroupParticipants.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var view = this.get('view');
+								var diveEventId 	= stateManager.getPath('params.id');
+								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
+								var diveGroupId 	= stateManager.getPath('params.dive_group_id');
+								var participantId 	= stateManager.getPath('params.participant_id');
+								var diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId);
+								var boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								var diveGroup 		= JustDive.restControllers.dive_groups.findObject(diveGroupId);
+								var participant 	= JustDive.restControllers.dive_group_participants.findObject(participantId);
+								if ((diveEvent !== false) && (boatDeparture !== false) && (diveGroup !== false) && (participant !== false)) {
+									view.set('diveEvent', diveEvent);
+									view.set('boatDeparture', boatDeparture);
+									view.set('diveGroup', diveGroup);
+									view.set('diveGroupParticipant', participant);
 									view.setShowing();
 								} else {
 									JustDive.router.set('location', 'dive-events');

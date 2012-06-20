@@ -1,0 +1,9 @@
+<div class="btn-group pull-right">
+	<a class="btn" href="#" {{action "new" target="JustDive.Controllers.Routed.BoatDeparture" context="view.diveEvent"}}><i class="icon-plus"></i></a>
+</div>
+
+<ul class="nav nav-pills nav-stacked">
+	{{#each view.boatDepartures}}
+		{{view JustDive.Views.BoatDepartures.ListShow boatDepartureBinding="this"}}
+	{{/each}}
+</ul>
