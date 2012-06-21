@@ -1,4 +1,4 @@
-#= require ../models.js
+﻿#= require ../models.js
 #= require ../lib/resource/synced.js
 
 JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
@@ -16,7 +16,12 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 							'created_at',
 							'updated_at'
 						],
-	title: Ember.computed(function() {
-		return this.get('id');
-	}).property('id')
+	unfilteredBinding:		"JustDive.restControllers.dive_group_participants",
+	title: 				Ember.computed(function() {
+							return 'Palanquée n°' + this.get('id');
+						}).property('id').cacheable(),
+	
+	participantsCount: Ember.computed(function() {
+							return this.get("unfiltered").filterProperty('dive_group_id', parseInt(this.get('id'))).length + ' plongeurs';
+						}).property('unfiltered.@each').cacheable()
 });

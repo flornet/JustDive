@@ -18,7 +18,9 @@ TODO:
 - Optimisation de la queue,
 - Indicateur d'activité (synchro ajax),
 - Gestion des conflits,
-- Gestion des erreurs
+- Gestion des erreurs,
+- Synchronisation des 'divers' locaux après sync avec Google : KO,
+- Bugs de perte d'ID (après créations)
 
 Diagrams:
 - http://yuml.me/diagram/class/draw

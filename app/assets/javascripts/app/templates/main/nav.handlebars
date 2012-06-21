@@ -1,8 +1,7 @@
 {{#if JustDive.identity.is_logged_in}}
-<ul class="nav">
-  <li class="active"><a href="#!account/welcome">Accueil</a></li>
-  <li><a href="#!dive-events">Sorties</a></li>
-  <li><a href="#!address-book">Carnet d'adresses</a></li>
-  <li><a href="#" {{action "clearLocalStorage" target="JustDive.Controllers.Welcome"}}>Clear Local Storage</a></li>
+<ul class="nav" id="mainNav">
+  <li class="welcome"><a href="#!account/welcome"><i class="icon-home icon-white"></i> Accueil</a></li>
+  <li class="events"><a href="#!dive-events"><i class="icon-calendar icon-white"></i> Sorties</a></li>
+  <li class="addressBook"><a href="#!address-book"><i class="icon-user icon-white"></i> Carnet d'adresses</a></li>
 </ul>
 {{/if}}

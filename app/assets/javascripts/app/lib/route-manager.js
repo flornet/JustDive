@@ -39,8 +39,13 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	}),
 	
 	welcome: 			JustDive.LayoutState.create({
-							route: 	'welcome',
-							viewClass: 	JustDive.Views.Identity.Welcome
+							route: 			'welcome',
+							navItemClass:	'welcome',
+							viewClass: 		JustDive.Views.Identity.Welcome,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								JustDive.mainNav.activate(this.get('navItemClass'));
+							}
 	})
   }),
   
@@ -121,7 +126,13 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	leftPanel:  JustDive.Views.Divers.List,
 	
 	index:				JustDive.LayoutState.create({
-							viewClass: JustDive.Views.AddressBook.Index
+							viewClass: 		JustDive.Views.AddressBook.Index,
+							navItemClass: 	'addressBook',
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								JustDive.mainNav.activate(this.get('navItemClass'));
+								JustDive.subNav.activate('fake');
+							}
 	}),
 	
 	new:				JustDive.LayoutState.create({
@@ -136,6 +147,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	
 	show:				JustDive.LayoutState.create({
 							route: 	':id',
+							subnavItemClassPrefix: 	'diver-',
 							viewClass: JustDive.Views.Divers.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
@@ -145,6 +157,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								if (diver !== false) {
 									view.set('diver', diver);
 									view.setShowing();
+									JustDive.subNav.activate(this.get('subnavItemClassPrefix') + diverId);
 								} else {
 									JustDive.router.set('location', 'address-book');
 								}
@@ -158,7 +171,13 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	leftPanel:  JustDive.Views.DiveEvents.List,
 	
 	index:				JustDive.LayoutState.create({
-							viewClass: JustDive.Views.DiveEvents.Index
+							viewClass: 		JustDive.Views.DiveEvents.Index,
+							navItemClass: 	'events',
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								JustDive.mainNav.activate(this.get('navItemClass'));
+								JustDive.subNav.activate('fake');
+							}
 	}),
 	
 	new:				JustDive.LayoutState.create({
@@ -172,7 +191,8 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	}),
 	
 	show:				JustDive.LayoutState.create({
-							route: 	':id',
+							route: 					':id',
+							subnavItemClassPrefix: 	'event-',
 							viewClass: JustDive.Views.DiveEvents.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
@@ -182,6 +202,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 								if (diveEvent !== false) {
 									view.set('diveEvent', diveEvent);
 									view.setShowing();
+									JustDive.subNav.activate(this.get('subnavItemClassPrefix') + diveEventId);
 								} else {
 									JustDive.router.set('location', 'dive-events');
 								}

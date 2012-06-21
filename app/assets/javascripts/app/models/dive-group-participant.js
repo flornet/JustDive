@@ -12,17 +12,26 @@ JustDive.Models.DiveGroupParticipant = JustDive.Resource.Synced.extend({
 							'created_at',
 							'updated_at'
 						],
-	title: Ember.computed(function() {
-		return this.get('id');
-	}).property('id'),
+						
+	title: 				Ember.computed(function() {
+							return this.get('id');
+						}).property('id'),
 	
-	diver: Ember.computed(function() {
-		var diverId = this.get('diver_id');
-		return JustDive.restControllers.divers.findObject(diverId);
-	}).property('diver_id').cacheable(),
+	diver: 				Ember.computed(function() {
+							var diverId = this.get('diver_id') || undefined;
+							if (diverId === undefined) {
+								return false;
+							} else {
+								return JustDive.restControllers.divers.findObject(diverId);
+							}
+						}).property('diver_id').cacheable(),
 	
-	diveRole: Ember.computed(function() {
-		var diveRoleId = this.get('dive_role_id');
-		return JustDive.restControllers.dive_roles.findObject(diveRoleId);
-	}).property('dive_role_id').cacheable()
+	diveRole: 			Ember.computed(function() {
+							var diveRoleId = this.get('dive_role_id') || undefined;
+							if (diveRoleId === undefined) {
+								return false;
+							} else {
+								return JustDive.restControllers.dive_roles.findObject(diveRoleId);
+							}
+						}).property('dive_role_id').cacheable()
 });

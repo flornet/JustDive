@@ -1,4 +1,4 @@
-class DiveGroupParticipant < ActiveRecord::Base
+class DiveGroupParticipant < Synced
   attr_accessible :dive_group_id, :dive_role_id, :diver_id, :created_by_app_key_id, :last_updated_by_app_key_id
   
   belongs_to :dive_group
@@ -6,4 +6,28 @@ class DiveGroupParticipant < ActiveRecord::Base
   belongs_to :dive_role
   
   validates :dive_group_id, :dive_role_id, :diver_id, :presence => true
+  
+  def self.findCreatedDiff(app_key_id, sync_date)
+	return self.find(
+					:all, 
+					:conditions => [
+									" dive_group_participants.created_by_app_key_id  <> ?
+									  AND (dive_group_participants.created_at > ?)", 
+									  app_key_id, 
+									  sync_date
+									])
+  end
+  
+  def self.findUpdatedDiff(app_key_id, sync_date)
+	return self.find(
+					:all, 
+					:conditions => [
+									" dive_group_participants.last_updated_by_app_key_id <> ?
+									  AND (dive_group_participants.updated_at > ?) 
+									  AND (dive_group_participants.created_at <> dive_group_participants.updated_at)", 
+									  app_key_id,												  
+									  sync_date
+									])
+  end
+  
 end

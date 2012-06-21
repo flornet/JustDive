@@ -1,4 +1,5 @@
 #= require ./vendor/twitter/bootstrap.js
+#= require ./vendor/twitter/bootstrap-transition.js
 #= require ./vendor/twitter/bootstrap-datepicker.js
 #= require ./vendor/twitter/bootstrap-datepicker.fr.js
 #= require ./vendor/ember/ember-debug-pre.js
@@ -19,8 +20,35 @@
 JustDive = Ember.Application.create({
 	APP_KEY: 			null, // JustDive 'App Key'
 	version:			'1.0',
-	viewsContainer: 	'#container',
-	leftPanelContainer:	'#left-panel',
+	mainNav:			Ember.Object.create({
+		domEl:		null,
+		activate:	function(navItemClass) {
+			this.initialize();
+			if (this.domEl !== null) {
+				this.domEl.children().removeClass('active');
+				this.domEl.find('.' + navItemClass).addClass('active');
+			}
+		},
+		initialize: function() {
+			if (this.domEl === null) {
+				var el = $('#mainNav');
+				if (el.length > 0) this.set('domEl', el);
+			}
+		}
+	}),
+	subNav:			Ember.Object.create({
+		domEl:		null,
+		activate:	function(navItemClass) {
+			this.initialize();
+			if (this.domEl !== null) {
+				this.domEl.children().removeClass('active');
+				this.domEl.find('.' + navItemClass).addClass('active');
+			}
+		},
+		initialize: function() {
+			this.set('domEl', $('#subNav'));
+		}
+	}),
 	restControllers:  	Ember.Object.create({
 		divers: 					null,
 		dive_events:				null,
@@ -97,7 +125,6 @@ JustDive = Ember.Application.create({
 		app.ui = JustDive.UiScreenAdapter.create();
 		//$(window).trigger('resize');
 		
-		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -108,8 +135,6 @@ JustDive = Ember.Application.create({
 		app.identity = JustDive.Identity.create();
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
-		
-		
 	},
 	
 	getAppKey: function() {

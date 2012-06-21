@@ -1,9 +1,21 @@
 <div class="navbar subnav">
 	<div class="navbar-inner">
 		<div class="container">
-			<div class="btn-group pull-left">
+			{{#if view.isEditing}}
+				<div class="btn-group pull-left">
+					<button class="btn btn-inverse" type="button" {{action "stopEditMode"}}>Annuler</button>
+				</div>
+				<div class="btn-group pull-right">
+					<button class="btn btn-success" type="submit">Enregistrer</button>
+				</div>
+			{{else}}
+				<div class="btn-group pull-left">
 				<a class="btn btn-inverse" href="#!address-book"><i class="icon-chevron-left icon-white"></i>Retour</a>
 			</div>
+				<div class="btn-group pull-right">
+					<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+				</div>
+			{{/if}}
 			<ul class="nav pull-left">
 				<li class="divider-vertical"></li>
 				<li><span class="navbar-text">{{view.diver.fullname}}</span></li>
@@ -12,48 +24,49 @@
 	</div>
 </div>
 
+{{#if view.isEditing}}
+<div class="row-fluid">
+	<div class="span8">
+		<div class="hero-unit">
+			<h1>{{view.diver.fullname}}</h1>
+			<div class="field">
+				{{view Ember.TextField valueBinding="view.diver.firstname"  placeholder="First Name" size="30"}}
+			</div>
+			<div class="field">
+				{{view Ember.TextField valueBinding="view.diver.lastname"  placeholder="Last Name" size="30"}}
+			</div>
+			<div class="field">
+				{{view Ember.TextField valueBinding="view.diver.email" placeholder="Email" size="30" type="email"}}
+			</div>
+		</div>
+		<div class="actions"> 
+			<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+		</div>
+	</div>
+	<div class="span1">
+		<dl class="dl-horizontal">
+			<dt>Id</dt>
+			<dd>{{view.diver.id}}</dd>
+			<dt>Club de plongée</dt>
+			<dd>{{view.diver.dive_club_id}}</dd>
+			<dt>Niveau</dt>
+			<dd>{{view.diver.ffessm_level_id}}</dd>
+			<dt>N° licence</dt>
+			<dd>{{view.diver.ffessm_licence_number}}&nbsp;</dd>
+			<dt>Certificat médical</dt>
+			<dd> {{view.diver.medical_certificate_expires_on}}&nbsp;</dd>
+			<dt>Créé le</dt>
+			<dd>{{view.diver.created_at}}</dd>
+			<dt>Modifié le</dt>
+			<dd>{{view.diver.updated_at}}</dd>
+		</dl>
+	</div>
+</div>
+{{else}}
 <div class="hero-unit">
 	<h1>{{view.diver.fullname}}</h1>
-	{{#if view.isEditing}}
-		<div class="field">
-			{{view Ember.TextField valueBinding="view.diver.firstname"  placeholder="First Name" size="30"}}
-		</div>
-		<div class="field">
-			{{view Ember.TextField valueBinding="view.diver.lastname"  placeholder="Last Name" size="30"}}
-		</div>
-		<div class="field">
-			{{view Ember.TextField valueBinding="view.diver.email" placeholder="Email" size="30" type="email"}}
-		</div>
-	{{else}}
-		<p>{{view.diver.firstname}}</p>
-		<p>{{view.diver.lastname}}</p> 
-		<p>{{view.diver.email}}</p>
-	{{/if}}
-
-	<hr />
-	<dl class="dl-horizontal">
-		<dt>Id</dt>
-        <dd>{{view.diver.id}}</dd>
-        <dt>Club de plongée</dt>
-        <dd>{{view.diver.dive_club_id}}</dd>
-        <dt>Niveau</dt>
-        <dd>{{view.diver.ffessm_level_id}}</dd>
-        <dt>N° licence</dt>
-        <dd>{{view.diver.ffessm_licence_number}}&nbsp;</dd>
-        <dt>Certificat médical</dt>
-        <dd> {{view.diver.medical_certificate_expires_on}}&nbsp;</dd>
-		<dt>Créé le</dt>
-        <dd>{{view.diver.created_at}}</dd>
-		<dt>Modifié le</dt>
-        <dd>{{view.diver.updated_at}}</dd>
-    </dl>
+	<p>Prénom : {{view.diver.firstname}}</p>
+	<p>Nom : {{view.diver.lastname}}</p>
+	<p>E-mail : {{view.diver.email}}</p>
 </div>
-<div class="actions"> 
-	{{#if view.isEditing}}
-		<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
-		<button class="btn" type="button" {{action "stopEditMode"}}>Annuler</button>
-		<button class="btn btn-success" type="submit">Enregistrer</button>
-	{{else}}
-		<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
-	{{/if}}
-</div>
+{{/if}}

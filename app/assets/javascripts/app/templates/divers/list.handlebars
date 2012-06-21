@@ -1,7 +1,9 @@
 <div class="btn-group pull-right">
 	<a class="btn" href="#!address-book/new"><i class="icon-plus"></i></a>
 </div>
-<ul class="nav nav-pills nav-stacked">
+<h2>Carnet d'adresses</h2>
+
+<ul class="nav nav-pills nav-stacked" id="subNav">
 	{{#each view.divers}}
 		{{view JustDive.Views.Divers.ListShow diverBinding="this"}}
 	{{/each}}
