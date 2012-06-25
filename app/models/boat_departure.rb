@@ -12,7 +12,7 @@ class BoatDeparture < Synced
 	return self.find(
 					:all, 
 					:conditions => [
-									" boat_departures.created_by_app_key_id  <> ?
+									" (boat_departures.created_by_app_key_id IS NULL OR boat_departures.created_by_app_key_id  <> ?)
 									  AND (boat_departures.created_at > ?)", 
 									  app_key_id, 
 									  sync_date
@@ -23,7 +23,7 @@ class BoatDeparture < Synced
 	return self.find(
 					:all, 
 					:conditions => [
-									" boat_departures.last_updated_by_app_key_id <> ?
+									" (boat_departures.last_updated_by_app_key_id IS NULL OR boat_departures.last_updated_by_app_key_id <> ?)
 									  AND (boat_departures.updated_at > ?) 
 									  AND (boat_departures.created_at <> boat_departures.updated_at)", 
 									  app_key_id,												  

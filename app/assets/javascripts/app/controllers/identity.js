@@ -14,11 +14,13 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	},
 	
 	onLogin: function() {
+		console.log('onLogin');
 		var dataSyncMonitor = JustDive.dataSyncMonitor;
 		dataSyncMonitor.start();
 	},	
 	
 	onLogout: function() {
+		console.log('onLogout');
 		var monitor 			= JustDive.monitor,
 			identityController 	= this,
 			dataSyncMonitor 	= JustDive.dataSyncMonitor,

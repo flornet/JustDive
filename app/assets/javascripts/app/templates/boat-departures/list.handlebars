@@ -4,7 +4,9 @@
 <h2>Départs bateau</h2>
 
 <ul class="nav nav-pills nav-stacked">
-	{{#each view.boatDepartures}}
-		{{view JustDive.Views.BoatDepartures.ListShow boatDepartureBinding="this"}}
+	{{#each view.diveEvent.boatDepartures}}
+		{{view JustDive.Views.BoatDepartures.ListShow 
+				boatDepartureBinding="this" 
+				diveEventBinding="view.diveEvent"}}
 	{{/each}}
 </ul>

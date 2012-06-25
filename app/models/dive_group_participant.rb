@@ -11,7 +11,7 @@ class DiveGroupParticipant < Synced
 	return self.find(
 					:all, 
 					:conditions => [
-									" dive_group_participants.created_by_app_key_id  <> ?
+									" (dive_group_participants.created_by_app_key_id IS NULL OR dive_group_participants.created_by_app_key_id  <> ?)
 									  AND (dive_group_participants.created_at > ?)", 
 									  app_key_id, 
 									  sync_date
@@ -22,7 +22,7 @@ class DiveGroupParticipant < Synced
 	return self.find(
 					:all, 
 					:conditions => [
-									" dive_group_participants.last_updated_by_app_key_id <> ?
+									" (dive_group_participants.last_updated_by_app_key_id IS NULL OR dive_group_participants.last_updated_by_app_key_id <> ?)
 									  AND (dive_group_participants.updated_at > ?) 
 									  AND (dive_group_participants.created_at <> dive_group_participants.updated_at)", 
 									  app_key_id,												  

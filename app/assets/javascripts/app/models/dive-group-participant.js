@@ -33,5 +33,14 @@ JustDive.Models.DiveGroupParticipant = JustDive.Resource.Synced.extend({
 							} else {
 								return JustDive.restControllers.dive_roles.findObject(diveRoleId);
 							}
-						}).property('dive_role_id').cacheable()
+						}).property('dive_role_id').cacheable(),
+	
+	diveGroup: 			Ember.computed(function() {
+							var diveGroupId = this.get('dive_group_id') || undefined;
+							if (diveGroupId === undefined) {
+								return false;
+							} else {
+								return JustDive.restControllers.dive_groups.findObject(diveGroupId);
+							}
+						}).property('dive_group_id').cacheable(),
 });

@@ -37,6 +37,7 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 								return JustDive.restControllers.dive_events.findObject(diveEventId);
 							}
 						}).property('dive_event_id').cacheable(),
+
 	groupsCount:		Ember.computed(function() {
 							return this.get("unfiltered").filterProperty('boat_departure_id', parseInt(this.get('id'))).length + ' palanquées';
 						}).property('unfiltered.@each').cacheable()

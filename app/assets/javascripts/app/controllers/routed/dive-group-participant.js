@@ -14,23 +14,25 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.RoutedController.cre
 		var router = JustDive.router;
 		event.preventDefault();
 		var mainRoute = this.get('mainRoute');
-		mainRoute = mainRoute.replace(':id', event.context.diveGroup.id);
-		mainRoute = mainRoute.replace(':boat_departure_id', event.context.boatDeparture.id);
-		mainRoute = mainRoute.replace(':dive_group_id', event.context.diveGroup.id);
-		this.set('mainRoute', mainRoute);
+		var newMainRoute = mainRoute.replace(':id', event.context.diveEvent.id);
+		newMainRoute = newMainRoute.replace(':boat_departure_id', event.context.boatDeparture.id);
+		newMainRoute = newMainRoute.replace(':dive_group_id', event.context.diveGroup.id);
+		this.set('mainRoute', newMainRoute);
 		router.set('location', this.get('mainRoute') + '/new');
+		this.set('mainRoute', mainRoute);
 	},
 /**
     Show action: loads the data and appends the view
 */
 	show: function(event) {
 		var mainRoute = this.get('mainRoute');
-		mainRoute = mainRoute.replace(':id', event.context.boatDeparture.dive_event_id);
-		mainRoute = mainRoute.replace(':boat_departure_id', event.context.boatDeparture.id);
-		mainRoute = mainRoute.replace(':dive_group_id', event.context.diveGroup.id);
+		var newMainRoute = mainRoute.replace(':id', event.context.boatDeparture.dive_event_id);
+		newMainRoute = newMainRoute.replace(':boat_departure_id', event.context.boatDeparture.id);
+		newMainRoute = newMainRoute.replace(':dive_group_id', event.context.diveGroup.id);
 		event.context = event.context.diveGroupParticipant;
-		this.set('mainRoute', mainRoute);
+		this.set('mainRoute', newMainRoute);
 		this._super(event);
+		this.set('mainRoute', mainRoute);
 	},
 	
 /**
@@ -38,9 +40,10 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.RoutedController.cre
 */   
 	create: function(view) {
 		var mainRoute = this.get('mainRoute');
-		mainRoute = mainRoute.replace(':id', view.get(this.get('resourceName')).dive_event_id);
-		this.set('mainRoute', mainRoute);
+		var newMainRoute = mainRoute.replace(':id', view.get(this.get('resourceName')).dive_event_id);
+		this.set('mainRoute', newMainRoute);
 		this._super(view);
+		this.set('mainRoute', mainRoute);
 	}, 
 	
 /**
@@ -48,8 +51,9 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.RoutedController.cre
 */  
 	destroy: function(view) {
 		var mainRoute = this.get('mainRoute');
-		mainRoute = mainRoute.replace(':id', view.get(this.get('resourceName')).dive_event_id);
-		this.set('mainRoute', mainRoute);
+		var newMainRoute = mainRoute.replace(':id', view.get(this.get('resourceName')).dive_event_id);
+		this.set('mainRoute', newMainRoute);
 		this._super(view);
+		this.set('mainRoute', mainRoute);
 	}
 });

@@ -11,6 +11,8 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 							'created_at',
 							'updated_at'
 						],
+	unfilteredBinding:		"JustDive.restControllers.boat_departures",
+	
 	title: Ember.computed(function() {
 		var start 	= new Date(),
 			end 	= new Date(),
@@ -42,5 +44,9 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 			currentDate = currentDate.addDays(1);
 		}
 		return output;
-	}).property('start_date', 'end_date').cacheable()
+	}).property('start_date', 'end_date').cacheable(),
+	
+	boatDepartures: 		function() {
+								return this.get("unfiltered").filterProperty('dive_event_id', parseInt(this.get('id')))
+							}.property('unfiltered.@each').cacheable()
 });

@@ -5,7 +5,7 @@ class Synced < ActiveRecord::Base
 	return self.find(
 					:all, 
 					:conditions => [
-									" created_by_app_key_id  <> ?
+									" (created_by_app_key_id IS NULL OR created_by_app_key_id  <> ?)
 									  AND (created_at > ?)", 
 									  app_key_id, 
 									  sync_date
@@ -16,7 +16,7 @@ class Synced < ActiveRecord::Base
 	return self.find(
 					:all, 
 					:conditions => [
-									" last_updated_by_app_key_id <> ?
+									" (last_updated_by_app_key_id IS NULL OR last_updated_by_app_key_id <> ?)
 									  AND (updated_at > ?) 
 									  AND (created_at <> updated_at)", 
 									  app_key_id,												  
