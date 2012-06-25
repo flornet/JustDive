@@ -6,7 +6,7 @@ class AppKeysController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @app_keys }
+      format.json { render :json => @app_keys }
     end
   end
 
@@ -17,7 +17,7 @@ class AppKeysController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @app_key }
+      format.json { render :json => @app_key }
     end
   end
 
@@ -28,7 +28,7 @@ class AppKeysController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @app_key }
+      format.json { render :json => @app_key }
     end
   end
 
@@ -44,11 +44,11 @@ class AppKeysController < ApplicationController
 
     respond_to do |format|
       if @app_key.save
-        format.html { redirect_to @app_key, notice: 'App key was successfully created.' }
-        format.json { render json: @app_key, status: :created, location: @app_key }
+        format.html { redirect_to @app_key, :notice => 'App key was successfully created.' }
+        format.json { render :json => @app_key, :status => :created, :location => @app_key }
       else
-        format.html { render action: "new" }
-        format.json { render json: @app_key.errors, status: :unprocessable_entity }
+        format.html { render :action =>"new" }
+        format.json { render :json => @app_key.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@ class AppKeysController < ApplicationController
 
     respond_to do |format|
       if @app_key.update_attributes(params[:app_key])
-        format.html { redirect_to @app_key, notice: 'App key was successfully updated.' }
+        format.html { redirect_to @app_key, :notice => 'App key was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @app_key.errors, status: :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @app_key.errors, :status => :unprocessable_entity }
       end
     end
   end
