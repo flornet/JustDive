@@ -43,7 +43,8 @@ class DiveGroupParticipantsController < SyncedController
 	sync_date 						= SyncHistory.where(:app_key_id => app_key_id, :resource_name => 'dive_group_participants').maximum('created_at');
 	new_dive_group_participants		= resource.findCreatedDiff(app_key_id, sync_date)
 	updated_dive_group_participants	= resource.findUpdatedDiff(app_key_id, sync_date)
-	@response = {:created => new_dive_group_participants, :updated => updated_dive_group_participants}
+	deleted_dive_group_participants	= resource.findDeletedDiff(params[:entries])
+	@response = {:created => new_dive_group_participants, :updated => updated_dive_group_participants, :deleted => deleted_dive_group_participants}
 	
     respond_to do |format|
       format.json { render :json => @response }

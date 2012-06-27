@@ -65,7 +65,7 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 		if (force_id_update !== true) {
 			force_id_update = false;
 		}
-		if (self.get('local_id') !== undefined) {
+		if ((self.get('local_id') !== undefined) && (self.get('local_id') !== null))  {
 			url = self.resourceUrl + '/' + self.get('local_id');
 			self.set('local_id', null);
 		} else {
@@ -82,5 +82,9 @@ JustDive.Resource.Adapter.Synced = Ember.Mixin.create(JustDive.Resource.Adapter.
 						// Update properties
 						if (json) self.deserialize(json);
 					  });
-  }
+	},
+	
+	deleteResourceLocal: function() {
+		return this._resourceRequest({type: 'DELETE'}, false);
+	}
 });

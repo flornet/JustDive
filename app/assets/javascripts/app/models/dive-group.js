@@ -17,6 +17,7 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 							'updated_at'
 						],
 	unfilteredBinding:		"JustDive.restControllers.dive_group_participants",
+
 	title: 				Ember.computed(function() {
 							return 'Palanquée n°' + this.get('id');
 						}).property('id').cacheable(),
@@ -27,10 +28,12 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 						
 	boatDeparture:		Ember.computed(function() {
 							var boatDepartureId = this.get('boat_departure_id') || undefined;
-							if (boatDepartureId === undefined) {
-								return false;
-							} else {
-								return JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+							if (boatDepartureId !== undefined) {
+								JustDive.restControllers.boat_departures.findObject(boatDepartureId);
 							}
+							if (this.get('boatDepartureLive') !== null) {
+								return JustDive.restControllers.boat_departures.findObject(this.get('boatDepartureLive').id);
+							}
+							return false;
 						}).property('boat_departure_id').cacheable(),
 });

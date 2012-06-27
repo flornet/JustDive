@@ -19,9 +19,9 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		self.findDiffRemote()
 			.done(function(json) {
 				var created = json.created,
-					updated = json.updated;
-				
-				if (created.length + updated.length === 0) {
+					updated = json.updated,
+					deleted = json.deleted;
+				if (created.length + updated.length + deleted.length === 0) {
 					self.getDataSync().isUpToDate(self._resourceStoreId());
 				} else {
 					if (created.length > 0) {
@@ -30,7 +30,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 							saved 	= 0,
 							failed 	= 0;
 						created.forEach(function(jsonResource) {
-							resource = self.get('resourceType').create().deserialize(jsonResource);
+							var resource = self.get('resourceType').create().deserialize(jsonResource);
 							resource.saveResourceLocal()
 								.done( function() {
 									saved += 1;
@@ -44,7 +44,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 									if ((saved + failed) == length) {
 										console.log('Dealing with created data: finished');
 										if (updated.length > 0) {
-											self.processUpdatedObjects(updated);
+											self.processUpdatedObjects(updated, deleted);
 										} else {
 											self.getDataSync().markAsSynced(self._resourceStoreId());
 										}
@@ -52,7 +52,11 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 								});
 						});
 					} else {
-						self.processUpdatedObjects(updated);
+						if (updated.length > 0) {
+							self.processUpdatedObjects(updated, deleted);
+						} else {
+							self.processDeletedObjects(deleted);
+						}
 					}
 				}
 			})
@@ -61,7 +65,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 			});
 	},
 	
-	processUpdatedObjects: function(updated) {
+	processUpdatedObjects: function(updated, deleted) {
 		var self = this;
 		// Dealing with updated data
 		var length 	= updated.length,
@@ -79,6 +83,36 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 					.always( function() {
 						if ((saved + failed) == length) {
 							console.log('Dealing with updated data: finished');
+							if (deleted.length > 0) {
+								self.processDeletedObjects(deleted);
+							} else {
+								self.getDataSync().markAsSynced(self._resourceStoreId());
+							}
+						}
+					});
+		});
+	},
+	
+	processDeletedObjects: function(deleted) {
+		var self = this;
+		// Dealing with deleted data
+		var length 	= deleted.length,
+			saved 	= 0,
+			failed 	= 0;
+		deleted.forEach(function(resourceId) {
+			var resource = self.findObject(resourceId);
+			resource.deleteResourceLocal()
+					.done(function() {
+						self.removeObject(resource);
+						saved += 1;
+					})
+					.fail(function(error) {
+						failed += 1;
+						JustDive.displayError('jqXHR', error);
+					})
+					.always( function() {
+						if ((saved + failed) == length) {
+							console.log('Dealing with deleted data: finished');
 							self.getDataSync().markAsSynced(self._resourceStoreId());
 						}
 					});
@@ -144,7 +178,15 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 				dataType: 	'json',
 				type: 		'GET',
 				url:		this._resourceUrl() + '/diff'
-			};
+			},
+			loc = this.get('length') || 0,
+			entries = new Array();
+		
+		while(--loc >= 0) {
+			var curObject = this.objectAt(loc) ;
+			entries.push(curObject.id);
+		}
+		params.data = {'entries': entries};
 		return this._requestRemote(params);
 	},
 	

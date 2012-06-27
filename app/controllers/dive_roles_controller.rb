@@ -13,7 +13,8 @@ class DiveRolesController < SyncedController
 	sync_date 			= SyncHistory.where(:app_key_id => app_key_id, :resource_name => 'dive_roles').maximum('created_at');
 	new_dive_roles		= resource.findCreatedDiff(app_key_id, sync_date)
 	updated_dive_roles	= resource.findUpdatedDiff(app_key_id, sync_date)
-	@response = {:created => new_dive_roles, :updated => updated_dive_roles}
+	deleted_dive_roles	= resource.findDeletedDiff(params[:entries])
+	@response = {:created => new_dive_roles, :updated => updated_dive_roles, :deleted => deleted_dive_roles}
 	
     respond_to do |format|
       format.json { render :json => @response }

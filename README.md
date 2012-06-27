@@ -10,19 +10,16 @@ Subjects:
 - Google Contacts (read only)
 
 TODO:
-- Add 'this.$('input:first').focus();' on create/edit views
-- Synchroniser gdata on login,
-- Revoir le initialize d'application côté JS,
-- Mini-interface d'administration des clubs et administrateurs,
-- Synchro des suppressions,
 - Delete cascade,
 - Optimisation de la queue,
-- Indicateur d'activité (synchro ajax),
+- Add 'this.$('input:first').focus();' on create/edit views
+- Revoir le initialize d'application côté JS,
+- Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
-- Bugs de perte d'ID (après créations),
-- Bugs avec les routes (persistance)
+- Bugs avec les routes (persistance),
+- OnNetworkDown : stopMonitoring()
 
 Diagrams:
 - http://yuml.me/diagram/class/draw

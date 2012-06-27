@@ -23,4 +23,15 @@ class Synced < ActiveRecord::Base
 									  sync_date
 									])
   end
+  
+  def self.findDeletedDiff(entries)
+	if not entries.nil?
+		self.find(:all).each do |entry| 
+			entries.delete(entry.id.to_s)
+		end
+	else
+		entries = []
+	end
+	return entries
+  end
 end

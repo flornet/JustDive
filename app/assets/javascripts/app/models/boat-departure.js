@@ -31,14 +31,21 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 						
 	diveEvent: 			Ember.computed(function() {
 							var diveEventId = this.get('dive_event_id') || undefined;
-							if (diveEventId === undefined) {
-								return false;
-							} else {
+							if (diveEventId !== undefined) {
 								return JustDive.restControllers.dive_events.findObject(diveEventId);
 							}
+							if (this.get('diveEventLive') !== null) {
+								return JustDive.restControllers.dive_events.findObject(this.get('diveEventLive').id);
+							}
+							return false;
+
 						}).property('dive_event_id').cacheable(),
 
 	groupsCount:		Ember.computed(function() {
 							return this.get("unfiltered").filterProperty('boat_departure_id', parseInt(this.get('id'))).length + ' palanquées';
+						}).property('unfiltered.@each').cacheable(),
+						
+	diveGroups: 		Ember.computed(function() {
+							return this.get("unfiltered").filterProperty('boat_departure_id', parseInt(this.get('id')))
 						}).property('unfiltered.@each').cacheable()
 });

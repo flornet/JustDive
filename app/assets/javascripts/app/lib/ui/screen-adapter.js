@@ -1,5 +1,22 @@
 JustDive.UiScreenAdapter = JustDive.UiAbstractAdapter.extend({
 	init: function() {
+		$("#loading").hide();
+		$.ajaxSetup({
+			_indicator: null,
+			beforeSend:function(){
+				if (this._indicator === null) {
+					this._indicator = $("#loading");
+				}
+				this._indicator.show();
+			},
+			complete:function(){
+				if (this._indicator === null) {
+					this._indicator = $("#loading");
+				}
+				this._indicator.hide();
+			}
+		});
+
 		/*
 		$(window).bind('resize', function() {
 			if ( $(window).width() > 980 ) {

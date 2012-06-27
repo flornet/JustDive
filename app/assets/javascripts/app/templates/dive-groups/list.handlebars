@@ -4,7 +4,7 @@
 <h2>Palanquées</h2>
 
 <ul class="nav nav-pills nav-stacked">
-	{{#each view.diveGroups}}
+	{{#each view.boatDeparture.diveGroups}}
 		{{view JustDive.Views.DiveGroups.ListShow diveGroupBinding="this" boatDepartureBinding="view.boatDeparture"}}
 	{{/each}}
 </ul>

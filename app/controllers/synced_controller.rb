@@ -11,7 +11,7 @@ class SyncedController < ApplicationController
   
   # GET /divers/diff.json
   def diff
-	@response = {:created => [], :updated => []}
+	@response = {:created => [], :updated => [], :deleted => []}
 	
     respond_to do |format|
       format.json { render :json => @response }

@@ -213,8 +213,8 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							viewClass: JustDive.Views.BoatDepartures.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
-								var diveEventId = stateManager.getPath('params.id');
-								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
+								var diveEventId = stateManager.getPath('params.id'),
+									diveEvent 	= JustDive.restControllers.dive_events.findObject(diveEventId);
 								if (diveEvent !== false) {
 									this.get('view').set('diveEvent', diveEvent);
 									this.get('view').set('boatDeparture', JustDive.Models.BoatDeparture.create({dive_event_id: diveEvent.id}));
@@ -230,11 +230,11 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							viewClass: JustDive.Views.BoatDepartures.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
-								var view = this.get('view');
-								var diveEventId = stateManager.getPath('params.id');
-								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
-								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
-								var boatDeparture = JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								var view 			= this.get('view'),
+									diveEventId 	= stateManager.getPath('params.id'),
+									boatDepartureId = stateManager.getPath('params.boat_departure_id'),
+									diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId),
+									boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
 								if ((diveEvent !== false) && (boatDeparture !== false)) {
 									view.set('diveEvent', diveEvent);
 									view.set('boatDeparture', boatDeparture);
@@ -249,10 +249,10 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							viewClass: JustDive.Views.DiveGroups.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
-								var diveEventId 	= stateManager.getPath('params.id');
-								var boatDepartureId = stateManager.getPath('params.boat_departure_id');
-								var diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId);
-								var boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								var diveEventId 	= stateManager.getPath('params.id'),
+									boatDepartureId = stateManager.getPath('params.boat_departure_id'),
+									diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId),
+									boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
 								if ((diveEvent !== false) && (boatDeparture !== false)) {
 									this.get('view').set('diveEvent', diveEvent);
 									this.get('view').set('boatDeparture', boatDeparture);

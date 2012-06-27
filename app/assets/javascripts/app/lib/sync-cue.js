@@ -89,13 +89,11 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 											cue._saveAndContinue();
 										})
 										.fail(function(error) {
-											alert('ko');
-											console.log(error);
+											JustDive.displayError('jqXHR', error);
 										})
 								})
 								.fail(function(error) {
-									alert('ko');
-									console.log(error);
+									JustDive.displayError('jqXHR', error);
 								});
 							break;
 				case 'PUT':
@@ -118,13 +116,11 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 														cue._saveAndContinue();
 													})
 													.fail(function(error) {
-														alert('ko');
-														console.log(error);
+														JustDive.displayError('jqXHR', error);
 													})
 											})
 											.fail(function(error) {
-												alert('ko');
-												console.log(error);
+												JustDive.displayError('jqXHR', error);
 												//cue._saveAndContinue();
 											});
 									} else {
@@ -136,14 +132,12 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 												cue._saveAndContinue();
 											})
 											.fail(function(error) {
-												alert('ko');
-												console.log(error);
+												JustDive.displayError('jqXHR', error);
 											})
 									}
 								})
 								.fail(function(error) {
-									alert('ko');
-									console.log(error);
+									JustDive.displayError('jqXHR', error);
 								});
 							//cue._saveAndContinue();
 							break;
