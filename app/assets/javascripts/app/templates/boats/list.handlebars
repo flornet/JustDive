@@ -1,22 +1,28 @@
-<div class="navbar subnav">
-	<div class="navbar-inner">
-		<div class="container">
-			<div class="btn-group pull-left">
-				<a class="btn btn-inverse" href="#!club-admin"><i class="icon-chevron-left icon-white"></i>Retour</a>
-			</div>
-			<ul class="nav pull-left">
-				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">Bateaux</span></li>
-			</ul>
-			<div class="btn-group pull-right">
-				<a class="btn" href="#!club-admin/boats/new"><i class="icon-plus"></i></a>
+<div class="panel right" id="content">
+	<div class="navbar navbar-fixed-top right">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<div class="btn-group pull-left">
+					<a class="btn btn-inverse" href="#!club-admin"><i class="icon-chevron-left icon-white"></i>Retour</a>
+				</div>
+				<ul class="nav pull-left">
+					<li class="divider-vertical"></li>
+					<li><span class="navbar-text">Bateaux</span></li>
+				</ul>
+				<div class="btn-group pull-right">
+					<a class="btn" href="#!club-admin/boats/new"><i class="icon-plus"></i></a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<ul class="nav nav-pills nav-stacked">
-	{{#each view.boats}}
-		{{view JustDive.Views.Boats.ListShow boatBinding="this"}}
-	{{/each}}
-</ul>
+	<div class="scrollable panel">
+		<div class="content insideScrollablePanel">
+			<ul class="nav nav-pills nav-stacked">
+				{{#each view.boats}}
+					{{view JustDive.Views.Boats.ListShow boatBinding="this"}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</div>

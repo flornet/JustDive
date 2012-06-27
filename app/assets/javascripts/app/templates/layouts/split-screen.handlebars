@@ -1,2 +1,16 @@
-<div class="span3" id="sidebar">{{dynamicView leftPanel}}</div>
-<div class="span9" id="content">{{dynamicView}}</div>
+<div class="panel left" id="sidebar">
+	<div class="navbar navbar-fixed-top left">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				{{dynamicView leftNav}}
+			</div>
+		</div>
+	</div>
+	<div class="scrollable panel">
+		<div class="sidebar insideScrollablePanel">
+			{{dynamicView leftPanel}}
+		</div>
+	</div>
+</div>
+
+{{dynamicView}}

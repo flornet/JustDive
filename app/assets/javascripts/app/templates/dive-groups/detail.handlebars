@@ -1,88 +1,93 @@
-<div class="navbar subnav">
-	<div class="navbar-inner">
-		<div class="container">
+<div class="panel right" id="content">
+	<div class="navbar navbar-fixed-top right">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				{{#if view.isEditing}}
+					<div class="btn-group pull-left">
+						<button class="btn btn-inverse" type="button" {{action "stopEditMode"}}>Annuler</button>
+					</div>
+					<div class="btn-group pull-right">
+						<button class="btn btn-success" type="submit">Enregistrer</button>
+					</div>
+				{{else}}
+					<div class="btn-group pull-left">
+						<a class="btn btn-inverse" href="#" {{action "show" target="JustDive.Controllers.Routed.BoatDeparture" context="view"}}><i class="icon-chevron-left icon-white"></i>{{view.boatDeparture.title}} / {{view.boatDeparture.boat.name}}</a>
+					</div>
+					<div class="btn-group pull-right">
+						<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+					</div>
+				{{/if}}
+				<ul class="nav pull-left">
+					<li class="divider-vertical"></li>
+					<li><span class="navbar-text">{{view.diveGroup.title}}</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="scrollable panel">
+		<div class="content insideScrollablePanel">
 			{{#if view.isEditing}}
-				<div class="btn-group pull-left">
-					<button class="btn btn-inverse" type="button" {{action "stopEditMode"}}>Annuler</button>
+			<div class="row-fluid">
+				<div class="span8">
+					<div class="hero-unit">
+						<h2>Plongée prévue</h2>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.estimated_dive_time"  placeholder="Durée prévue"}}<span class="add-on">minutes</span>
+						</div>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.estimated_dive_depth"  placeholder="Profondeur prévue"}}<span class="add-on">mètres</span>
+						</div>
+						<h2>Plongée réalisée</h2>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.realized_dive_time"  placeholder="Durée réalisée"}}<span class="add-on">minutes</span>
+						</div>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.realized_dive_depth"  placeholder="Profondeur réalisée"}}<span class="add-on">mètres</span>
+						</div>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.immersion_start_time"  placeholder="Heure d'immersion"}}
+						</div>
+						<div class="input-append">
+							{{view Ember.TextField valueBinding="view.diveGroup.immersion_end_time"  placeholder="Heure de sortie"}}
+						</div>
+					</div>
+					<div class="actions"> 
+						<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+					</div>
 				</div>
-				<div class="btn-group pull-right">
-					<button class="btn btn-success" type="submit">Enregistrer</button>
+				<div class="span1">
+					<dl class="dl-horizontal">
+						<dt>Id</dt>
+						<dd>{{view.diveGroup.id}}</dd>
+						<dt>Id évènement</dt>
+						<dd>{{view.diveGroup.boat_departure_id}}</dd>
+						<dt>Créé le</dt>
+						<dd>{{view.diveGroup.created_at}}</dd>
+						<dt>Modifié le</dt>
+						<dd>{{view.diveGroup.updated_at}}</dd>
+					</dl>
 				</div>
+			</div>
 			{{else}}
-				<div class="btn-group pull-left">
-					<a class="btn btn-inverse" href="#" {{action "show" target="JustDive.Controllers.Routed.BoatDeparture" context="view"}}><i class="icon-chevron-left icon-white"></i>{{view.boatDeparture.title}} / {{view.boatDeparture.boat.name}}</a>
-				</div>
-				<div class="btn-group pull-right">
-					<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
-				</div>
+			<div class="hero-unit">
+				<h2>Plongée prévue</h2>
+				<p>Temps : {{view.diveGroup.estimated_dive_time}}</p>
+				<p>Profondeur : {{view.diveGroup.estimated_dive_depth}}</p>
+				<h2>Plongée réalisée</h2>
+				<p>Temps : {{view.diveGroup.realized_dive_time}}</p>
+				<p>Profondeur : {{view.diveGroup.realized_dive_depth}}</p>
+				<p>Heure d'immersion : {{view.diveGroup.immersion_start_time}}</p>
+				<p>Heure de sortie : {{view.diveGroup.immersion_end_time}}</p>
+			</div>
 			{{/if}}
-			<ul class="nav pull-left">
-				<li class="divider-vertical"></li>
-				<li><span class="navbar-text">{{view.diveGroup.title}}</span></li>
-			</ul>
+
+			{{#unless view.isEditing}}
+				{{ view JustDive.Views.DiveGroupParticipants.List 
+						diveEventBinding="view.diveEvent" 
+						boatDepartureBinding="view.boatDeparture" 
+						diveGroupBinding="view.diveGroup"}}
+			{{/unless}}
 		</div>
 	</div>
 </div>
-
-
-{{#if view.isEditing}}
-<div class="row-fluid">
-	<div class="span8">
-		<div class="hero-unit">
-			<h2>Plongée prévue</h2>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.estimated_dive_time"  placeholder="Durée prévue"}}<span class="add-on">minutes</span>
-			</div>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.estimated_dive_depth"  placeholder="Profondeur prévue"}}<span class="add-on">mètres</span>
-			</div>
-			<h2>Plongée réalisée</h2>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.realized_dive_time"  placeholder="Durée réalisée"}}<span class="add-on">minutes</span>
-			</div>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.realized_dive_depth"  placeholder="Profondeur réalisée"}}<span class="add-on">mètres</span>
-			</div>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.immersion_start_time"  placeholder="Heure d'immersion"}}
-			</div>
-			<div class="input-append">
-				{{view Ember.TextField valueBinding="view.diveGroup.immersion_end_time"  placeholder="Heure de sortie"}}
-			</div>
-		</div>
-		<div class="actions"> 
-			<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
-		</div>
-	</div>
-	<div class="span1">
-		<dl class="dl-horizontal">
-			<dt>Id</dt>
-			<dd>{{view.diveGroup.id}}</dd>
-			<dt>Id évènement</dt>
-			<dd>{{view.diveGroup.boat_departure_id}}</dd>
-			<dt>Créé le</dt>
-			<dd>{{view.diveGroup.created_at}}</dd>
-			<dt>Modifié le</dt>
-			<dd>{{view.diveGroup.updated_at}}</dd>
-		</dl>
-	</div>
-</div>
-{{else}}
-<div class="hero-unit">
-	<h2>Plongée prévue</h2>
-	<p>Temps : {{view.diveGroup.estimated_dive_time}}</p>
-	<p>Profondeur : {{view.diveGroup.estimated_dive_depth}}</p>
-	<h2>Plongée réalisée</h2>
-	<p>Temps : {{view.diveGroup.realized_dive_time}}</p>
-	<p>Profondeur : {{view.diveGroup.realized_dive_depth}}</p>
-	<p>Heure d'immersion : {{view.diveGroup.immersion_start_time}}</p>
-	<p>Heure de sortie : {{view.diveGroup.immersion_end_time}}</p>
-</div>
-{{/if}}
-
-{{#unless view.isEditing}}
-	{{ view JustDive.Views.DiveGroupParticipants.List 
-			diveEventBinding="view.diveEvent" 
-			boatDepartureBinding="view.boatDeparture" 
-			diveGroupBinding="view.diveGroup"}}
-{{/unless}}

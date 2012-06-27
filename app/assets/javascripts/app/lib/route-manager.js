@@ -1,13 +1,16 @@
 #= require ../views/layouts/fullscreen.js
 #= require ../views/layouts/split-screen.js
+#= require ../views/errors/index.js
 #= require ../views/identity/new.js
 #= require ../views/identity/offline.js
 #= require ../views/identity/welcome.js
 #= require ../views/address-book/index.js
+#= require ../views/divers/left-nav.js
 #= require ../views/divers/list.js
 #= require ../views/divers/list-show.js
 #= require ../views/divers/detail.js
 #= require ../views/club-admin/index.js
+#= require ../views/club-admin/left-nav.js
 #= require ../views/club-admin/list.js
 #= require ../views/dive-roles/list.js
 #= require ../views/dive-roles/list-show.js
@@ -16,6 +19,7 @@
 #= require ../views/boats/list-show.js
 #= require ../views/boats/detail.js
 #= require ../views/dive-events/index.js
+#= require ../views/dive-events/left-nav.js
 #= require ../views/dive-events/list.js
 #= require ../views/dive-events/list-show.js
 #= require ../views/dive-events/detail.js
@@ -24,6 +28,19 @@
 #= require ../views/dive-group-participants/detail.js
 
 JustDive.RouteManager = Ember.RouteManager.extend({
+  error: JustDive.LayoutState.create({
+	route: 		'errors',
+	viewClass: 	JustDive.Views.Layouts.Fullscreen,
+	index:				JustDive.LayoutState.create({
+							viewClass: JustDive.Views.Errors.Index,
+							navItemClass:	'errors',
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								JustDive.mainNav.activate(this.get('navItemClass'));
+							}
+	})
+  }),
+  
   account: JustDive.LayoutState.create({
 	route: 		'account',
 	viewClass: 	JustDive.Views.Layouts.Fullscreen,
@@ -53,6 +70,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	route: 		'club-admin',
 	viewClass: 	JustDive.Views.Layouts.SplitScreen,
 	leftPanel:  JustDive.Views.ClubAdmin.List,
+	leftNav:	JustDive.Views.ClubAdmin.LeftNav,
 	
 	index:				JustDive.LayoutState.create({
 							viewClass: JustDive.Views.ClubAdmin.Index
@@ -124,6 +142,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	route: 		'address-book',
 	viewClass: 	JustDive.Views.Layouts.SplitScreen,
 	leftPanel:  JustDive.Views.Divers.List,
+	leftNav:	JustDive.Views.Divers.LeftNav,
 	
 	index:				JustDive.LayoutState.create({
 							viewClass: 		JustDive.Views.AddressBook.Index,
@@ -169,6 +188,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 	route: 		'dive-events',
 	viewClass: 	JustDive.Views.Layouts.SplitScreen,
 	leftPanel:  JustDive.Views.DiveEvents.List,
+	leftNav:	JustDive.Views.DiveEvents.LeftNav,
 	
 	index:				JustDive.LayoutState.create({
 							viewClass: 		JustDive.Views.DiveEvents.Index,

@@ -2,7 +2,7 @@
 JustDive.Resource.Adapter.Local = Ember.Mixin.create({
 	store_id: 			null,
 	data: 				null,
-	allowed_requests: 	["GET", "POST", "PUT", "DELETE"],
+	allowed_requests: 	["GET", "POST", "PUT", "DELETE", "PURGE"],
   
 	_resourceRequest: function(params) {
 		params.dataType = 'json';
@@ -39,6 +39,8 @@ JustDive.Resource.Adapter.Local = Ember.Mixin.create({
 						return this._putLocal(params);
 			case "DELETE":
 						return this._deleteLocal(params);
+			case "PURGE":
+						return this._purgeLocal(params);
 		}
 	},
   
@@ -240,6 +242,37 @@ REQUIRED: `params.url`
 		}
 		return this._done(json, old_data);
 	}, 
+
+/**
+@private
+
+Processes a PURGE request
+
+* `params` -- the array of request parameters
+
+REQUIRED: `params.url`
+*/ 
+	_purgeLocal: function(params) {
+		var url_parts = params.url.split('/'),
+			json = null,
+			old_data = null;
+		if (url_parts[0] == "") {
+			url_parts.splice(0, 1);
+		}
+		
+		if (url_parts[1] !== undefined) {
+			//error (there should be no ID)
+			return this._fail('Request "' + params.url + '" was not understood.');
+		} else {
+			json = {};
+			old_data = this.data;
+			this.data = {};
+			if(!this._saveData()) { // Updates the data stored in "localStore"
+				return this._fail('Failed to delete entries "' + url_parts[0] + '"', 500);
+			}
+		}
+		return this._done(json, old_data);
+	},
     
 	_saveData: function() {
 		if (this.data && this.store_id) {

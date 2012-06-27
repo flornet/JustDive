@@ -4,7 +4,7 @@ class BoatDeparture < Synced
   belongs_to :boat
   belongs_to :dive_event
   has_one :dive_club, :through => :dive_event
-  has_many :dive_groups, :dependent => :restrict
+  has_many :dive_groups, :dependent => :destroy
   
   validates :boat_id, :departure_date, :dive_event_id, :presence => true
   

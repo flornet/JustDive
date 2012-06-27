@@ -7,10 +7,11 @@ Subjects:
 - Rails 3.2.3,
 - Ember JS,
 - Offline App (HTML 5's localstorage, onOnline/onOffline),
+- Local To Remote Sync,
 - Google Contacts (read only)
 
 TODO:
-- Delete cascade,
+- Delete cascade (OFFLINE ?),
 - Optimisation de la queue,
 - Add 'this.$('input:first').focus();' on create/edit views
 - Revoir le initialize d'application côté JS,

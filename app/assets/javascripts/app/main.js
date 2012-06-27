@@ -49,6 +49,7 @@ JustDive = Ember.Application.create({
 		}
 	}),
 	restControllers:  	Ember.Object.create({
+		errors: 					null,
 		divers: 					null,
 		dive_events:				null,
 		dive_roles:					null,
@@ -109,6 +110,7 @@ JustDive = Ember.Application.create({
 		
 		// Create the REST controllers
 		app.set('restControllers', {
+			errors: 					JustDive.Controllers.Rest.Errors.create(),
 			divers: 					JustDive.Controllers.Rest.Divers.create(),
 			dive_roles:					JustDive.Controllers.Rest.DiveRoles.create(),
 			dive_events:				JustDive.Controllers.Rest.DiveEvents.create(),
@@ -154,25 +156,32 @@ JustDive = Ember.Application.create({
 	},
 	
 	displayError: function(errorType, e) {
-		var readableError = '';
+		var error = JustDive.Models.Error.create({created_at: new Date()}),
+			isError = true;
 		if (errorType == 'jqXHR') {
 			if (e.status !== undefined) {
-				readableError = '<p>' + e.status + ': ' + e.statusText + '</p>';
+				error.set('code', e.status);
 				switch (e.status) {
+					case 0:
+						isError = false;
 					case 404:
+						error.set('message', e.statusText);
 						break;
 					default:
 						if (e.responseText) {
-							readableError += '<div>' + e.responseText + '</div>';
+							error.set('message', e.responseText);
 						}
 				}
 			} else {
-				readableError = '<p>jqXHR error not recognized...</p>';
+				error.set('code', 'Unknown');
+				error.set('message', 'jqXHR error not recognized');
 			}
 		} else {
-			readableError = '<p>Error type not recognized...</p>';
+			error.set('code', 'Unknown');
+			error.set('message', 'Error type not recognized');
 		}
-		jQuery('#main-error-container').html(readableError);
+		if (isError)
+			JustDive.Controllers.Routed.Error.create(error);
 	},
 	
 	getStorageInfos: function () {

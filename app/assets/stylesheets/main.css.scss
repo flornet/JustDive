@@ -2,11 +2,103 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#sidebar {
-	background:#eeeeee;
+@media all {
+	.panel {
+		overflow                    : hidden;
+		position                    : absolute;
+		display                     : block;
+		width                       : 100%;
+		top                         : 0;
+		height: 100%; /* uncomment if desktop */
+	}
+
+	.scrollable {
+		margin-top					: 85px;
+		overflow                    : scroll;
+		-webkit-overflow-scrolling  : touch;
+	}
+
+	.insideScrollablePanel {
+		margin-left                 : 5%;
+		margin-right                : 5%;
+		width                       : 90%;
+	}
+
+} /* end of medial all */
+
+/*--- ipad ---*/
+/*--- full screen mode ---*/
+@media (device-width: 768px) and (orientation: portrait) {
+	.panel {
+		height                       : 934px; /*1004-80*/
+	}
+}
+/*--- browser mode ---*/
+@media (device-width: 768px) and (orientation: landscape) {
+	.panel {
+		height                       : 668px; /*748-80*/
+	}
 }
 
-.subnav .navbar-inner {
+/*--- iphone ---*/
+/*--- full screen mode ---*/
+@media (max-width: 480px) and (orientation: portrait) {
+	.panel {
+		height                       : 380px; /*460-80*/
+	}
+}
+/*--- browser mode ---*/
+@media (max-width: 480px) and (orientation: landscape) {
+	.panel {
+		height                       : 220px; /*300-80*/
+	}
+}
+
+@media (orientation: portrait) {
+	.left {
+		float                       : left;
+		left                        : 0%;
+		width                       : 0%;
+
+	}
+	.right {
+		float                       : right;
+		left                        : 0%;
+		width                       : 100%;
+	}
+}
+
+@media (orientation: landscape) {
+	.left {
+		float                       : left;
+		left                        : 0%;
+		width                       : 30%;
+
+	}
+	.right {
+		float                       : right;
+		left                        : 30%;
+		width                       : 70%;
+	}
+}
+#sidebar {
+	background:#eeeeee;
+}	
+#sidebar .navbar-fixed-top,
+#content .navbar-fixed-top {
+	top:40px;
+}
+
+#sidebar .insideScrollablePanel,
+#content .insideScrollablePanel {
+	padding-bottom:85px;
+}
+#sidebar .navbar,
+#content .navbar {
+	z-index:999;
+}
+#sidebar .navbar-inner,
+#content .navbar-inner {
   min-height: 40px;
   padding-right: 20px;
   padding-left: 20px;
@@ -18,16 +110,16 @@
   background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
   background-image: linear-gradient(top, #eeeeee, #cccccc);
   background-repeat: repeat-x;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+     -moz-box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
-
-.subnav .divider-vertical {
+#sidebar .divider-vertical,
+#content .divider-vertical{
   width: 1px;
   height: 40px;
   margin: 0 9px;
