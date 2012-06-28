@@ -60,9 +60,9 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 
 	process: function() {
 		var cue = this;
+		cue._optimize();
+		
 		if ((!cue.get('is_processing')) && (cue.getRequests().length > 0)) {
-			//cue.optimize(); remove useless requests, merge, ...
-			// On analyse la suite de la pile pour voir si la donnée a été modifiée par la suite;
 			cue.set('is_processing', true);
 			var controller,
 				params;
@@ -86,6 +86,9 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 								.done(function(json) {
 									controller.updateLocalObject(local_id, json, true)
 										.done(function() {
+											// Getting the ID of the created entry en replacing IDs in the cue with this one
+											cue._propagateNewId(local_id, json.id);
+											
 											cue._saveAndContinue();
 										})
 										.fail(function(error) {
@@ -156,6 +159,94 @@ JustDive.SyncCue = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustD
 							break;
 			}
 		}
+	},
+	
+	_optimize: function() {
+		var originalRequests = this.getRequests(),
+			newRequests = [],
+			createRequests = {},
+			updateRequests = {},
+			deleteRequests = {};
+		
+		// Sorting requests CREATE | UPDATE | DELETE
+		for (var i=0 ; i < originalRequests.length ; i++) {
+			var request = originalRequests[i],
+				key = request.resource + ':'; // ie.: "dive_event:a166287d-2d2a-7bcd-f9b6-fe03cf6871c7"
+			if (request.new_data !== null) {
+				key += request.new_data.id;
+			} else {
+				key += request.old_data.id;
+			}
+			
+			switch (request.type) {
+				case "POST":
+							createRequests[key] = request;
+							break;
+				case "PUT":
+							updateRequests[key] = request; // Flattening multiple updates
+							break;
+				case "DELETE":
+							deleteRequests[key] = request;
+							break;
+			}
+		}
+		
+		// Cycle through DELETE requests to remove CREATE | UPDATE requests related
+		for (key in deleteRequests) {
+			if ((createRequests[key] === undefined) && (updateRequests[key] === undefined)) {
+				// Deleting something that wasn't CREATED or UPDATED right now, let's keep the DELETE request
+				newRequests.push(deleteRequests[key]);
+			} else {
+				delete createRequests[key];
+				delete updateRequests[key];
+			}
+		}
+		
+		// Cycle through UPDATE requests to merge CREATE requests related
+		for (key in updateRequests) {
+			if (createRequests[key] === undefined) {
+				// Updating something that wasn't CREATED right now, let's keep the UPDATE request
+				newRequests.push(updateRequests[key]);
+			} else {
+				// Updating something that was just CREATED, let's merge
+				createRequests[key].new_data = updateRequests[key].new_data;
+			}
+		}
+		
+		newRequests = newRequests.reverse();
+		
+		// Cycle through CREATE requests to append remaining CREATE requests
+		for (key in createRequests) {
+			newRequests.push(createRequests[key]);
+		}
+				
+		this.data = newRequests;
+		this._save();
+	},
+	
+	_propagateNewId: function(oldId, newId) {
+		var originalRequests = this.getRequests(),
+			newRequests = [];
+		for (var i=0 ; i < originalRequests.length ; i++) {
+			var request = originalRequests[i];
+			if ((request.new_data !== undefined) && (request.new_data !== null)) {
+				for (dataKey in request.new_data) {
+					if (request.new_data[dataKey].toString() === oldId.toString()) {
+						request.new_data[dataKey] = newId;
+					}
+				}
+			}
+			if ((request.old_data !== undefined) && (request.old_data !== null)) {
+				for (dataKey in request.old_data) {
+					if (request.old_data[dataKey].toString() === oldId.toString()) {
+						request.old_data[dataKey] = newId;
+					}
+				}
+			}
+			newRequests.push(request);
+		}
+		this.data = newRequests;
+		this._save();
 	},
 	
 	_filterProperties: function(data) {

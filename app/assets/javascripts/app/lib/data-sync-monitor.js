@@ -8,41 +8,49 @@ JustDive.DataSyncMonitor = JustDive.Object.extend({
 		return JustDive.syncCue;
 	},
 	
+	isStarted:	false,
+	
 	start: function() {
-		var cue 				= this.getSyncCue(),
-			dataSync 			= this.getDataSync();
-		
-		// Initialize the Data
-		dataSync.initialize();
-		
-		// Cue processing
-		cue.set('pid', setInterval(function () {
-			cue.process();
-		}, cue.processingFrequency));
-		cue.set('is_monitored', true);
-		
-		// Data sync processing
-		dataSync.set('pid', setInterval(function () {
-			dataSync.process();
-		}, dataSync.processingFrequency));
-		dataSync.set('is_monitored', true);
+		if (this.get('isStarted') !== true) {
+			var cue 				= this.getSyncCue(),
+				dataSync 			= this.getDataSync();
+			
+			// Initialize the Data
+			dataSync.initialize();
+			
+			// Cue processing
+			cue.set('pid', setInterval(function () {
+				cue.process();
+			}, cue.processingFrequency));
+			cue.set('is_monitored', true);
+			
+			// Data sync processing
+			dataSync.set('pid', setInterval(function () {
+				dataSync.process();
+			}, dataSync.processingFrequency));
+			dataSync.set('is_monitored', true);
+			this.set('isStarted', true);
+		}
 	},
 	
 	stop: function() {
-		var cue 				= this.getSyncCue(),
-			dataSync 			= this.getDataSync();
+		if (this.get('isStarted') === true) {
+			var cue 				= this.getSyncCue(),
+				dataSync 			= this.getDataSync();
+				
+			// Stop cue processing
+			clearInterval(cue.get('pid'));
+			cue.set('is_monitored', false);
+			cue.set('is_processing', false);
+			cue.set('pid', null);
 			
-		// Stop cue processing
-		clearInterval(cue.get('pid'));
-		cue.set('is_monitored', false);
-		cue.set('is_processing', false);
-		cue.set('pid', null);
-		
-		// Stop data sync processing
-		clearInterval(dataSync.get('pid'));
-		dataSync.set('is_monitored', false);
-		dataSync.set('is_processing', false);
-		dataSync.set('pid', null);
+			// Stop data sync processing
+			clearInterval(dataSync.get('pid'));
+			dataSync.set('is_monitored', false);
+			dataSync.set('is_processing', false);
+			dataSync.set('pid', null);
+			this.set('isStarted', false);
+		}
 	}
 	/*
 		1. OnLocalRequestDone() : cue->pushRequest()

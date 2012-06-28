@@ -18,9 +18,7 @@ TODO:
 - Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
 - Gestion des erreurs de login,
-- Gestion des erreurs,
-- Bugs avec les routes (persistance),
-- OnNetworkDown : stopMonitoring()
+- Gestion des erreurs
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
