@@ -1,10 +1,13 @@
 #= require ../dive-group-participants.js
 
-JustDive.Views.DiveGroupParticipants.Detail = JustDive.CrudFormView.extend({
+JustDive.Views.DiveGroupParticipants.Detail = JustDive.Modal.extend({
   templateName: 'app/templates/dive-group-participants/detail',
-  classNames:   ['dive-group-participant-details'],
   
   getCrudController: function() {
 	return JustDive.Controllers.Routed.DiveGroupParticipant;
+  },
+  
+  stopEditMode: function(event) {
+	if (event) event.preventDefault();
   }
 });

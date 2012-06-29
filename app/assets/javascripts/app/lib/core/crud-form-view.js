@@ -50,5 +50,9 @@ JustDive.CrudFormView = JustDive.View.extend({
   destroyObject: function(event) {
 	event.preventDefault();
 	this.getCrudController().destroy(this);
+  },
+  
+  didInsertElement: function() {
+	this.$('input:first').focus();
   }
 });

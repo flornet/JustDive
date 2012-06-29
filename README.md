@@ -12,8 +12,6 @@ Subjects:
 
 TODO:
 - Delete cascade (OFFLINE ?),
-- Optimisation de la queue,
-- Add 'this.$('input:first').focus();' on create/edit views
 - Revoir le initialize d'application côté JS,
 - Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
