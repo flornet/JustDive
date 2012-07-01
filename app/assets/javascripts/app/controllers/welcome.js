@@ -9,5 +9,6 @@ JustDive.Controllers.Welcome = JustDive.ArrayController.create({
   
   clearLocalStorage: function() {
 	localStorage.clear();
+	JustDive.Controllers.Identity.logout();
   }
 });
