@@ -40,7 +40,7 @@ JustDive.Identity = JustDive.Object.extend({
 		}
 	},
 	
-	save: function() {
+	save: function(view) {
 		var identity = this,
 			identityController = this.identityController,
 			identityData,
@@ -66,6 +66,7 @@ JustDive.Identity = JustDive.Object.extend({
 								identity.set('administrator_id', savedIdentity.administrator_id);
 								identity.set('is_logged_in', true);
 								identity.set('password', '');
+								JustDive.router.set('location', 'account/welcome');
 							},
 				error: 		function(jqXHR, textStatus, errorThrown) {
 								error = JSON.parse(jqXHR.responseText);
@@ -74,7 +75,7 @@ JustDive.Identity = JustDive.Object.extend({
 								} else {
 									readableError = jqXHR.responseText;
 								}
-								identityController.views.login.set('error', readableError);
+								view.set('error', readableError);
 				}
 			});
 	},

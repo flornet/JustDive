@@ -53,6 +53,12 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 										id = parseInt(id);
 									}
 								}
-								return this.get("unfiltered").filterProperty('dive_event_id', id)
+								return this.get("unfiltered").filterProperty('dive_event_id', id);/*.sort( function(a,b){
+									var aStart = new Date(),
+										bStart = new Date();
+									aStart.fromISOFormat(a.get('departure_date'));
+									bStart.fromISOFormat(b.get('departure_date'));
+									return aStart - bStart;
+								});*/
 							}.property('unfiltered.@each').cacheable()
 });

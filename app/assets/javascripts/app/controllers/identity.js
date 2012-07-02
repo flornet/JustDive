@@ -3,9 +3,9 @@
 JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	content: [],
 	
-	login: function() {
+	login: function(view) {
 		var identity = JustDive.identity;
-		identity.save();
+		identity.save(view);
 	},
 	
 	logout: function() {
@@ -14,13 +14,11 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	},
 	
 	onLogin: function() {
-		console.log('onLogin');
 		var dataSyncMonitor = JustDive.dataSyncMonitor;
 		dataSyncMonitor.start();
 	},	
 	
 	onLogout: function() {
-		console.log('onLogout');
 		var monitor 			= JustDive.monitor,
 			identityController 	= this,
 			dataSyncMonitor 	= JustDive.dataSyncMonitor,
@@ -73,5 +71,10 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 				JustDive.displayError('jqXHR', jqXHR);
 			}
 		});
+	},
+	
+	clearLocalStorage: function() {
+		localStorage.clear();
+		this.logout();
 	}
 });

@@ -14,10 +14,63 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 						],
 	unfilteredBinding:	"JustDive.restControllers.dive_groups",
 	
+	departureDate:		Ember.computed(function(key, value) {
+							// getter
+							if (arguments.length === 1) {
+								var date = this.get('departure_date');
+								if (date !== undefined) {
+									var tmp = date.split('T');
+								}
+								return tmp !== undefined ? tmp[0] : undefined;
+							// setter
+							} else {
+								var day = value,
+									time = this.get('departureTime');
+								if ((day !== undefined) && (time !== undefined)) {
+									this.set('departure_date', day + 'T' + time + ':00Z');
+								}
+								return value;
+							}
+						}).property('departure_date'),
+	departureTime:		Ember.computed(function(key, value) {
+							// getter
+							if (arguments.length === 1) {
+								var date = this.get('departure_date');
+								if (date !== undefined) {
+									var tmp = date.split('T');
+									time = tmp[1].replace(':00Z', '');
+								}
+								return time !== undefined ? time : undefined;
+							// setter
+							} else {
+								var day = this.get('departureDate'),
+									time = value;
+								if ((day !== undefined) && (time !== undefined)) {
+									this.set('departure_date', day + 'T' + time + ':00Z');
+								}
+								return value;
+							}
+						}).property('departure_date'),
+
 	title: 				Ember.computed(function() {
-							var date = new Date();
+							var date = new Date(),
+								day,
+								month,
+								hours,
+								minutes;
 							date.fromISOFormat(this.get('departure_date'));
-							return date.getDate() + ' ' + $.fn.datepicker.dates['fr']['months'][date.getMonth()];
+							
+							day 	= date.getDate().toString();
+							month 	= $.fn.datepicker.dates['fr']['months'][date.getMonth()];
+							hours 	= date.getHours().toString();
+							minutes	= date.getMinutes().toString();
+							if (hours.length === 1) {
+								hours = '0' + hours;
+							}
+							if (minutes.length === 1) {
+								minutes = '0' + minutes;
+							}
+							return day + ' ' + month + ' à ' + hours + 'h' + minutes;
 						}).property('departure_date'),
 	
 	boat: 				Ember.computed(function() {
@@ -42,13 +95,15 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 						}).property('dive_event_id').cacheable(),
 
 	groupsCount:		Ember.computed(function() {
-							var id = this.get('id');
+							var id = this.get('id'),
+								count;
 							if (id !== undefined) {
 								if (id.length !== 36) {
 									id = parseInt(id);
 								}
 							}
-							return this.get("unfiltered").filterProperty('boat_departure_id', id).length + ' palanquées';
+							count = this.get("unfiltered").filterProperty('boat_departure_id', id).length;
+							return  count + (count === 1 ? " palanquée" : " palanquées");
 						}).property('unfiltered.@each').cacheable(),
 						
 	diveGroups: 		Ember.computed(function() {
@@ -58,6 +113,26 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 									id = parseInt(id);
 								}
 							}
-							return this.get("unfiltered").filterProperty('boat_departure_id', id)
-						}).property('unfiltered.@each').cacheable()
+							return this.get("unfiltered").filterProperty('boat_departure_id', id);
+							/*.sort( function(a,b){
+								return a.get("id") - b.get("id");
+							});*/
+						}).property('unfiltered.@each').cacheable(),
+						
+	possibleTimes: 		Ember.computed(function() {
+							var output = JustDive.ArrayController.create({content: []});
+							
+							output.content.pushObject(JustDive.Object.create({id: '08:00', label: '8h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '09:00', label: '9h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '10:00', label: '10h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '11:00', label: '11h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '12:00', label: '12h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '13:00', label: '13h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '14:00', label: '14h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '15:00', label: '15h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '16:00', label: '16h00'}));
+							output.content.pushObject(JustDive.Object.create({id: '17:00', label: '17h00'}));
+							
+							return output;
+						}).property().cacheable()
 });

@@ -12,6 +12,6 @@ JustDive.Views.Identity.New = JustDive.View.extend({
 
   submit: function(event) {
     event.preventDefault();
-	JustDive.Controllers.Identity.login();
+	JustDive.Controllers.Identity.login(this);
   }
 });

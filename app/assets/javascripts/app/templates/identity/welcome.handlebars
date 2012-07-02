@@ -1,9 +1,45 @@
 <div class="hero-unit">
-<h1>Welcome!!</h1>
-
-<ul class="nav">
-	<li><span class="navbar-text">Authenticity Token: {{JustDive.identity.authenticity_token}}</span></li>
-	<li><span class="navbar-text">Administrator Id: {{JustDive.identity.administrator_id}}</span></li>
-	<li><span class="navbar-text">LocalStorage Infos: {{JustDive.getStorageInfos}}</span></li>
-</ul>
+	<h1>Bienvenue !</h1>
 </div>
+
+<table class="table table-striped table-bordered">
+	<tbody>
+		<tr>
+			<td>Version</td>
+			<td>{{JustDive.version}}</td>
+		</tr>
+		<tr>
+			<td>AppKey</td>
+			<td>{{JustDive.APP_KEY}}</td>
+		</tr>
+		<tr>
+			<td>Authenticity Token</td>
+			<td>{{JustDive.identity.authenticity_token}}</td>
+		</tr>
+		<tr>
+			<td rowspan="8">Stockage local</td>
+			<td><span class="badge badge-info">{{JustDive.restControllers.errors.length}}</span> erreurs</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.boats.length}}</span> bateaux</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.dive_roles.length}}</span> rôles</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.divers.length}}</span> contacts</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.dive_events.length}}</span> évènements</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.boat_departures.length}}</span> départs bateau</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.dive_groups.length}}</span> palanquées</td>
+		</tr>
+		<tr>
+			<td><span class="badge badge-info">{{JustDive.restControllers.dive_group_participants.length}}</span> plongeurs</td>
+		</tr>
+	</tbody>
+</table>

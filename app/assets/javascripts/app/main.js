@@ -18,7 +18,7 @@
 
 JustDive = Ember.Application.create({
 	APP_KEY: 			null, // JustDive 'App Key'
-	version:			'1.0',
+	version:			'1.0.0',
 	mainNav:			Ember.Object.create({
 		domEl:		null,
 		activate:	function(navItemClass) {
@@ -183,15 +183,6 @@ JustDive = Ember.Application.create({
 		if (isError)
 			JustDive.Controllers.Routed.Error.create(error);
 	},
-	
-	getStorageInfos: function () {
-		var app = this,
-			result = '';
-		for (var i = 0; i < app.localStorage.length; i++){
-			result += '[' + app.localStorage.key(i) + ' ' + app.localStorage.getItem(app.localStorage.key(i)).length + ' bytes ] ';
-		}
-		return result;
-	}.property('localStorage'),
 	
 	browser: {
 		_compatibilityErrors : [],
