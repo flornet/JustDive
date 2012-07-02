@@ -1,0 +1,27 @@
+<h1>Listing administrators</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th>Dive club</th>
+    <th>Email</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th colspan="3" class="action"></th>
+  </tr>
+
+<% @admin_administrators.each do |admin_administrator| %>
+  <tr>
+	<td><%= admin_administrator.dive_club.name %></td>
+    <td><%= admin_administrator.email %></td>
+    <td><%= admin_administrator.firstname %></td>
+    <td><%= admin_administrator.lastname %></td>
+    <td><%= link_to 'Show', admin_administrator, :class => 'btn' %></td>
+    <td><%= link_to 'Edit', edit_admin_administrator_path(admin_administrator), :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_administrator, :confirm => 'Are you sure?', :method => :delete, :class => 'btn' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Administrator', new_admin_administrator_path, :class => 'btn btn-primary' %>

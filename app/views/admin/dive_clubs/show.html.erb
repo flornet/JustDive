@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @admin_dive_club.name %>
+</p>
+
+<p>
+  <b>Ffessm licence number:</b>
+  <%= @admin_dive_club.ffessm_licence_number %>
+</p>
+
+<%= link_to 'Back', admin_dive_clubs_path, :class => 'btn' %>
+<%= link_to 'Edit', edit_admin_dive_club_path(@admin_dive_club), :class => 'btn btn-primary' %>

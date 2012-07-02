@@ -1,7 +1,15 @@
 JustDive::Application.routes.draw do
-  resources :administrators
-  resources :app_keys
-  resources :sync_histories
+
+  namespace :admin do 
+	resources :dive_clubs
+	resources :administrators
+	resources :ffessm_levels
+	resources :app_keys
+    resources :sync_histories
+	resources :divers
+	resources :dive_events
+  end
+  
   resources :identity do
     collection do
       get     'get_token'
@@ -11,9 +19,6 @@ JustDive::Application.routes.draw do
     end
   end
 
-  resources :ffessm_levels
-  resources :dive_clubs
-  
   resources :dive_group_participants do
 	collection do
 		get	'diff'

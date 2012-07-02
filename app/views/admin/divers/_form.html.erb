@@ -1,0 +1,49 @@
+<%= form_for(@admin_diver) do |f| %>
+  <% if @admin_diver.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_diver.errors.count, "error") %> prohibited this admin_diver from being saved:</h2>
+
+      <ul>
+      <% @admin_diver.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dive_club_id %><br />
+    <%= f.number_field :dive_club_id %>
+  </div>
+  <div class="field">
+    <%= f.label :google_contact_id %><br />
+    <%= f.text_field :google_contact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname %>
+  </div>
+  <div class="field">
+    <%= f.label :ffessm_level_id %><br />
+    <%= f.number_field :ffessm_level_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ffessm_licence_number %><br />
+    <%= f.text_field :ffessm_licence_number %>
+  </div>
+  <div class="field">
+    <%= f.label :medical_certificate_expires_on %><br />
+    <%= f.date_select :medical_certificate_expires_on %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

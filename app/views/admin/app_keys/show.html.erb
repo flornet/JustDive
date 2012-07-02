@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @admin_app_key.code %>
+</p>
+
+<p>
+  <b>Administrator:</b>
+  <%= @admin_app_key.administrator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_app_key_path(@admin_app_key) %> |
+<%= link_to 'Back', admin_app_keys_path %>

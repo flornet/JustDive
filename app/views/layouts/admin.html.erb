@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JustDive</title>
+  <link rel="icon" type="image/png" href="<%= asset_path 'favicon.ico' %>">
+  <%= stylesheet_link_tag    "admin", :media => "all" %>
+  <%= javascript_include_tag "admin" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">JustDive</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Global</li>
+			  <li><%= link_to 'FFESSM Levels', admin_ffessm_levels_path %></li>
+              <li><%= link_to 'Dive Clubs', admin_dive_clubs_path %></li>
+			  <li class="nav-header">Dive club system data</li>
+              <li><%= link_to 'Administrators', admin_administrators_path %></li>
+              <li><%= link_to 'App Keys', admin_app_keys_path %></li>
+              <li><%= link_to 'Sync Histories', admin_sync_histories_path %></li>
+			  <li class="nav-header">Dive club user's data</li>
+			  <li><%= link_to 'Divers', admin_divers_path %></li>
+			  <li><%= link_to 'Dive Events', admin_dive_events_path %></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span10">
+          <%= yield %>
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Just Dive 2012</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h1>Listing admin_ffessm_levels</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th>Name</th>
+    <th colspan="3" class="action"></th>
+  </tr>
+
+<% @admin_ffessm_levels.each do |admin_ffessm_level| %>
+  <tr>
+    <td><%= admin_ffessm_level.name %></td>
+    <td><%= link_to 'Show', admin_ffessm_level, :class => 'btn' %></td>
+    <td><%= link_to 'Edit', edit_admin_ffessm_level_path(admin_ffessm_level), :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_ffessm_level, :confirm => 'Are you sure?', :method => :delete, :class => 'btn' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ffessm level', new_admin_ffessm_level_path, :class => 'btn btn-primary' %>

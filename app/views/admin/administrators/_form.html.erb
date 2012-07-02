@@ -1,0 +1,33 @@
+<%= form_for(@admin_administrator) do |f| %>
+  <% if @admin_administrator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_administrator.errors.count, "error") %> prohibited this admin_administrator from being saved:</h2>
+
+      <ul>
+      <% @admin_administrator.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dive_club_id %><br />
+	<%= f.collection_select :dive_club_id, DiveClub.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

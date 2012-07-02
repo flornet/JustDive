@@ -1,0 +1,31 @@
+<h1>Listing Sync Histories</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+	<th>Dive club</th>
+    <th>Administrator</th>
+	<th>App key</th>
+    <th>Resource name</th>
+	<th>Created at</th>
+	<th>Updated at</th>
+    <th colspan="3" class="action"></th>
+  </tr>
+
+<% @admin_sync_histories.each do |admin_sync_history| %>
+  <tr>
+    <td><%= admin_sync_history.app_key.administrator.dive_club.name %></td>
+	<td><%= admin_sync_history.app_key.administrator.email %></td>
+	<td><%= admin_sync_history.app_key.code %></td>
+    <td><%= admin_sync_history.resource_name %></td>
+	<td><%= admin_sync_history.created_at %></td>
+	<td><%= admin_sync_history.updated_at %></td>
+    <td><%= link_to 'Show', admin_sync_history, :class => 'btn' %></td>
+    <td><%= link_to 'Edit', edit_admin_sync_history_path(admin_sync_history), :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_sync_history, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sync history', new_admin_sync_history_path, :class => 'btn btn-primary' %>

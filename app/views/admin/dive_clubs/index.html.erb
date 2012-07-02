@@ -1,0 +1,23 @@
+<h1>Listing Dive Clubs</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+	<th>Name</th>
+	<th>FFESSM</th>
+    <th colspan="3" class="action"></th>
+  </tr>
+
+<% @admin_dive_clubs.each do |admin_dive_club| %>
+  <tr>
+	<td><%= admin_dive_club.name %></td>
+    <td><%= admin_dive_club.ffessm_licence_number %></td>
+	<td><%= link_to 'Show', admin_dive_club, :class => 'btn' %></td>
+    <td><%= link_to 'Edit', edit_admin_dive_club_path(admin_dive_club), :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_dive_club, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dive club', new_admin_dive_club_path, :class => 'btn btn-primary' %>
