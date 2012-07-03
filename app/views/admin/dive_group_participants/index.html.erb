@@ -17,7 +17,7 @@
     <td><%= dive_group_participant.dive_role_id %></td>
     <td><%= link_to 'Show', dive_group_participant %></td>
     <td><%= link_to 'Edit', edit_dive_group_participant_path(dive_group_participant) %></td>
-    <td><%= link_to 'Destroy', dive_group_participant, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', dive_group_participant, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -17,7 +17,7 @@
     <td><%= boat_departure.departure_date %></td>
     <td><%= link_to 'Show', boat_departure %></td>
     <td><%= link_to 'Edit', edit_boat_departure_path(boat_departure) %></td>
-    <td><%= link_to 'Destroy', boat_departure, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', boat_departure, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -21,7 +21,7 @@
 	<td><%= admin_sync_history.updated_at %></td>
     <td><%= link_to 'Show', admin_sync_history, :class => 'btn' %></td>
     <td><%= link_to 'Edit', edit_admin_sync_history_path(admin_sync_history), :class => 'btn' %></td>
-    <td><%= link_to 'Destroy', admin_sync_history, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_sync_history, :confirm => 'Are you sure?', :method => :delete, :class => 'btn' %></td>
   </tr>
 <% end %>
 </table>

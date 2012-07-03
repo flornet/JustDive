@@ -15,7 +15,7 @@
     <td><%= admin_app_key.code %></td>
     <td><%= link_to 'Show', admin_app_key, :class => 'btn' %></td>
     <td><%= link_to 'Edit', edit_admin_app_key_path(admin_app_key), :class => 'btn' %></td>
-    <td><%= link_to 'Destroy', admin_app_key, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_app_key, :confirm => 'Are you sure?', :method => :delete, :class => 'btn' %></td>
   </tr>
 <% end %>
 </table>

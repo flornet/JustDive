@@ -13,7 +13,7 @@
     <td><%= admin_dive_club.ffessm_licence_number %></td>
 	<td><%= link_to 'Show', admin_dive_club, :class => 'btn' %></td>
     <td><%= link_to 'Edit', edit_admin_dive_club_path(admin_dive_club), :class => 'btn' %></td>
-    <td><%= link_to 'Destroy', admin_dive_club, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_dive_club, :confirm => 'Are you sure?', :method => :delete, :class => 'btn' %></td>
   </tr>
 <% end %>
 </table>

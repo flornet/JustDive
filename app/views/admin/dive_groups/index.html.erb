@@ -25,7 +25,7 @@
     <td><%= dive_group.immersion_end_time %></td>
     <td><%= link_to 'Show', dive_group %></td>
     <td><%= link_to 'Edit', edit_dive_group_path(dive_group) %></td>
-    <td><%= link_to 'Destroy', dive_group, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', dive_group, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
