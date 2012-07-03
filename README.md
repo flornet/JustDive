@@ -17,6 +17,7 @@ TODO:
 - Gestion des conflits,
 - Gestion des erreurs de login,
 - Gestion des erreurs
+- Retest
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
