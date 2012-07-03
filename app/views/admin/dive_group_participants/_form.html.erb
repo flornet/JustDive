@@ -1,10 +1,10 @@
-<%= form_for(@dive_group_participant) do |f| %>
-  <% if @dive_group_participant.errors.any? %>
+<%= form_for(@admin_dive_group_participant) do |f| %>
+  <% if @admin_dive_group_participant.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@dive_group_participant.errors.count, "error") %> prohibited this dive_group_participant from being saved:</h2>
+      <h2><%= pluralize(@admin_dive_group_participant.errors.count, "error") %> prohibited this admin_dive_group_participant from being saved:</h2>
 
       <ul>
-      <% @dive_group_participant.errors.full_messages.each do |msg| %>
+      <% @admin_dive_group_participant.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

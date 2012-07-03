@@ -43,7 +43,6 @@ class Admin::SyncHistoriesController < ApplicationController
   # POST /admin/sync_histories.json
   def create
     @admin_sync_history = Admin::SyncHistory.new(params[:admin_sync_history])
-	@admin_sync_history.app_key_id = session[:app_key_id]
     
 	respond_to do |format|
       if @admin_sync_history.save

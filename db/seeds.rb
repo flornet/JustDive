@@ -1,4 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+﻿# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
@@ -14,3 +14,5 @@ FfessmLevel.create([
                     { :name => 'Niveau 4'},
                     { :name => 'Niveau 5'},
                     ])
+diveClub = DiveClub.create({ :name => 'Atlantide plongée'})
+Administrator.create([{ :email => 'atlantideplongee@gmail.com', :firstname => 'Arnaud', :lastname => 'Baudouin', :dive_club_id => diveClub.id}])

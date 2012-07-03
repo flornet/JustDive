@@ -8,7 +8,10 @@ JustDive::Application.routes.draw do
     resources :sync_histories
 	resources :divers
 	resources :dive_events
+	resources :dive_group_participants
   end
+  
+  resources :sync_histories
   
   resources :identity do
     collection do

@@ -9,8 +9,10 @@
 			if (dateTimeParts.length == 2) {
 				var timeParts = dateTimeParts[1].split(":");
 				this.setHours(timeParts[0]);
-				this.setMinutes(timeParts[1]);
-				this.setSeconds(timeParts[2].replace('Z',''));
+				if (timeParts[1] !== undefined)
+					this.setMinutes(timeParts[1]);
+				if (timeParts[2] !== undefined)
+					this.setSeconds(timeParts[2].replace('Z',''));
 			}
 		}
     },

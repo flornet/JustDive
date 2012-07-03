@@ -16,7 +16,8 @@ TODO:
 - Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
 - Gestion des erreurs de login,
-- Gestion des erreurs
+- Gestion des erreurs,
+- Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator
 
 Diagrams:
 - http://yuml.me/diagram/class/draw

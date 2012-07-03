@@ -39,12 +39,13 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 	create: function(view) {
 		var self = this,
 			resource = view.get('diveGroupParticipant');
+		resource.set('dive_group_id', view.diveGroup.id); // Refreshes the dive_group_id since it might have changed
 		resource.saveResource()
 			.fail( function(e) {
 				JustDive.displayError('jqXHR', e);
 			})
 			.done( function() {
-				console.log(self.getRestController());
+				//console.log(self.getRestController());
 				self.getRestController().pushObject(resource);
 				$(view.get('element')).modal('hide');
 				view.destroyElement();

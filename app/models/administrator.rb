@@ -2,19 +2,23 @@
   attr_accessible :dive_club_id, :email, :firstname, :lastname
   
   belongs_to :dive_club
-  has_many :app_keys, :dependent => :restrict
+  has_many :app_keys, :dependent => :destroy
   
   def fullname
     return self.firstname + ' ' + self.lastname + ' (' + self.email + ')'
   end
   
-  def sync_divers(gdata_client)
+  def sync_divers(gdata_client, updatedMin = nil)
     divers = {'updated' => 0, 'created' => 0, 'skipped' => []}
     dive_club_id = self.dive_club.id
 	divers_gdata = []
 		
 	# Retrives the data from Google Contacts
-	feed = gdata_client.get('https://www.google.com/m8/feeds/contacts/default/full').to_xml
+	if updatedMin.is_a?(Time)
+		feed = gdata_client.get('https://www.google.com/m8/feeds/contacts/default/full?updated-min=' +  updatedMin.strftime('%Y-%m-%dT%d:%M:%S')).to_xml   #2007-03-16T00:00:00
+	else
+		feed = gdata_client.get('https://www.google.com/m8/feeds/contacts/default/full?max-results=5000').to_xml
+	end
 	feed.elements.each('entry') do |entry|
 		# Validation of Google Contact Datas
 		if  !entry.elements['id'].nil? and !entry.elements['gd:email]'].nil?
