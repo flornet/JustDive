@@ -1,6 +1,7 @@
 #= require ./vendor/twitter/bootstrap.js
 #= require ./vendor/twitter/bootstrap-datepicker.js
 #= require ./vendor/twitter/bootstrap-datepicker.fr.js
+#= require ./vendor/twitter/bootstrap-typeahead.js
 #= require ./vendor/ember/ember-debug-pre.js
 #= require ./vendor/ember/ember-rest.js
 #= require ./vendor/ember/ember-routemanager.js

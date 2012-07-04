@@ -1,7 +1,7 @@
 JustDive.DateField = Ember.View.extend(Ember.TextSupport,
   /** @scope JustDive.DateField.prototype */ {
 
-  classNames: ['ember-date-field span2 datepicker'],
+  classNames: ['ember-date-field span3 datepicker'],
   tagName: "input",
   attributeBindings: ['type', 'value', 'readonly', 'size'],
 
