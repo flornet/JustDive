@@ -52,6 +52,7 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 									id = parseInt(id);
 								}
 							}
+							//console.log(this.get("unfiltered"));
 							return this.get("unfiltered").filterProperty('dive_group_id', id);
-							}.property('unfiltered.@each').cacheable() 
+						}.property('unfiltered.@each').cacheable() 
 });

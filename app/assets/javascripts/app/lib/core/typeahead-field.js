@@ -3,7 +3,7 @@ JustDive.Typeahead = Ember.View.extend(Ember.TextSupport,
 
   classNames: ['ember-typeahead-field span3 typeahead'],
   tagName: "input",
-  attributeBindings: ['type', 'value', 'readonly', 'size'],
+  attributeBindings: ['type', 'value', 'readonly', 'size', 'action', 'target'],
 
   /**
     The value attribute of the input element. As the user inputs text, this
@@ -25,32 +25,38 @@ JustDive.Typeahead = Ember.View.extend(Ember.TextSupport,
   didInsertElement: function() {
 	var self		= this,
 		dataSource 	= self.get('content'),
-		loc 		= dataSource.get('length') || 0,
-		source 		= new Array();
-	
-	while(--loc >= 0) {
-		var curObject = dataSource.objectAt(loc);
-		source.push({
-			id: 		curObject.get('id'),
-			fullname: 	curObject.get('fullname') + ' (' + curObject.get('email') + ')'
-		});
+		action 		= self.get('action'),
+		keys 		= self.get('target').split('.'),
+		jqEl 		= $(self.get('element')),
+		source 		= new Array(),
+		target 		= window[keys.shift()];
+	for (var i = 0, l = keys.length; i < l; i++) {
+		target = target[keys[i]];
+
+		// exit early if `null` or `undefined`
+		if (target == null)
+			break;
 	}
-	
-	$(self.get('element')).typeahead({
+
+	dataSource.forEach(function (item) {
+		source.push({
+			id: 		item.get('id'),
+			fullname: 	item.get('fullname') + ' (' + item.get('email') + ')'
+		});
+	});
+
+	jqEl.typeahead({
 		source: 		source,
         display: 		'fullname',
         val: 			'id',
 		itemSelected: 	function(item, val, text) {
-			self.itemSelected(item, val, text);
-			self.set('value', '');
-			$(self.get('element')).focus();
+			if ((action !== null) && (action !== undefined) && (target !== null) && (target !== undefined)) {
+				target[action](item, val, text, self._parentView._parentView);
+				self.set('value', '');
+				jqEl.focus();
+			}
 		}
 	});
-  },
-  
-  itemSelected: function(item, val, text) {
-	var destination = "#testCaseDestination";
-	$(destination).append(item);
   }
 });
 

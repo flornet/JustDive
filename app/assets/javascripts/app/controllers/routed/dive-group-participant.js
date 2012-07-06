@@ -33,6 +33,22 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 		modal.set('diveGroupParticipant', 	view.diveGroupParticipant);
 		modal.setEditing();
 	},
+	
+	quickCreate: function(item, val, text, view) {
+		var resource = JustDive.Models.DiveGroupParticipant.create({dive_group_id: view.diveGroup.id}),
+			self = this;
+		resource.set('diver_id', val);
+		
+		resource.set('dive_role_id', JustDive.restControllers.dive_roles.getPath('content.firstObject').id);
+		resource.saveResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done( function() {
+				self.getRestController().pushObject(resource);
+				//Ember.run.sync();
+			});
+    },
 /**
     Create action: save the newly created 'model'
 */   
