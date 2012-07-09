@@ -1,0 +1,27 @@
+<h1>Listing admin_dive_event_participants</h1>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th>Dive event</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Comment</th>
+    <th colspan="3" class="action"></th>
+  </tr>
+
+<% @admin_dive_event_participants.each do |admin_dive_event_participant| %>
+  <tr>
+    <td><%= admin_dive_event_participant.dive_event_id %></td>
+    <td><%= admin_dive_event_participant.diver.firstname %></td>
+	<td><%= admin_dive_event_participant.diver.lastname %></td>
+    <td><%= admin_dive_event_participant.comment %></td>
+    <td><%= link_to 'Show', admin_dive_event_participant, :class => 'btn' %></td>
+    <td><%= link_to 'Edit', edit_admin_dive_event_participant_path(admin_dive_event_participant), :class => 'btn' %></td>
+    <td><%= link_to 'Destroy', admin_dive_event_participant, confirm: 'Are you sure?', method: :delete, :class => 'btn' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dive event participant', new_admin_dive_event_participant_path, :class => 'btn btn-primary'  %>

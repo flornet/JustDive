@@ -1,0 +1,23 @@
+<h2>Participants</h2>
+
+<div class="well form-inline">
+	<label>Ajouter un participant :</label>
+	{{view JustDive.Typeahead
+		contentBinding="JustDive.restControllers.divers.sorted"
+		action="quickCreate"
+		target="JustDive.Controllers.Routed.DiveEventParticipant"}}
+</div>
+
+<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		<th>Prénom</th>
+		<th>Nom</th>
+		<th>Niveau</th>
+		<th>Commentaire</th>
+	</tr>
+	{{#each view.diveEvent.participants}}
+		{{view JustDive.Views.DiveEventParticipants.ListShow 
+				diveEventParticipantBinding="this" 
+				diveEventBinding="view.diveEvent"}}
+	{{/each}}
+</table>

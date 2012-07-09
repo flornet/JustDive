@@ -1,0 +1,10 @@
+<td>{{view.diveEventParticipant.diver.firstname}}</td>
+<td>{{view.diveEventParticipant.diver.lastname}}</td>
+<td>{{view.diveEventParticipant.diver.level}}</td>
+<td {{action "edit" on="click"}}>
+	{{#if view.isEditing}}
+		{{view Ember.TextField valueBinding="view.diveEventParticipant.comment" size="80"}}
+	{{else}}
+		<p>{{view.diveEventParticipant.comment}}</p>
+	{{/if}}
+</td>

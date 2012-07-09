@@ -1,0 +1,2 @@
+module DiveEventParticipantsHelper
+end

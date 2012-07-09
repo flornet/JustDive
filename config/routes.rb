@@ -1,5 +1,7 @@
 JustDive::Application.routes.draw do
 
+  
+
   match 'admin' => 'welcome#admin'
   namespace :admin do 
 	resources :dive_clubs
@@ -10,6 +12,7 @@ JustDive::Application.routes.draw do
 	resources :divers
 	resources :dive_events
 	resources :dive_group_participants
+	resources :dive_event_participants
   end
   
   resources :sync_histories
@@ -22,6 +25,12 @@ JustDive::Application.routes.draw do
       delete  'destroy'
     end
   end
+  
+  resources :dive_event_participants do
+	collection do
+		get	'diff'
+	end
+  end 
 
   resources :dive_group_participants do
 	collection do

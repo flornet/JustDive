@@ -73,7 +73,7 @@
 				<div class="well form-inline">
 					<label>Ajouter un plongeur :</label>
 					{{view JustDive.Typeahead
-						contentBinding="JustDive.restControllers.divers.sorted"
+						contentBinding="view.diveEvent.participants"
 						action="quickCreate"
 						target="JustDive.Controllers.Routed.DiveGroupParticipant"}}
 					

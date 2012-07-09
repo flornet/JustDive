@@ -58,6 +58,10 @@
 			{{#unless view.isEditing}}
 				{{ view JustDive.Views.BoatDepartures.List diveEventBinding="view.diveEvent"}}
 			{{/unless}}
+			
+			{{#unless view.isEditing}}
+				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
+			{{/unless}}
 		</div>
 	</div>
 </div>

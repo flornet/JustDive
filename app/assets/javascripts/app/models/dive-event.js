@@ -13,6 +13,8 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 						],
 	unfilteredBinding:		"JustDive.restControllers.boat_departures",
 	
+	unfilteredDiversBinding:"JustDive.restControllers.dive_event_participants",
+	
 	title: 					Ember.computed(function() {
 								var start 	= new Date(),
 									end 	= new Date(),
@@ -60,5 +62,20 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 									bStart.fromISOFormat(b.get('departure_date'));
 									return aStart - bStart;
 								});*/
-							}.property('unfiltered.@each').cacheable()
+							}.property('unfiltered.@each').cacheable(),
+	participants: 		function() {
+								var id = this.get('id');
+								if (id !== undefined) {
+									if (id.length !== 36) {
+										id = parseInt(id);
+									}
+								}
+								return this.get("unfilteredDivers").filterProperty('dive_event_id', id);/*.sort( function(a,b){
+									var aStart = new Date(),
+										bStart = new Date();
+									aStart.fromISOFormat(a.get('departure_date'));
+									bStart.fromISOFormat(b.get('departure_date'));
+									return aStart - bStart;
+								});*/
+							}.property('unfilteredDivers.@each').cacheable()
 });

@@ -1,0 +1,37 @@
+<%= form_for(@admin_dive_event_participant) do |f| %>
+  <% if @admin_dive_event_participant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_dive_event_participant.errors.count, "error") %> prohibited this admin_dive_event_participant from being saved:</h2>
+
+      <ul>
+      <% @admin_dive_event_participant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dive_event_id %><br />
+    <%= f.number_field :dive_event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :diver_id %><br />
+    <%= f.number_field :diver_id %>
+  </div>
+  <div class="field">
+    <%= f.label :created_by_app_key_id %><br />
+    <%= f.number_field :created_by_app_key_id %>
+  </div>
+  <div class="field">
+    <%= f.label :last_updated_by_app_key_id %><br />
+    <%= f.number_field :last_updated_by_app_key_id %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

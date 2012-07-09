@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dive_event_id: 1
+  diver_id: 1
+  created_by_app_key_id: 1
+  last_updated_by_app_key_id: 1
+  comment: MyText
+
+two:
+  dive_event_id: 1
+  diver_id: 1
+  created_by_app_key_id: 1
+  last_updated_by_app_key_id: 1
+  comment: MyText

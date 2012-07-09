@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dive event:</b>
+  <%= @admin_dive_event_participant.dive_event_id %>
+</p>
+
+<p>
+  <b>Diver:</b>
+  <%= @admin_dive_event_participant.diver_id %>
+</p>
+
+<p>
+  <b>Created by app key:</b>
+  <%= @admin_dive_event_participant.created_by_app_key_id %>
+</p>
+
+<p>
+  <b>Last updated by app key:</b>
+  <%= @admin_dive_event_participant.last_updated_by_app_key_id %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @admin_dive_event_participant.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_dive_event_participant_path(@admin_dive_event_participant) %> |
+<%= link_to 'Back', admin_dive_event_participants_path %>

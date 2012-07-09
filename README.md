@@ -12,6 +12,7 @@ Subjects:
 
 TODO:
 - Delete cascade (OFFLINE ?),
+- Gérer le diffDelete côté serveur (pas en GET),
 - Revoir le initialize d'application côté JS,
 - Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
@@ -34,3 +35,7 @@ Diagrams:
 [BoatDeparture]0..*-1[DiveGroup]
 [BoatDeparture]1..*-1[Boat]
 [DiveGroup]0..*-1[Diver]
+
+
+Unhandled errors:
+- 422 	{"end_date":["can't be blank"],"start_date":["can't be blank"]} 	Lundi 9 Juillet 2012 	12h30 (9s)
