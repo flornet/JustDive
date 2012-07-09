@@ -11,7 +11,7 @@ class DiversController < SyncedController
   def diff
     
 	google_sync_date = current_dive_club.sync_histories.where(:resource_name => 'divers').maximum('created_at');
-	
+
 	# Synchronize with Google Contacts
 	if google_sync_date.nil?
 		current_administrator.sync_divers(session[:gdata_client])  #Initialize (5000 contacts MAX)

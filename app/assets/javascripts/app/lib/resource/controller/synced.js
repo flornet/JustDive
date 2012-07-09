@@ -119,43 +119,6 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 		});
 	},
 	
-	firstSynchronize: function() {
-		/* First time:
-		 * - Loads remote data,
-		 * - Save them to local storage,
-		 * - Add an entry to the sync_local_history and sync_remote_history
-		 */
-		var self = this;
-		self.findAllRemote()
-			.done(function() {
-				var length 	= self.get('length'),
-					saved 	= 0,
-					failed 	= 0;
-				if (length === 0) { // Empty store
-					self.getDataSync().markAsSynced(self._resourceStoreId());
-				} else {
-					self.get('content').forEach(function(resource) {
-						resource.saveResourceLocal()
-							.done( function() {
-								saved += 1;
-							})
-							.fail( function(e) {
-								failed += 1;
-								JustDive.displayError('jqXHR', e);
-							})
-							.always( function() {
-								if ((saved + failed) == length) {
-									self.getDataSync().markAsSynced(self._resourceStoreId());
-								}
-							});
-					});
-				}
-			})
-			.fail(function(e) {
-				JustDive.displayError('jqXHR', e);
-			});
-	},
-	
 	findAllRemote: function() {
 		var self = this,
 			params = {

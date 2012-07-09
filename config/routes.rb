@@ -1,5 +1,6 @@
 JustDive::Application.routes.draw do
 
+  match 'admin' => 'welcome#admin'
   namespace :admin do 
 	resources :dive_clubs
 	resources :administrators

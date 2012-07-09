@@ -58,7 +58,6 @@ JustDive = Ember.Application.create({
 		boat_departures:			null,
 		dive_groups:				null,
 		dive_group_participants: 	null,
-		sync_local_histories: 		null,
 		sync_remote_histories: 		null
 	}),
 	localStorage: 		null,
@@ -119,7 +118,6 @@ JustDive = Ember.Application.create({
 			boat_departures:			JustDive.Controllers.Rest.BoatDepartures.create(),
 			dive_groups:				JustDive.Controllers.Rest.DiveGroups.create(),
 			dive_group_participants: 	JustDive.Controllers.Rest.DiveGroupParticipants.create(),
-			sync_local_histories: 		JustDive.Controllers.Rest.SyncLocalHistories.create(),
 			sync_remote_histories:		JustDive.Controllers.Rest.SyncRemoteHistories.create()
 		});
 		

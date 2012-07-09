@@ -2,7 +2,6 @@
 #= require ./resource/adapter/remote.js
 
 JustDive.DataSync = JustDive.Object.extend(JustDive.Resource.Adapter.Local, JustDive.Resource.Adapter.Remote, {
-	historiesControllerName: 	'sync_local_histories',
 	is_monitored: 				false,
 	is_processing: 				false,
 	sync_cycle: 				{},
@@ -17,27 +16,9 @@ JustDive.DataSync = JustDive.Object.extend(JustDive.Resource.Adapter.Local, Just
 		return JustDive.syncCue;
 	},
 	
-	// First run of the app initializes local data
 	initialize: function() {
-		var dataSync 		= this,
-			controllers 	= this.getControllers(),
-			syncController 	= this.getControllers()[this.historiesControllerName],
-			synchronizableControllers = [],
-			controller;
-		
-		if (dataSync.getObjectSize(dataSync.get('sync_cycle')) === 0) {
-			dataSync._initSyncCycle();
-		}
-		
-		// First synchronization of the data
-		if (!syncController.isInitialized()) {
-			dataSync.set('is_processing', true);
-			var cycle = dataSync.get('sync_cycle');
-			for (key in cycle) {
-				var cycleEntry = cycle[key];
-				cycleEntry.controller.firstSynchronize();
-			}
-			dataSync.set('is_processing', false);
+		if (this.getObjectSize(this.get('sync_cycle')) === 0) {
+			this._initSyncCycle();
 		}
 	},
 	
@@ -105,25 +86,15 @@ JustDive.DataSync = JustDive.Object.extend(JustDive.Resource.Adapter.Local, Just
 
 	markAsSynced: function(resource_name) {
 		var dataSync = this;
-		var syncLocalEntry = JustDive.Models.SyncLocalHistory.create({
-																	resource_name: 	resource_name, 
-																	created_at: 	new Date()
-																});
 		var syncRemoteEntry = JustDive.Models.SyncRemoteHistory.create({
 																	resource_name: 	resource_name
 																});
 		syncRemoteEntry.saveResource()
 			.done(function (json) {
-				syncLocalEntry.saveResource()
-					.done(function (json) {
-						//console.log(resource_name + ' has been successfully synchronized');
-						dataSync._checkCycleEndAndContinue();
-						dataSync.get('sync_cycle')[resource_name].synchronized = true;
-						dataSync._checkCycleEndAndContinue();
-					})
-					.fail(function(e) {
-						JustDive.displayError('jqXHR', e);
-					});
+				//console.log(resource_name + ' has been successfully synchronized');
+				dataSync._checkCycleEndAndContinue();
+				dataSync.get('sync_cycle')[resource_name].synchronized = true;
+				dataSync._checkCycleEndAndContinue();
 			})
 			.fail(function(e) {
 				JustDive.displayError('jqXHR', e);

@@ -32,7 +32,18 @@ JustDive.Controllers.Routed.DiveGroup = JustDive.RoutedController.create({
 		this._super(event);
 		this.set('mainRoute', mainRoute);
 	},
-	
+
+/**
+    quickCreate action: creates a new BoatDeparture and shows it
+*/
+	quickCreate: function(event) {
+		event.preventDefault();
+		var diveGroup 	= JustDive.Models.DiveGroup.create({boat_departure_id: event.context.id}),
+			view 		= JustDive.Views.DiveGroups.Detail.create();
+		view.set('boatDeparture', event.context);
+		view.set('diveGroup', diveGroup);
+		this.create(view);
+	},
 /**
     Create action: save the newly created 'model'
 */   

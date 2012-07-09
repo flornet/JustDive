@@ -9,14 +9,15 @@ class BoatDeparture < Synced
   validates :boat_id, :departure_date, :dive_event_id, :presence => true
   
   def self.findCreatedDiff(app_key_id, sync_date)
-	return self.find(
-					:all, 
-					:conditions => [
-									" (boat_departures.created_by_app_key_id IS NULL OR boat_departures.created_by_app_key_id  <> ?)
-									  AND (boat_departures.created_at > ?)", 
-									  app_key_id, 
-									  sync_date
-									])
+	if not sync_date.nil?
+		conditions = [" (boat_departures.created_by_app_key_id IS NULL OR boat_departures.created_by_app_key_id  <> ?)
+					  AND (boat_departures.created_at > ?)", 
+					  app_key_id, 
+					  sync_date]
+	else
+		conditions = [" (boat_departures.created_by_app_key_id IS NULL OR boat_departures.created_by_app_key_id  <> ?) ", app_key_id]
+	end
+	return self.find(:all, :conditions => conditions)
   end
   
   def self.findUpdatedDiff(app_key_id, sync_date)

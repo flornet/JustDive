@@ -7,14 +7,15 @@ class DiveGroup < Synced
   validates :boat_departure_id, :presence => true
   
   def self.findCreatedDiff(app_key_id, sync_date)
-	return self.find(
-					:all, 
-					:conditions => [
-									" (dive_groups.created_by_app_key_id IS NULL OR dive_groups.created_by_app_key_id  <> ?)
-									  AND (dive_groups.created_at > ?)", 
-									  app_key_id, 
-									  sync_date
-									])
+	if not sync_date.nil?
+		conditions = [" (dive_groups.created_by_app_key_id IS NULL OR dive_groups.created_by_app_key_id  <> ?)
+						AND (dive_groups.created_at > ?)", 
+					  app_key_id, 
+					  sync_date]
+	else
+		conditions = [" (dive_groups.created_by_app_key_id IS NULL OR dive_groups.created_by_app_key_id  <> ?) ", app_key_id]
+	end
+	return self.find(:all, :conditions => conditions)
   end
   
   def self.findUpdatedDiff(app_key_id, sync_date)

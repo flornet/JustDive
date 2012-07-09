@@ -8,14 +8,15 @@ class DiveGroupParticipant < Synced
   validates :dive_group_id, :dive_role_id, :diver_id, :presence => true
   
   def self.findCreatedDiff(app_key_id, sync_date)
-	return self.find(
-					:all, 
-					:conditions => [
-									" (dive_group_participants.created_by_app_key_id IS NULL OR dive_group_participants.created_by_app_key_id  <> ?)
-									  AND (dive_group_participants.created_at > ?)", 
-									  app_key_id, 
-									  sync_date
-									])
+	if not sync_date.nil?
+		conditions = [" (dive_group_participants.created_by_app_key_id IS NULL OR dive_group_participants.created_by_app_key_id  <> ?)
+						AND (dive_group_participants.created_at > ?)", 
+					  app_key_id, 
+					  sync_date]
+	else
+		conditions = [" (dive_group_participants.created_by_app_key_id IS NULL OR dive_group_participants.created_by_app_key_id  <> ?) ", app_key_id]
+	end
+	return self.find(:all, :conditions => conditions)
   end
   
   def self.findUpdatedDiff(app_key_id, sync_date)
