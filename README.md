@@ -18,7 +18,11 @@ TODO:
 - Gestion des conflits,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
-- Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator
+- Gérer le DiffDelete avec deleted_at,
+- Gérer la synchro Google côté serveur ET par dive_club plutôt que par administra,tor
+- Diver.email : ne doit pas être obligatoire,
+- Dans la liste des palanquées : afficher le détail pour avoir une vision globale,
+- Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...) 
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
