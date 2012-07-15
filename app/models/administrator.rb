@@ -9,6 +9,8 @@
   end
   
   def sync_divers(gdata_client, updatedMin = nil)
+    customFieldLevel = 'Niveau'
+    customFieldMedicalCertificate = 'Certificat'
     divers = {'updated' => 0, 'created' => 0, 'skipped' => []}
     dive_club_id = self.dive_club.id
 	divers_gdata = []
@@ -19,18 +21,27 @@
 	else
 		feed = gdata_client.get('https://www.google.com/m8/feeds/contacts/default/full?max-results=5000').to_xml
 	end
+
 	feed.elements.each('entry') do |entry|
 		# Validation of Google Contact Datas
-		if  !entry.elements['id'].nil? and !entry.elements['gd:email]'].nil?
+		if  !entry.elements['id'].nil? #and !entry.elements['gd:email'].nil?
 			updated = false
-
 			# Extracts interesting values
-			google_contact_id	= entry.elements['id'].text
-			email          		= entry.elements['gd:email]'].attribute('address').value
-			firstname        	= ''
-			lastname         	= ''
-			firstname        	= entry.elements['gd:name'].elements['gd:givenName'].text.titlecase unless entry.elements['gd:name'].nil? or entry.elements['gd:name'].elements['gd:givenName'].nil?
-			lastname         	= entry.elements['gd:name'].elements['gd:familyName'].text.titlecase unless entry.elements['gd:name'].nil? or entry.elements['gd:name'].elements['gd:familyName'].nil?
+			google_contact_id	  = entry.elements['id'].text
+			email          		  = ''
+			firstname        	  = ''
+			lastname         	  = ''
+			level               = ''
+			medical_certificate = ''
+      email          		  = entry.elements['gd:email'].attribute('address').value unless entry.elements['gd:email'].nil?
+      firstname        	  = entry.elements['gd:name'].elements['gd:givenName'].text.titlecase unless entry.elements['gd:name'].nil? or entry.elements['gd:name'].elements['gd:givenName'].nil?
+			lastname         	  = entry.elements['gd:name'].elements['gd:familyName'].text.titlecase unless entry.elements['gd:name'].nil? or entry.elements['gd:name'].elements['gd:familyName'].nil?
+			if !entry.elements['gContact:userDefinedField'].nil?
+			  entry.elements.each('gContact:userDefinedField') do |customField|
+          level = customField.attribute('value').value if customField.attribute('key').value.downcase == customFieldLevel.downcase
+          medical_certificate = customField.attribute('value').value if customField.attribute('key').value.downcase == customFieldMedicalCertificate.downcase
+        end
+      end
 			
 			if firstname == ''
 				tmp = email.split("@")
@@ -42,19 +53,19 @@
 				lastname = '(indéfini)'
 			end
 			# Tries to find an existing Diver
-			diver = Diver.find_by_dive_club_id_and_email(dive_club_id, email)
+			diver = Diver.find_by_dive_club_id_and_google_contact_id(dive_club_id, google_contact_id)
 			if diver.nil?
 				# Builds a new Diver
 				diver = Diver.new do |d|
 					d.dive_club_id = dive_club_id
-					d.email = email
+					d.google_contact_id = google_contact_id
 				end
 			else
 				updated = true
 			end
 
 			# Updates the data
-			diver.google_contact_id               = google_contact_id
+			diver.email                           = email
 			diver.firstname                       = firstname
 			diver.lastname                        = lastname
 			if diver.save

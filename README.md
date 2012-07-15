@@ -23,7 +23,8 @@ TODO:
 - Diver.email : ne doit pas être obligatoire,
 - Dans la liste des palanquées : afficher le détail pour avoir une vision globale,
 - Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...) 
-- Gerer des 'niveaux' depuis Google Contact + fichier joint certif
+- Gerer des 'niveaux' depuis Google Contact + fichier joint certif,
+- Améliorer la fonctionnalité de ré-initialisation de l'app en local
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
