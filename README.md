@@ -6,25 +6,28 @@ Work in progress...
 Subjects:
 - Rails 3.2.3,
 - Ember JS,
-- Offline App (HTML 5's localstorage, onOnline/onOffline),
+- Offline Web App (HTML 5's localstorage, onOnline/onOffline),
 - Local To Remote Sync,
-- Google Contacts (read only)
+- Google Contacts (read only).
 
-TODO:
-- Delete cascade (OFFLINE ?),
-- Gérer le diffDelete côté serveur (pas en GET),
+BugFixes:
+- Delete cascade ( + OFFLINE ?),
+- UI (date picker, active menus).
+
+FeaturesRequest:
 - Revoir le initialize d'application côté JS,
+- Améliorer la fonctionnalité de ré-initialisation de l'app en local,
 - Mini-interface d'administration des clubs et administrateurs,
 - Gestion des conflits,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
-- Gérer le DiffDelete avec deleted_at,
-- Gérer la synchro Google côté serveur ET par dive_club plutôt que par administra,tor
+- Gérer le DiffDelete avec deleted_at, (https://github.com/radar/paranoia),
+- Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator,
 - Diver.email : ne doit pas être obligatoire,
 - Dans la liste des palanquées : afficher le détail pour avoir une vision globale,
-- Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...) 
+- Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...), 
 - Gerer des 'niveaux' depuis Google Contact + fichier joint certif,
-- Améliorer la fonctionnalité de ré-initialisation de l'app en local
+- Fusionner les requetes de SYNC (diff) pour limiter le nombre.
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
