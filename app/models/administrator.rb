@@ -46,11 +46,13 @@
 				end
 			end
 			
-			if firstname == ''
+			if firstname == '' && email != ''
 				tmp = email.split("@")
-				tmp2  = tmp.first.split(".")
-				firstname = tmp2.first.titlecase
-				lastname = tmp2.last.titlecase
+				if !tmp.first.nil?
+					tmp2  = tmp.first.split(".")
+					firstname = tmp2.first.titlecase
+					lastname = tmp2.last.titlecase
+				end
 			end
 			
 			if lastname == ''
