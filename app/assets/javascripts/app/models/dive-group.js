@@ -37,7 +37,7 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 	boatDeparture:		Ember.computed(function() {
 							var boatDepartureId = this.get('boat_departure_id') || undefined;
 							if (boatDepartureId !== undefined) {
-								JustDive.restControllers.boat_departures.findObject(boatDepartureId);
+								return JustDive.restControllers.boat_departures.findObject(boatDepartureId);
 							}
 							if (this.get('boatDepartureLive') !== null) {
 								return JustDive.restControllers.boat_departures.findObject(this.get('boatDepartureLive').id);

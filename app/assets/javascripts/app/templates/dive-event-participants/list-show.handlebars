@@ -1,10 +1,27 @@
-<td>{{view.diveEventParticipant.diver.firstname}}</td>
+<td>
+	{{#if view.isEditing}}
+		<button type="button" class="btn btn-danger" {{action "destroyObject"}}><i class="icon-remove icon-white"></i></button>
+	{{/if}}
+	{{view.diveEventParticipant.diver.firstname}}
+</td>
 <td>{{view.diveEventParticipant.diver.lastname}}</td>
-<td>{{view.diveEventParticipant.diver.level}}</td>
-<td {{action "edit" on="click"}}>
+<td>{{view.diveEventParticipant.diver.level.name}}</td>
+<td>
 	{{#if view.isEditing}}
 		{{view Ember.TextField valueBinding="view.diveEventParticipant.comment" size="80"}}
 	{{else}}
-		<p>{{view.diveEventParticipant.comment}}</p>
+		{{view.diveEventParticipant.comment}}
+	{{/if}}
+</td>
+<td>
+	{{#if view.isEditing}}
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-inverse" {{action "stopEditMode"}}><i class="icon-chevron-left icon-white"></i></button>
+			<button type="button" class="btn btn-success" {{action "submit"}}><i class="icon-ok icon-white"></i></button>
+		</div>
+	{{else}}
+		<div class="btn-group pull-right">
+			<button type="button" class="btn" {{action "startEditMode"}}><i class="icon-pencil"></i></button>
+		</div>
 	{{/if}}
 </td>

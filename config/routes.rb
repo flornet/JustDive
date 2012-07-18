@@ -56,6 +56,12 @@ JustDive::Application.routes.draw do
 	end
   end 
   
+  resources :ffessm_levels do
+	collection do
+		get	'diff'
+	end
+  end
+  
   resources :dive_roles do
 	collection do
 		get	'diff'

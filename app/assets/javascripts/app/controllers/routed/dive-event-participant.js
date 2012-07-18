@@ -1,6 +1,8 @@
 ﻿#= require ../routed.js
 
-JustDive.Controllers.Routed.DiveEventParticipant = JustDive.ArrayController.create({
+JustDive.Controllers.Routed.DiveEventParticipant = JustDive.RoutedController.create({
+	resourceName: 	'diveEventParticipant',
+	
 	getRestController: function() {
 		return JustDive.restControllers.dive_event_participants;
 	},
@@ -16,5 +18,14 @@ JustDive.Controllers.Routed.DiveEventParticipant = JustDive.ArrayController.crea
 			.done( function() {
 				self.getRestController().pushObject(resource);
 			});
-    }
+    },
+	
+	destroy: function(view) {
+		var router = JustDive.router,
+			mainRoute = this.get('mainRoute'),
+			newMainRoute = router.location;
+		this.set('mainRoute', newMainRoute);
+		this._super(view);
+		this.set('mainRoute', mainRoute);
+	}
 });

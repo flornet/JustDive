@@ -76,5 +76,7 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	clearLocalStorage: function() {
 		localStorage.clear();
 		this.logout();
+		// @TODO: - recharger la page,
+		//		  - supprimer l'APP KEY sur le serveur
 	}
 });

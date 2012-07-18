@@ -31,11 +31,14 @@
 					<div class="span8">
 						<div class="hero-unit">
 							<h1>Evènement</h1>
+							{{#if view.error}}
+								<div class="alert alert-error">{{{view.error}}}</div>
+							{{/if}}
 							<div class="field">
-								{{view JustDive.DateField valueBinding="view.diveEvent.start_date"  placeholder="Start date"}}
+								{{view JustDive.DateField valueBinding="view.diveEvent.start_date"  placeholder="Commence le"}}
 							</div>
 							<div class="field">
-								{{view JustDive.DateField valueBinding="view.diveEvent.end_date"  placeholder="End date"}}
+								{{view JustDive.DateField valueBinding="view.diveEvent.end_date"  placeholder="Se termine le"}}
 							</div>
 						</div>
 						<div class="actions"> 

@@ -6,5 +6,11 @@ JustDive.Views.DiveEvents.Detail = JustDive.CrudFormView.extend({
   
   getCrudController: function() {
 	return JustDive.Controllers.Routed.DiveEvent;
+  },
+  
+  isValid: function() {
+	var result = this.get('diveEvent').validateData();
+	this.set('error', result.errors.join('<br />'));
+	return result.isValid;
   }
 });

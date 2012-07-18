@@ -5,8 +5,7 @@ class Diver < Synced
   belongs_to :ffessm_level
   has_many :dive_group_participants, :dependent => :restrict
   
-  validates :email, :dive_club_id, :ffessm_level_id, :firstname, :lastname, :presence => true
-  #validates :email, :uniqueness => { :case_sensitive => false }
+  validates :google_contact_id, :dive_club_id, :ffessm_level_id, :firstname, :lastname, :presence => true
 
   before_validation :set_default_ffessm_level
   

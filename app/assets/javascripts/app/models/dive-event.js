@@ -77,5 +77,25 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 									bStart.fromISOFormat(b.get('departure_date'));
 									return aStart - bStart;
 								});*/
-							}.property('unfilteredDivers.@each').cacheable()
+							}.property('unfilteredDivers.@each').cacheable(),
+						
+	validateData: 		function() {
+							var result = {
+											errors:  [],
+											isValid: true
+										};
+							if ((this.get('start_date') === undefined) || (this.get('start_date') === '')) {
+								result.errors.push('La date de début est nécessaire');
+								result.isValid = false;
+							}
+							if ((this.get('end_date') === undefined) || (this.get('end_date') === '')) {
+								result.errors.push('La date de fin est nécessaire');
+								result.isValid = false;
+							}
+							if ((result.isValid) && (this.get('start_date') > this.get('end_date'))) {
+								result.errors.push('La date de fin doit être postérieure à la date de début.');
+								result.isValid = false;
+							}
+							return result;
+						  }
 });

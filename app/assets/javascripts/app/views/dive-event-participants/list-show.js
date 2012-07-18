@@ -1,11 +1,10 @@
 ﻿#= require ../dive-event-participants.js
 
-JustDive.Views.DiveEventParticipants.ListShow = JustDive.View.extend({
+JustDive.Views.DiveEventParticipants.ListShow = JustDive.CrudFormView.extend({
   templateName: 'app/templates/dive-event-participants/list-show',
-  tagName:      'tr',
+  tagName:    	'tr',
   
-  edit:			function(event) {
-					event.preventDefault();
-					this.set('isEditing', true);
-				}
+  getCrudController: function() {
+	return JustDive.Controllers.Routed.DiveEventParticipant;
+  }
 });

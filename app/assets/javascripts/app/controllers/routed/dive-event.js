@@ -7,4 +7,5 @@ JustDive.Controllers.Routed.DiveEvent = JustDive.RoutedController.create({
 	getRestController: function() {
 		return JustDive.restControllers.dive_events;
 	}
+	
 });

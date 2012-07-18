@@ -1,6 +1,7 @@
 #= require ./view.js
 JustDive.CrudFormView = JustDive.View.extend({
   tagName:    	'form',
+  unfocussableClassName: 'no-focus', 
   error: 		'',
   isCreating:	false,
   isEditing:	false,
@@ -8,6 +9,10 @@ JustDive.CrudFormView = JustDive.View.extend({
   
   getCrudController: function() {
 	return false;
+  },
+  
+  isValid: function() {
+	return true;
   },
   
   setCreating: function() {
@@ -40,10 +45,12 @@ JustDive.CrudFormView = JustDive.View.extend({
   
   submit: function(event) {
     event.preventDefault();
-	if (this.get('isCreating')) {
-		this.getCrudController().create(this);
-	} else {
-		this.getCrudController().update(this);
+	if (this.isValid()) {
+		if (this.get('isCreating')) {
+			this.getCrudController().create(this);
+		} else {
+			this.getCrudController().update(this);
+		}
 	}
   },
   
@@ -53,6 +60,9 @@ JustDive.CrudFormView = JustDive.View.extend({
   },
   
   didInsertElement: function() {
-	this.$('input:first').focus();
+	var firstInput = this.$('input:first');
+	if (!firstInput.hasClass(this.unfocussableClassName)) {
+		firstInput.focus();
+	}
   }
 });

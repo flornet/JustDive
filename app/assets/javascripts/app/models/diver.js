@@ -21,20 +21,23 @@ JustDive.Models.Diver = JustDive.Resource.Synced.extend({
   	fullname: 			Ember.computed(function() {
 							return this.get('firstname') + ' ' + this.get('lastname');
 						}).property('firstname', 'lastname'),
-	
-	levelBadge:			Ember.computed(function() {
-							return '<span class="badge">LV ID: ' + this.get('ffessm_level_id') + '</span>';
-						}).property('ffessm_level_id'),
 						
 	level:				Ember.computed(function() {
-							return '(ID) ' + this.get('ffessm_level_id');
-						}).property('ffessm_level_id'),
+							var ffessmLevelId = this.get('ffessm_level_id') || undefined;
+							if (ffessmLevelId !== undefined) {
+								return JustDive.restControllers.ffessm_levels.findObject(ffessmLevelId);
+							}
+							if (this.get('ffessmLevelLive') !== null) {
+								return JustDive.restControllers.ffessm_levels.findObject(this.get('ffessmLevelLive').id);
+							}
+							return false;
+						}).property('ffessm_level_id').cacheable(),
 						
 	formatForTypeahead: function() {
 							return {
 								id: 		this.get('id'),
 								fullname: 	this.get('fullname') + ' (' + this.get('email') + ')',
-								level:		this.get('levelBadge')
+								level:		this.get('level').get('badge')
 							}
 						}
 });
