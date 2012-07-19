@@ -10,7 +10,7 @@ class CreateDiveEventParticipants < ActiveRecord::Migration
       t.timestamps
     end
 	
-	DiveGroupParticipant.all.each do |participant|
+	DiveGroupParticipant.unscoped.all.each do |participant|
 		dive_event_participant = DiveEventParticipant.new
 		dive_event_participant.dive_event_id = participant.dive_group.boat_departure.dive_event.id
 		dive_event_participant.diver_id = participant.diver_id

@@ -6,7 +6,7 @@ class AlterFfessmLevels < ActiveRecord::Migration
 	
 	# Attach existing Levels to the first dive club
 	main_dive_club = DiveClub.first
-	FfessmLevel.all.each do |level|
+	FfessmLevel.unscoped.all.each do |level|
       level.update_attributes!(:dive_club_id => main_dive_club.id)
     end
   end
