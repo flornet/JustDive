@@ -14,7 +14,7 @@ class DiveEventParticipantsController < SyncedController
 	sync_date 						= SyncHistory.where(:app_key_id => app_key_id, :resource_name => 'dive_event_participants').maximum('created_at');
 	new_dive_event_participants		= resource.findCreatedDiff(app_key_id, sync_date)
 	updated_dive_event_participants	= resource.findUpdatedDiff(app_key_id, sync_date)
-	deleted_dive_event_participants	= resource.findDeletedDiff(params[:entries])
+	deleted_dive_event_participants	= resource.findDeletedDiff(app_key_id, sync_date)
 	@response = {:created => new_dive_event_participants, :updated => updated_dive_event_participants, :deleted => deleted_dive_event_participants}
 	
     respond_to do |format|

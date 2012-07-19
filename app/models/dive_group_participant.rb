@@ -1,5 +1,5 @@
 class DiveGroupParticipant < Synced
-  attr_accessible :dive_group_id, :dive_role_id, :diver_id, :created_by_app_key_id, :last_updated_by_app_key_id
+  attr_accessible :dive_group_id, :dive_role_id, :diver_id, :created_by_app_key_id, :last_updated_by_app_key_id, :deleted_by_app_key_id
   
   belongs_to :dive_group
   belongs_to :diver
@@ -31,4 +31,14 @@ class DiveGroupParticipant < Synced
 									])
   end
   
+  def self.findDeletedDiff(app_key_id, sync_date)
+	return self.unscoped.find(
+					:all, 
+					:conditions => [
+									" (dive_group_participants.deleted_by_app_key_id IS NULL OR dive_group_participants.deleted_by_app_key_id <> ?)
+									  AND (dive_group_participants.deleted_at > ?)", 
+									  app_key_id,												  
+									  sync_date
+									]).map {|i| i.id }
+  end
 end

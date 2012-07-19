@@ -35,16 +35,5 @@ JustDive.Controllers.Rest.Divers = JustDive.Resource.Controller.Synced.extend({
 								return 1;
 							return 0;
 						});
-					}).property('content.@each').cacheable(),
-	
-	// Override 'JustDive.Resource.Controller.Synced.findDiffRemote' because no need to handle deleted data (divers)
-	findDiffRemote: function() {
-		var self = this,
-			params = {
-				dataType: 	'json',
-				type: 		'GET',
-				url:		this._resourceUrl() + '/diff'
-			};
-		return this._requestRemote(params);
-	},
+					}).property('content.@each').cacheable()
 });

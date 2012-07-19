@@ -21,12 +21,10 @@ FeaturesRequest:
 - Gestion des conflits,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
-- Gérer le DiffDelete avec deleted_at, (https://github.com/radar/paranoia),
 - Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator,
-- Diver.email : ne doit pas être obligatoire,
 - Dans la liste des palanquées : afficher le détail pour avoir une vision globale,
 - Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...), 
-- Gerer des 'niveaux' depuis Google Contact + fichier joint certif,
+- Gerer les certificats,
 - Fusionner les requetes de SYNC (diff) pour limiter le nombre.
 
 Diagrams:

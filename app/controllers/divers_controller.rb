@@ -23,7 +23,7 @@ class DiversController < SyncedController
 	sync_date 		= SyncHistory.where(:app_key_id => app_key_id, :resource_name => 'divers').maximum('created_at');
 	new_divers 		= resource.findCreatedDiff(app_key_id, sync_date)
 	updated_divers 	= resource.findUpdatedDiff(app_key_id, sync_date)
-	deleted_divers	= resource.findDeletedDiff(params[:entries])
+	deleted_divers	= resource.findDeletedDiff(app_key_id, sync_date)
 	@response = {:created => new_divers, :updated => updated_divers, :deleted => deleted_divers}
 	
     respond_to do |format|

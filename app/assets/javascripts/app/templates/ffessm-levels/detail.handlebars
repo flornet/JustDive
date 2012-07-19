@@ -1,13 +1,13 @@
-﻿<div class="panel right" id="content">
+<div class="panel right" id="content">
 	<div class="navbar navbar-fixed-top right">
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<div class="btn-group pull-left">
-					<a class="btn btn-inverse" href="#!club-admin/dive-roles"><i class="icon-chevron-left icon-white"></i>Rôles</a>
+					<a class="btn btn-inverse" href="#!club-admin/ffessm-levels"><i class="icon-chevron-left icon-white"></i>Niveaux</a>
 				</div>
 				<ul class="nav pull-left">
 					<li class="divider-vertical"></li>
-					<li><span class="navbar-text">{{view.diveRole.name}}</span></li>
+					<li><span class="navbar-text">{{view.ffessmLevel.name}}</span></li>
 				</ul>
 			</div>
 		</div>
@@ -16,21 +16,21 @@
 	<div class="scrollable panel">
 		<div class="content insideScrollablePanel">
 			<div class="hero-unit">
-				<h1>{{view.diveRole.name}}</h1>
+				<h1>{{view.ffessmLevel.name}}</h1>
 				{{#if view.isEditing}}
 					<div class="field">
-						{{view Ember.TextField valueBinding="view.diveRole.name"  placeholder="Name" size="30"}}
+						{{view Ember.TextField valueBinding="view.ffessmLevel.name"  placeholder="Name" size="30"}}
 					</div>
 				{{/if}}
 
 				<hr />
 				<dl class="dl-horizontal">
 					<dt>Id</dt>
-					<dd>{{view.diveRole.id}}</dd>
+					<dd>{{view.ffessmLevel.id}}</dd>
 					<dt>Créé le</dt>
-					<dd>{{view.diveRole.created_at}}</dd>
+					<dd>{{view.ffessmLevel.created_at}}</dd>
 					<dt>Modifié le</dt>
-					<dd>{{view.diveRole.updated_at}}</dd>
+					<dd>{{view.ffessmLevel.updated_at}}</dd>
 				</dl>
 			</div>
 			<div class="actions"> 

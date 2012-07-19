@@ -15,7 +15,6 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 	
 	diffSynchronize: function() {
 		var self = this;
-		//TODO: handle deleted data
 		self.findDiffRemote()
 			.done(function(json) {
 				var created = json.created,
@@ -141,15 +140,7 @@ JustDive.Resource.Controller.Synced = JustDive.Resource.Controller.Abstract.exte
 				dataType: 	'json',
 				type: 		'GET',
 				url:		this._resourceUrl() + '/diff'
-			},
-			loc = this.get('length') || 0,
-			entries = new Array();
-		
-		while(--loc >= 0) {
-			var curObject = this.objectAt(loc) ;
-			entries.push(curObject.id);
-		}
-		params.data = {'entries': entries};
+			};
 		return this._requestRemote(params);
 	},
 	

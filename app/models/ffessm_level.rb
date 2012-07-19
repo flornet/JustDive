@@ -1,26 +1,8 @@
 class FfessmLevel < Synced
-  attr_accessible :name
+  attr_accessible :dive_club_id, :name, :created_by_app_key_id, :last_updated_by_app_key_id, :deleted_by_app_key_id
   
+  belongs_to :dive_club
   has_many :divers, :dependent => :restrict
   
-  validates :name, :presence => true
-  
-  def self.findCreatedDiff(sync_date)
-	if not sync_date.nil?
-		conditions = ["created_at > ?", sync_date]
-	else
-		conditions = [""]
-	end
-	return self.find(:all, :conditions => conditions)
-  end
-	
-  def self.findUpdatedDiff(sync_date)
-	return self.find(
-					:all, 
-					:conditions => [
-									" (updated_at > ?) 
-									  AND (created_at <> updated_at)", 
-									  sync_date
-									])
-  end
+  validates :name, :dive_club_id, :presence => true
 end

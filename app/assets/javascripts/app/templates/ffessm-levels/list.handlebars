@@ -1,4 +1,4 @@
-﻿<div class="panel right" id="content">
+<div class="panel right" id="content">
 	<div class="navbar navbar-fixed-top right">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -7,10 +7,10 @@
 				</div>
 				<ul class="nav pull-left">
 					<li class="divider-vertical"></li>
-					<li><span class="navbar-text">Rôles</span></li>
+					<li><span class="navbar-text">Niveaux</span></li>
 				</ul>
 				<div class="btn-group pull-right">
-					<a class="btn" href="#!club-admin/dive-roles/new"><i class="icon-plus"></i></a>
+					<a class="btn" href="#!club-admin/ffessm-levels/new"><i class="icon-plus"></i></a>
 				</div>
 			</div>
 		</div>
@@ -19,8 +19,8 @@
 	<div class="scrollable panel">
 		<div class="content insideScrollablePanel">
 			<ul class="nav nav-pills nav-stacked">
-				{{#each view.diveRoles}}
-					{{view JustDive.Views.DiveRoles.ListShow diveRoleBinding="this"}}
+				{{#each view.ffessmLevels}}
+					{{view JustDive.Views.FfessmLevels.ListShow ffessmLevelBinding="this"}}
 				{{/each}}
 			</ul>
 		</div>

@@ -39,7 +39,7 @@ class SyncedController < ApplicationController
 
   # POST /[model].json
   def create
-    @model = resource.build(params[resourceName])
+	@model = resource.build(params[resourceName])
 	if @model.created_by_app_key_id.nil?
 		@model.created_by_app_key_id = session[:app_key_id]
 	end
@@ -70,7 +70,8 @@ class SyncedController < ApplicationController
   # DELETE /[model]/1.json
   def destroy
     @model = resource.find(params[:id])
-    @model.destroy
+	@model.deleted_by_app_key_id = session[:app_key_id]
+	@model.destroy
 
     respond_to do |format|
       format.json { head :no_content }

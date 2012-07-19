@@ -1,5 +1,5 @@
 class BoatDeparture < Synced
-  attr_accessible :boat_id, :departure_date, :dive_event_id, :created_by_app_key_id, :last_updated_by_app_key_id
+  attr_accessible :boat_id, :departure_date, :dive_event_id, :created_by_app_key_id, :last_updated_by_app_key_id, :deleted_by_app_key_id
   
   belongs_to :boat
   belongs_to :dive_event
@@ -30,5 +30,16 @@ class BoatDeparture < Synced
 									  app_key_id,												  
 									  sync_date
 									])
+  end
+  
+  def self.findDeletedDiff(app_key_id, sync_date)
+	return self.unscoped.find(
+					:all, 
+					:conditions => [
+									" (boat_departures.deleted_by_app_key_id IS NULL OR boat_departures.deleted_by_app_key_id <> ?)
+									  AND (boat_departures.deleted_at > ?)", 
+									  app_key_id,												  
+									  sync_date
+									]).map {|i| i.id }
   end
 end

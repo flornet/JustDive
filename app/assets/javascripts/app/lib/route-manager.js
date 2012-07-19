@@ -18,6 +18,9 @@
 #= require ../views/boats/list.js
 #= require ../views/boats/list-show.js
 #= require ../views/boats/detail.js
+#= require ../views/ffessm-levels/list.js
+#= require ../views/ffessm-levels/list-show.js
+#= require ../views/ffessm-levels/detail.js
 #= require ../views/dive-events/index.js
 #= require ../views/dive-events/left-nav.js
 #= require ../views/dive-events/list.js
@@ -132,6 +135,36 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 									view.setShowing();
 								} else {
 									JustDive.router.set('location', 'club-admin/boats');
+								}
+							}
+	}),
+	ffessmLevels:		JustDive.LayoutState.create({
+							route: 	'ffessm-levels',
+							viewClass: JustDive.Views.FfessmLevels.List
+	}),
+	
+	ffessmLevelsNew:	JustDive.LayoutState.create({
+							route: 	'ffessm-levels/new',
+							viewClass: JustDive.Views.FfessmLevels.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								this.get('view').set('ffessmLevel', JustDive.Models.FfessmLevel.create());
+								this.get('view').setCreating();
+							}
+	}),
+	ffessmLevelsShow:	JustDive.LayoutState.create({
+							route: 	'ffessm-levels/:id',
+							viewClass: JustDive.Views.FfessmLevels.Detail,
+							enter: function(stateManager, transition) {
+								this._super(stateManager, transition);
+								var view = this.get('view');
+								var ffessmLevelId = stateManager.getPath('params.id');
+								var ffessmLevel = JustDive.restControllers.ffessm_levels.findObject(ffessmLevelId);
+								if (ffessmLevel !== false) {
+									view.set('ffessmLevel', ffessmLevel);
+									view.setShowing();
+								} else {
+									JustDive.router.set('location', 'club-admin/ffessm-levels');
 								}
 							}
 	})

@@ -1,4 +1,6 @@
 class Synced < ActiveRecord::Base
+  acts_as_paranoid
+  
   self.abstract_class = true
 
   def self.findCreatedDiff(app_key_id, sync_date)
@@ -25,14 +27,15 @@ class Synced < ActiveRecord::Base
 									])
   end
   
-  def self.findDeletedDiff(entries)
-	if not entries.nil?
-		self.find(:all).each do |entry| 
-			entries.delete(entry.id.to_s)
-		end
-	else
-		entries = []
-	end
-	return entries
+  def self.findDeletedDiff(app_key_id, sync_date)
+	return self.unscoped.find(
+					:all, 
+					:conditions => [
+									" (deleted_by_app_key_id IS NULL OR deleted_by_app_key_id <> ?)
+									  AND (deleted_at > ?)", 
+									  app_key_id,												  
+									  sync_date
+									]).map {|i| i.id }
+
   end
 end
