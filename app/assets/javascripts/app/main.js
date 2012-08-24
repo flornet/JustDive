@@ -1,8 +1,9 @@
-#= require ./vendor/twitter/bootstrap.js
+#= require ./vendor/twitter/bootstrap.min.js
 #= require ./vendor/twitter/bootstrap-datepicker.js
 #= require ./vendor/twitter/bootstrap-datepicker.fr.js
 #= require ./vendor/twitter/bootstrap-typeahead.js
-#= require ./vendor/ember/ember-debug-pre.js
+#= require ./vendor/handlebars/handlebars-1.0.0.beta.6.js
+#= require ./vendor/ember/ember-1.0.pre.min.js
 #= require ./vendor/ember/ember-rest.js
 #= require ./vendor/ember/ember-routemanager.js
 #= require ./vendor/ember/ember-layout.js

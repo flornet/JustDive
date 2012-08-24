@@ -2,8 +2,7 @@
 	<a class="btn" href="#" {{action "quickCreate" target="JustDive.Controllers.Routed.DiveGroup" context="view.boatDeparture"}}><i class="icon-plus"></i> Palanquée</a>
 </div>
 <h2>Palanquées</h2>
-
-<ul class="nav nav-pills nav-stacked">
+<ul class="unstyled">
 	{{#each view.boatDeparture.diveGroups}}
 		{{view JustDive.Views.DiveGroups.ListShow diveGroupBinding="this" boatDepartureBinding="view.boatDeparture"}}
 	{{/each}}
