@@ -35,11 +35,11 @@
 			</div>
 			<div class="actions"> 
 				{{#if view.isEditing}}
-					<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
-					<button class="btn" type="button" {{action "stopEditMode"}}>Annuler</button>
+					<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+					<button class="btn" type="button" {{action stopEditMode}}>Annuler</button>
 					<button class="btn btn-success" type="submit">Enregistrer</button>
 				{{else}}
-					<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+					<button class="btn btn-primary" type="button" {{action startEditMode}}>Modifier</button>
 				{{/if}}
 			</div>
 		</div>

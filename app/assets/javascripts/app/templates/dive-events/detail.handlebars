@@ -4,7 +4,7 @@
 			<div class="container-fluid">
 				{{#if view.isEditing}}
 					<div class="btn-group pull-left">
-						<button class="btn btn-inverse" type="button" {{action "stopEditMode"}}>Annuler</button>
+						<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
 					</div>
 					<div class="btn-group pull-right">
 						<button class="btn btn-success" type="submit">Enregistrer</button>
@@ -14,7 +14,7 @@
 						<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
 					</div>
 					<div class="btn-group pull-right">
-						<button class="btn btn-primary" type="button" {{action "startEditMode"}}>Modifier</button>
+						<button class="btn btn-primary" type="button" {{action startEditMode}}>Modifier</button>
 					</div>
 				{{/if}}
 				<ul class="nav pull-left">
@@ -42,7 +42,7 @@
 							</div>
 						</div>
 						<div class="actions"> 
-							<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+							<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
 						</div>
 					</div>
 					<div class="span1">

@@ -7,10 +7,10 @@
 		<ul class="dropdown-menu">
 			<li><a href="#!club-admin"><i class="icon-cog"></i> Configuration du club</a>
 			<li class="divider"></li>
-			<li><a href="#" {{action "clearLocalStorage" target="JustDive.Controllers.Identity"}}><i class="icon-trash"></i> Reinitialiser l'application</a></li>
+			<li><a href="#" {{action clearLocalStorage target="JustDive.Controllers.Identity"}}><i class="icon-trash"></i> Reinitialiser l'application</a></li>
 			<li class="divider"></li>
 			{{#if JustDive.monitor.is_online}}
-				<li><a href="#" {{action "logout" target="JustDive.Controllers.Identity"}}><i class="icon-off"></i> Déconnexion</a></li>
+				<li><a href="#" {{action logout target="JustDive.Controllers.Identity"}}><i class="icon-off"></i> Déconnexion</a></li>
 			{{else}}
 				<li><a href="#" class="disabled"><i class="icon-off"></i> Déconnexion</a></li>
 			{{/if}}

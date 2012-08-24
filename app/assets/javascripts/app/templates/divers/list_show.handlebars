@@ -1,0 +1,6 @@
+{{#if diver.is_selected}}
+<li class="active">
+{{else}}
+<li>
+{{/if}}
+<a href="#" {{action show diver target="JustDive.Controllers.AddressBook"}}>{{diver.fullname}}</a></li>

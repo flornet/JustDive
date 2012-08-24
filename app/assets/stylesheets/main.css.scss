@@ -131,3 +131,72 @@
   background-color: #cccccc;
   border-right: 1px solid #eeeeee;
 }
+
+
+/* EVENTS */
+.events-by-day li.day,
+.dive-groups li.dive-group {
+	list-style:none;
+	display: block;
+	float:left;
+	width: 18%;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 3px;
+}
+.dive-groups li.dive-group {
+	width: 45%;
+}
+.dive-groups .table th.h {
+	width:50%;
+}
+.dive-groups .table th.i {
+	width:1%;
+}
+
+.events-by-day li.day .name,
+.dive-groups li.dive-group .title {
+	font-size:11px;
+	font-weight: bold;
+	border-bottom: 1px #eee solid;
+}
+.events-by-day li.day .groups-count {
+	clear:both;
+	display:block;
+	font-size:10px;
+	text-align:right;
+	color: #666666;
+	padding-top:2px;
+}
+
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.events-by-day li.day,
+	.dive-groups li.dive-group  {
+		float:none;
+		width: 100%;
+		margin-right: 0;
+	}
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (min-width: 480px) and (max-width: 767px) { 
+	.events-by-day li.day  {
+		width: 45%;
+	}
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	.events-by-day li.day {
+		width: 30%;
+	}
+}
+ 
+/* Large desktop */
+@media (min-width: 979px) and (max-width: 1200px){
+	.events-by-day li.day  {
+		width: 22%;
+	}
+}

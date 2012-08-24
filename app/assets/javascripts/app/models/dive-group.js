@@ -23,16 +23,9 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 						}).property('id').cacheable(),
 	
 	participantsCount: Ember.computed(function() {
-							var id = this.get('id'),
-								count;
-							if (id !== undefined) {
-								if (id.length !== 36) {
-									id = parseInt(id);
-								}
-							}
-							count = this.get("unfiltered").filterProperty('dive_group_id', id).length;
+							var count = this.get("participants").length;
 							return  count + (count === 1 ? " plongeur" : " plongeurs");
-						}).property('unfiltered.@each').cacheable(),
+						}).property('participants.@each').cacheable(),
 						
 	boatDeparture:		Ember.computed(function() {
 							var boatDepartureId = this.get('boat_departure_id') || undefined;

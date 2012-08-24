@@ -38,10 +38,14 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 								
 								var currentDate = start;
 								while (currentDate <= end) {
-									var date = new Date(currentDate);
+									var date = new Date(currentDate)
+										that = this;
 									output.content.pushObject( JustDive.Object.create({
-																						id: 	date.toISOFormat(), 
-																						label: 	$.fn.datepicker.dates['fr']['days'][date.getDay()] + ' ' + date.getDate() + ' ' + $.fn.datepicker.dates['fr']['months'][date.getMonth()]
+																						id: 			date.toISOFormat(), 
+																						label: 			$.fn.datepicker.dates['fr']['days'][date.getDay()] + ' ' + date.getDate() + ' ' + $.fn.datepicker.dates['fr']['months'][date.getMonth()],
+																						boatDepartures:	function() {
+																											return that.get("boatDepartures").filterProperty('departureDate' , this.id);
+																										}.property('boatDepartures.@each').cacheable()
 																						}))
 									currentDate = currentDate.addDays(1);
 								}
@@ -63,6 +67,7 @@ JustDive.Models.DiveEvent = JustDive.Resource.Synced.extend({
 									return aStart - bStart;
 								});*/
 							}.property('unfiltered.@each').cacheable(),
+	
 	participants: 		function() {
 								var id = this.get('id');
 								if (id !== undefined) {

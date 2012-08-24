@@ -70,7 +70,8 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 							if (minutes.length === 1) {
 								minutes = '0' + minutes;
 							}
-							return day + ' ' + month + ' à ' + hours + 'h' + minutes;
+							return hours + 'h' + minutes;
+							//return day + ' ' + month + ' à ' + hours + 'h' + minutes;
 						}).property('departure_date'),
 	
 	boat: 				Ember.computed(function() {

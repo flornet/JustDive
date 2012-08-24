@@ -1,6 +1,6 @@
 <div class="modal-body">
 	<div class="modal-header">
-		<button class="close" type="button" {{action "stopEditMode"}} data-dismiss="modal">×</button>
+		<button class="close" type="button" {{action stopEditMode}} data-dismiss="modal">×</button>
 		<h3>{{view.diveGroupParticipant.diver.fullname}} / {{view.diveGroupParticipant.diveRole.name}}</h3>
 	</div>
 	
@@ -26,7 +26,7 @@
 				</div>
 				{{#unless view.isCreating}}
 				<div>
-					<button class="btn btn-danger" type="button" {{action "destroyObject"}}>Supprimer</button>
+					<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
 				</div>
 				{{/unless}}
 			</div>
@@ -51,10 +51,10 @@
 	
 	<div class="modal-footer">
 		<div class="btn-group pull-left">
-			<button class="btn" type="button" {{action "stopEditMode"}} data-dismiss="modal">Annuler</button>
+			<button class="btn" type="button" {{action stopEditMode}} data-dismiss="modal">Annuler</button>
 		</div>
 		<div class="btn-group pull-right">
-			<button class="btn btn-success" type="submit" {{action "submit"}}>Enregistrer</button>
+			<button class="btn btn-success" type="submit" {{action submit}}>Enregistrer</button>
 		</div>
 	</div>
 </div>
