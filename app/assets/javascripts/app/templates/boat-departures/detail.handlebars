@@ -19,73 +19,73 @@
 				{{/if}}
 				<ul class="nav pull-left">
 					<li class="divider-vertical"></li>
-					<li><span class="navbar-text">{{view.boatDeparture.title}} / {{view.boatDeparture.boat.name}}</span></li>
+					<li><span class="navbar-text">{{view.boatDeparture.fulltitle}} sur {{view.boatDeparture.boat.name}}</span></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="scrollable panel">
-		<div class="content insideScrollablePanel">
+		<div class="container-fluid">
 			{{#if view.isEditing}}
-			<div class="row-fluid">
-				<div class="span8">
-					<div class="hero-unit">
-						<h1>Départ bateau</h1>
-						<div class="field">
-							{{view JustDive.Select viewName="select"
-										  contentBinding="view.boatDeparture.diveEvent.possibleDates"
-										  optionLabelPath="content.label"
-										  optionValuePath="content.id"
-										  prompt="Jour de départ :"
-										  valueBinding="view.boatDeparture.departureDate"}}
+				<div class="row-fluid">
+					<div class="span8">
+						<div class="hero-unit">
+							<h1>Départ bateau</h1>
+							<div class="field">
+								{{view JustDive.Select viewName="select"
+											  contentBinding="view.boatDeparture.diveEvent.possibleDates"
+											  optionLabelPath="content.label"
+											  optionValuePath="content.id"
+											  prompt="Jour de départ :"
+											  valueBinding="view.boatDeparture.departureDate"}}
+							</div>
+							<div class="field">
+								{{view JustDive.Select viewName="select"
+											  contentBinding="view.boatDeparture.possibleTimes"
+											  optionLabelPath="content.label"
+											  optionValuePath="content.id"
+											  prompt="Heure de départ :"
+											  valueBinding="view.boatDeparture.departureTime"}}
+							</div>
+							<div class="field">
+								 {{view JustDive.Select viewName="select"
+											  contentBinding="JustDive.restControllers.boats"
+											  optionLabelPath="content.name"
+											  optionValuePath="content.id"
+											  prompt="Bateau :"
+											  valueBinding="view.boatDeparture.boat_id"}}
+							</div>
 						</div>
-						<div class="field">
-							{{view JustDive.Select viewName="select"
-										  contentBinding="view.boatDeparture.possibleTimes"
-										  optionLabelPath="content.label"
-										  optionValuePath="content.id"
-										  prompt="Heure de départ :"
-										  valueBinding="view.boatDeparture.departureTime"}}
-						</div>
-						<div class="field">
-							 {{view JustDive.Select viewName="select"
-										  contentBinding="JustDive.restControllers.boats"
-										  optionLabelPath="content.name"
-										  optionValuePath="content.id"
-										  prompt="Bateau :"
-										  valueBinding="view.boatDeparture.boat_id"}}
+						<div class="actions"> 
+							<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
 						</div>
 					</div>
-					<div class="actions"> 
-						<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+					<div class="span1">
+						<dl class="dl-horizontal">
+							<dt>Id</dt>
+							<dd>{{view.boatDeparture.id}}</dd>
+							<dt>Boat</dt>
+							<dd>{{view.boatDeparture.boat_id}}</dd>
+							<dt>Id évènement</dt>
+							<dd>{{view.boatDeparture.dive_event_id}}</dd>
+							<dt>Créé le</dt>
+							<dd>{{view.boatDeparture.created_at}}</dd>
+							<dt>Modifié le</dt>
+							<dd>{{view.boatDeparture.updated_at}}</dd>
+						</dl>
 					</div>
 				</div>
-				<div class="span1">
-					<dl class="dl-horizontal">
-						<dt>Id</dt>
-						<dd>{{view.boatDeparture.id}}</dd>
-						<dt>Boat</dt>
-						<dd>{{view.boatDeparture.boat_id}}</dd>
-						<dt>Id évènement</dt>
-						<dd>{{view.boatDeparture.dive_event_id}}</dd>
-						<dt>Créé le</dt>
-						<dd>{{view.boatDeparture.created_at}}</dd>
-						<dt>Modifié le</dt>
-						<dd>{{view.boatDeparture.updated_at}}</dd>
-					</dl>
-				</div>
-			</div>
+			{{else}}
+				{{ view JustDive.Views.DiveGroups.List diveEventBinding="view.diveEvent" boatDepartureBinding="view.boatDeparture"}}
 			{{/if}}
-
-
-			{{#unless view.isEditing}}
-				{{ view JustDive.Views.DiveGroups.List 
-					diveEventBinding="view.diveEvent" 
-					boatDepartureBinding="view.boatDeparture"}}
-				<hr />
-				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
-			{{/unless}}
 		</div>
 	</div>
+	{{#unless view.isEditing}}
+		<div class="scrollable sub-panel">
+			<div class="container-fluid">
+				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
+			</div>
+		</div>
+	{{/unless}}
 </div>

@@ -36,9 +36,13 @@ JustDive.Controllers.Routed.BoatDeparture = JustDive.RoutedController.create({
     Create action: save the newly created 'model'
 */   
 	create: function(view) {
-		var mainRoute = this.get('mainRoute');
-		var newMainRoute = mainRoute.replace(':id', view.diveEvent.id);
-		view.boatDeparture.set('dive_event_id', view.diveEvent.id); // Refreshes the dive_event_id since it might have changed
+		var mainRoute = this.get('mainRoute'),
+			diveEventId = view.diveEvent.id;
+		if (diveEventId.length !== 36) {
+			diveEventId = parseInt(diveEventId);
+		}
+		var newMainRoute = mainRoute.replace(':id', diveEventId);
+		view.boatDeparture.set('dive_event_id', diveEventId); // Refreshes the dive_event_id since it might have changed
 		this.set('mainRoute', newMainRoute);
 		this._super(view);
 		this.set('mainRoute', mainRoute);

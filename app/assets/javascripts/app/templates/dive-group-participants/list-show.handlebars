@@ -1,1 +1,9 @@
-<a href="#"><span class="badge pull-right">{{view.diveGroupParticipant.diveRole.name}}</span> {{view.diveGroupParticipant.diver.fullname}}</a>
+<div class="btn-group pull-right">
+	<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">{{view.diveGroupParticipant.diveRole.name}} <span class="caret"></span></button>
+	<ul class="dropdown-menu">
+	{{#each JustDive.restControllers.dive_roles}}
+		<li><a href="#">{{this.name}}</a></li>
+	{{/each}}
+	</ul>
+</div>
+{{view.diveGroupParticipant.diver.fullname}}

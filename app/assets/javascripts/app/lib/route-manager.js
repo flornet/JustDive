@@ -24,7 +24,6 @@
 #= require ../views/dive-events/index.js
 #= require ../views/dive-events/left-nav.js
 #= require ../views/dive-events/list.js
-#= require ../views/dive-events/list-show.js
 #= require ../views/dive-events/detail.js
 #= require ../views/boat-departures/detail.js
 #= require ../views/dive-groups/detail.js

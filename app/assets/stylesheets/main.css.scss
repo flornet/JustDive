@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 @media all {
 	.panel {
 		overflow                    : hidden;
@@ -9,50 +10,41 @@
 		display                     : block;
 		width                       : 100%;
 		top                         : 0;
-		height: 100%; /* uncomment if desktop */
+		height						: 100%;
 	}
-
+	
 	.scrollable {
-		margin-top					: 85px;
-		overflow                    : scroll;
+		overflow-y                  : scroll;
 		-webkit-overflow-scrolling  : touch;
 	}
-
-	.insideScrollablePanel {
-		margin-left                 : 5%;
-		margin-right                : 5%;
-		width                       : 90%;
+	
+	.right .panel,
+	.left .panel	{
+		top							: 80px;
+		bottom						: 50%;
+		height						: auto;
 	}
-
-} /* end of medial all */
-
-/*--- ipad ---*/
-/*--- full screen mode ---*/
-@media (device-width: 768px) and (orientation: portrait) {
-	.panel {
-		height                       : 934px; /*1004-80*/
+	.sub-panel {
+		position                    : absolute;
+		display                     : block;
+		width                       : 100%;
+		height						: auto;
+		top							: 50%;
+		bottom						: 0;
+		border-top					: 1px #ddd solid;
+		background					: #eee;
 	}
-}
-/*--- browser mode ---*/
-@media (device-width: 768px) and (orientation: landscape) {
-	.panel {
-		height                       : 668px; /*748-80*/
+	
+	.left .panel {
+		bottom						: 0;
 	}
-}
-
-/*--- iphone ---*/
-/*--- full screen mode ---*/
-@media (max-width: 480px) and (orientation: portrait) {
-	.panel {
-		height                       : 380px; /*460-80*/
+	
+	.left-nav-header {
+		font-size: 1.3em;
+		line-height:40px;
 	}
 }
-/*--- browser mode ---*/
-@media (max-width: 480px) and (orientation: landscape) {
-	.panel {
-		height                       : 220px; /*300-80*/
-	}
-}
+/* end of medial all */
 
 @media (orientation: portrait) {
 	.left {
@@ -93,10 +85,6 @@
 	top:40px;
 }
 
-#sidebar .insideScrollablePanel,
-#content .insideScrollablePanel {
-	padding-bottom:85px;
-}
 #sidebar .navbar,
 #content .navbar {
 	z-index:999;
@@ -136,29 +124,96 @@
 /* EVENTS */
 .events-by-day li.day,
 .dive-groups li.dive-group {
-	list-style:none;
+	list-style: none;
 	display: block;
 	float:left;
 	width: 18%;
-	margin-right: 5px;
-	margin-bottom: 5px;
+	height: 260px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 	padding: 3px;
+	border: 1px #eee solid;
+	background: #f2f9fe; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f2f9fe 0%, #f2f9fe 64%, #eaeaea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f9fe), color-stop(64%,#f2f9fe), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+	-webkit-border-radius	: 5px;
+	   -moz-border-radius	: 5px;
+			border-radius	: 5px; 
+	-webkit-box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
+	  -moz--box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
+			box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
 }
 .dive-groups li.dive-group {
-	width: 45%;
+	width: 46%;
 }
-.dive-groups .table th.h {
+
+.dive-groups li.participant {
+	font-size:14px;
+	line-height:14px;
+	margin-bottom: 3px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-top: 2px;
+	border-radius: 5px 5px 5px 5px;
+	padding-right: 12px;
+	padding-left: 12px;
+	color: rgb(0, 136, 204);
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	cursor: default;
+}
+
+.dive-groups li.participant:hover {
+	background-color: rgb(238, 238, 238);
+	color: rgb(0, 85, 128);
+}
+
+.dive-groups .details {
+	font-size: 0.8em;
+	color: #999;
+	float:left;
+	background:#eee;
+	height:220px;
+	border-right: 1px #ddd solid;
+	margin-right: 5px;
+}
+
+.dive-groups .details .dive-parameters {
+	width: 160px;
+	transition: width 2s;
+	-moz-transition: width 2s; /* Firefox 4 */
+	-webkit-transition: width 2s; /* Safari and Chrome */
+	-o-transition: width 2s; /* Opera */
+}
+
+.dive-groups .details .dive-parameters-editing .input-mini,
+.dive-groups .details .dive-parameters-editing .add-on {
+	font-size:11px;
+}
+
+.dive-groups .details .dive-parameters th.h {
 	width:50%;
+	text-align:left;
+	background: #dedede;
+	padding-left: 4px;
+	text-shadow: 1px 1px 1px #ffffff;
+    filter: dropshadow(color=#ffffff, offx=1, offy=1);
 }
-.dive-groups .table th.i {
+.dive-groups .details .dive-parameters th.i {
 	width:1%;
+	text-align:left;
+	padding-left: 4px;
 }
 
 .events-by-day li.day .name,
 .dive-groups li.dive-group .title {
 	font-size:11px;
 	font-weight: bold;
-	border-bottom: 1px #eee solid;
+	border-bottom: 1px #ddd solid;
 }
 .events-by-day li.day .groups-count {
 	clear:both;
@@ -177,6 +232,7 @@
 		float:none;
 		width: 100%;
 		margin-right: 0;
+		height: auto;
 	}
 }
  

@@ -32,6 +32,7 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 								return value;
 							}
 						}).property('departure_date'),
+						
 	departureTime:		Ember.computed(function(key, value) {
 							// getter
 							if (arguments.length === 1) {
@@ -71,7 +72,28 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 								minutes = '0' + minutes;
 							}
 							return hours + 'h' + minutes;
-							//return day + ' ' + month + ' à ' + hours + 'h' + minutes;
+						}).property('departure_date'),
+	
+	//@TODO: duplicate code	
+	fulltitle: 			Ember.computed(function() {
+							var date = new Date(),
+								day,
+								month,
+								hours,
+								minutes;
+							date.fromISOFormat(this.get('departure_date'));
+							
+							day 	= date.getDate().toString();
+							month 	= $.fn.datepicker.dates['fr']['months'][date.getMonth()];
+							hours 	= date.getHours().toString();
+							minutes	= date.getMinutes().toString();
+							if (hours.length === 1) {
+								hours = '0' + hours;
+							}
+							if (minutes.length === 1) {
+								minutes = '0' + minutes;
+							}
+							return 'Sortie du ' + day + ' ' + month + ' à ' + hours + 'h' + minutes;
 						}).property('departure_date'),
 	
 	boat: 				Ember.computed(function() {
@@ -108,6 +130,7 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 						}).property('unfiltered.@each').cacheable(),
 						
 	diveGroups: 		Ember.computed(function() {
+							
 							var id = this.get('id');
 							if (id !== undefined) {
 								if (id.length !== 36) {

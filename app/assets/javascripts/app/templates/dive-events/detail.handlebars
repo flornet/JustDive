@@ -19,13 +19,13 @@
 				{{/if}}
 				<ul class="nav pull-left">
 					<li class="divider-vertical"></li>
-					<li><span class="navbar-text">{{view.diveEvent.title}}</span></li>
+					<li><span class="navbar-text">Sortie du {{view.diveEvent.title}}</span></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="scrollable panel">
-		<div class="content insideScrollablePanel">
+		<div class="container-fluid">
 			{{#if view.isEditing}}
 				<div class="row-fluid">
 					<div class="span8">
@@ -56,14 +56,17 @@
 						</dl>
 					</div>
 				</div>
-			{{/if}}
-
-			{{#unless view.isEditing}}
+			{{else}}
 				{{ view JustDive.Views.BoatDepartures.List diveEventBinding="view.diveEvent"}}
-				<hr />
-				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
-			{{/unless}}
+			{{/if}}
 		</div>
 	</div>
+	{{#unless view.isEditing}}
+		<div class="scrollable sub-panel">
+			<div class="container-fluid">
+				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
+			</div>
+		</div>
+	{{/unless}}
 </div>
 

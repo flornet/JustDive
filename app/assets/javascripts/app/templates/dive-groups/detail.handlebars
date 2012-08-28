@@ -1,5 +1,5 @@
 {{#if view.isEditing}}
-	<table class="table table-condensed table-bordered">
+	<table class="dive-parameters dive-parameters-editing">
 		<tr>
 			<th colspan="2" class="h">Prévu</th>
 			<th colspan="2" class="h">Réalisé</th>
@@ -52,7 +52,7 @@
 		</tr>
 	</table>
 {{else}}
-	<table class="table table-condensed table-bordered">
+	<table class="dive-parameters">
 		<tr>
 			<th colspan="2" class="h">Prévu</th>
 			<th colspan="2" class="h">Réalisé</th>
@@ -92,6 +92,6 @@
 	</div>
 {{else}}
 	<div class="btn-group pull-right">
-		<button class="btn btn-primary" type="button" {{action startEditMode}}>Modifier</button>
+		<button class="btn btn-mini" type="button" {{action startEditMode}}><i class="icon-pencil"></i></button>
 	</div>
 {{/if}}

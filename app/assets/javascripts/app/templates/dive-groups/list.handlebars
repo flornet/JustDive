@@ -1,29 +1,24 @@
 ﻿<div class="btn-group pull-right">
-	<a class="btn" href="#" {{action quickCreate view.boatDeparture target="JustDive.Controllers.Routed.DiveGroup"}}><i class="icon-plus"></i> Palanquée</a>
+	<a class="btn" href="#" {{action create view.boatDeparture target="JustDive.Controllers.Routed.DiveGroup"}}><i class="icon-plus"></i> Palanquée</a>
 </div>
 <h2>Palanquées</h2>
 
 <ul class="dive-groups clearfix unstyled">
 	{{#each view.boatDeparture.diveGroups}}
-	<li class="dive-group">
-		<div class="title">{{this.title}}</div>
-		<ul class="nav nav-tabs nav-stacked">
-			{{#unless this.participants.length}}
-				<li class="alert"><a href="#"><small>Aucun plongeur</small></a></li>
-			{{/unless}}
-			{{#each this.participants}}
-				{{view JustDive.Views.DiveGroupParticipants.ListShow 
-						diveGroupBinding="view.diveGroup" 
-						boatDepartureBinding="view.boatDeparture"
-						diveGroupParticipantBinding="this"}}
-			{{/each}}
-		</ul>
-		<div class="details">
-			{{view JustDive.Views.DiveGroups.Detail
-					diveGroupBinding="this" 
-					boatDepartureBinding="view.boatDeparture"
-					diveEventBinding="view.diveEvent"}}
-		</div>
-	</li>
+		<li class="dive-group">
+			{{view JustDive.Views.DiveGroups.Title diveGroupBinding="this"}}
+			<div class="details">
+				{{view JustDive.Views.DiveGroups.Detail diveGroupBinding="this" boatDepartureBinding="view.boatDeparture" diveEventBinding="view.diveEvent"}}
+			</div>
+			<ul class="nav nav-pills nav-stacked">
+				{{#unless this.participants.length}}
+					<li class="alert"><small>Aucun plongeur</small></li>
+				{{/unless}}
+				{{#each this.participants}}
+					{{view JustDive.Views.DiveGroupParticipants.ListShow diveGroupBinding="view.diveGroup" boatDepartureBinding="view.boatDeparture" diveGroupParticipantBinding="this"}}
+				{{/each}}
+			</ul>
+			
+		</li>
 	{{/each}}
 </ul>

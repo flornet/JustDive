@@ -1,5 +1,5 @@
 <ul class="nav nav-pills nav-stacked" id="subNav">
 	{{#each view.diveEvents}}
-		{{view JustDive.Views.DiveEvents.ListShow diveEventBinding="this"}}
+		<li {{bindAttr class="cssClass"}}><a href="#" {{action show this target="JustDive.Controllers.Routed.DiveEvent"}}>{{this.title}}</a></li>
 	{{/each}}
 </ul>

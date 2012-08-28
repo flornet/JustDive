@@ -34,28 +34,24 @@ JustDive.Controllers.Routed.DiveGroup = JustDive.RoutedController.create({
 	},
 
 /**
-    quickCreate action: creates a new BoatDeparture and shows it
-*/
-	quickCreate: function(event) {
-		event.preventDefault();
-		var diveGroup 	= JustDive.Models.DiveGroup.create({boat_departure_id: event.context.id}),
-			view 		= JustDive.Views.DiveGroups.Detail.create();
-		view.set('boatDeparture', event.context);
-		view.set('diveGroup', diveGroup);
-		this.create(view);
-	},
-/**
     Create action: save the newly created 'model'
 */   
-	create: function(view) {
-		var mainRoute = this.get('mainRoute');
-		var newMainRoute = mainRoute.replace(':id', view.boatDeparture.dive_event_id);
-		newMainRoute = newMainRoute.replace(':boat_departure_id', view.boatDeparture.id);
-		view.diveGroup.set('boat_departure_id', view.boatDeparture.id); // Refreshes the boat_departure_id since it might have changed
-		this.set('mainRoute', newMainRoute);
-		this._super(view);
-		this.set('mainRoute', mainRoute);
-	}, 
+	create: function(event) {
+		event.preventDefault();
+		var boatDepartureId = event.context.id;
+		if (boatDepartureId.length !== 36) {
+			boatDepartureId = parseInt(boatDepartureId);
+		}
+		var resource = JustDive.Models.DiveGroup.create({boat_departure_id: boatDepartureId}),
+			self = this;
+		resource.saveResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done( function() {
+				self.getRestController().pushObject(resource);
+			});
+	},
 	
 /**
     Destroy action: destroy the 'model'
