@@ -5,7 +5,7 @@
 
 <ul class="dive-groups clearfix unstyled">
 	{{#each view.boatDeparture.diveGroups}}
-		<li class="dive-group">
+		<li class="dive-group droppable" {{bindAttr data-dive-group-id="id"}}>
 			{{view JustDive.Views.DiveGroups.Title diveGroupBinding="this"}}
 			<div class="details">
 				{{view JustDive.Views.DiveGroups.Detail diveGroupBinding="this" boatDepartureBinding="view.boatDeparture" diveEventBinding="view.diveEvent"}}

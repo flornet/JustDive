@@ -12,7 +12,7 @@ JustDive.Models.DiveEventParticipant = JustDive.Resource.Synced.extend({
 							'created_at',
 							'updated_at'
 						],
-	
+
 	diver: 					Ember.computed(function() {
 								var diverId = this.get('diver_id') || undefined;
 								if (diverId === undefined) {

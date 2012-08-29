@@ -84,7 +84,7 @@
 	{{#unless view.isEditing}}
 		<div class="scrollable sub-panel">
 			<div class="container-fluid">
-				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
+				{{ view JustDive.Views.DiveEventParticipants.ListAvailable diveEventBinding="view.diveEvent" boatDepartureBinding="view.boatDeparture"}}
 			</div>
 		</div>
 	{{/unless}}

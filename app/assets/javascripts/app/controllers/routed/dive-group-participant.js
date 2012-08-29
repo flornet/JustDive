@@ -33,12 +33,19 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 		modal.set('diveGroupParticipant', 	view.diveGroupParticipant);
 		modal.setEditing();
 	},
-	
-	quickCreate: function(item, val, text, view) {
-		var resource = JustDive.Models.DiveGroupParticipant.create({dive_group_id: view.diveGroup.id}),
+
+/**
+    Create action: save the newly created 'model'
+*/   
+	create: function(diverId, diveGroupId) {
+		if (diverId.length !== 36) {
+			diverId = parseInt(diverId);
+		}
+		if (diveGroupId.length !== 36) {
+			diveGroupId = parseInt(diveGroupId);
+		}
+		var resource = JustDive.Models.DiveGroupParticipant.create({diver_id: diverId, dive_group_id: diveGroupId}),
 			self = this;
-		resource.set('diver_id', val);
-		
 		resource.set('dive_role_id', JustDive.restControllers.dive_roles.getPath('content.firstObject').id);
 		resource.saveResource()
 			.fail( function(e) {
@@ -46,26 +53,6 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 			})
 			.done( function() {
 				self.getRestController().pushObject(resource);
-				//Ember.run.sync();
-			});
-    },
-/**
-    Create action: save the newly created 'model'
-*/   
-	create: function(view) {
-		var self = this,
-			resource = view.get('diveGroupParticipant');
-		resource.set('dive_group_id', view.diveGroup.id); // Refreshes the dive_group_id since it might have changed
-		resource.saveResource()
-			.fail( function(e) {
-				JustDive.displayError('jqXHR', e);
-			})
-			.done( function() {
-				//console.log(self.getRestController());
-				self.getRestController().pushObject(resource);
-				$(view.get('element')).modal('hide');
-				view.destroyElement();
-				//router.set('location', self.get('mainRoute') + '/' + resource.id);
 			});
 	}, 
 /**

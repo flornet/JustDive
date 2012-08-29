@@ -13,6 +13,8 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 							'updated_at'
 						],
 	unfilteredBinding:	"JustDive.restControllers.dive_groups",
+	unfilteredParticipantsBinding:		"JustDive.restControllers.dive_group_participants",
+	unfilteredEventParticipantsBinding:	"JustDive.restControllers.dive_event_participants",
 	
 	departureDate:		Ember.computed(function(key, value) {
 							// getter
@@ -158,5 +160,40 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 							output.content.pushObject(JustDive.Object.create({id: '17:00', label: '17h00'}));
 							
 							return output;
-						}).property().cacheable()
+						}).property().cacheable(),
+	
+	// Finds participants who are not already part of a diveGroup
+	availableParticipants: Ember.computed(function() {
+							// Dive groups
+							var diveGroupsIds = this.get("diveGroups").mapProperty('id').map(function(v) {return v.toString() });
+							// Participants (from all groups)
+							var diveGroupsParticipants = this.get('unfilteredParticipants').filter(function(item, index, enumerable) {
+								if (diveGroupsIds.indexOf(item.get('dive_group_id').toString()) > -1) {
+									return item;
+								} else {
+									return null;
+								}
+							});
+							
+							
+							// Dive event participants
+							var diveEventId = this.get('dive_event_id');
+							if (diveEventId !== undefined) {
+								if (diveEventId.length !== 36) {
+									diveEventId = parseInt(diveEventId);
+								}
+							}
+							var diveEventParticipants = this.get('unfilteredEventParticipants').filterProperty('dive_event_id', diveEventId);
+							
+							// Final filtering
+							var diversId = diveGroupsParticipants.mapProperty('diver_id').map(function(v) {return v.toString() });
+							var availableParticipants = diveEventParticipants.filter(function(item, index, enumerable) {
+								if (diversId.indexOf(item.get('diver_id').toString()) === -1) {
+									return item;
+								} else {
+									return null;
+								}
+							});
+							return availableParticipants;
+						}).property('unfilteredParticipants.@each', 'diveGroups.@each', 'unfilteredEventParticipants.@each').cacheable() 
 });
