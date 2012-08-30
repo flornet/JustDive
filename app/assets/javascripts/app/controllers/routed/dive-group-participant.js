@@ -4,35 +4,6 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 	getRestController: function() {
 		return JustDive.restControllers.dive_group_participants;
 	},
-/**
-    New action: loads the data and appends the view
-*/
-	new: function(event) {
-		event.preventDefault();
-		var view = event.context,
-			modal = JustDive.Views.DiveGroupParticipants.Detail.create();
-		view.set('modal', modal);
-		modal.set('diveEvent', 				view.diveEvent);
-		modal.set('boatDeparture', 			view.boatDeparture);
-		modal.set('diveGroup', 				view.diveGroup);
-		modal.set('diveGroupParticipant', 	JustDive.Models.DiveGroupParticipant.create({dive_group_id: view.diveGroup.id}));
-		modal.setCreating();
-	},
-/**
-    Show action: loads the data and appends the view
-*/
-	show: function(event) {
-		event.preventDefault();
-		var view = event.context
-			parentView = view.get('parentView'),
-			modal = JustDive.Views.DiveGroupParticipants.Detail.create();
-		parentView.set('modal', modal);
-		modal.set('diveEvent', 				view.diveEvent);
-		modal.set('boatDeparture', 			view.boatDeparture);
-		modal.set('diveGroup', 				view.diveGroup);
-		modal.set('diveGroupParticipant', 	view.diveGroupParticipant);
-		modal.setEditing();
-	},
 
 /**
     Create action: save the newly created 'model'
@@ -58,19 +29,38 @@ JustDive.Controllers.Routed.DiveGroupParticipant = JustDive.ArrayController.crea
 /**
     Update action: save the updated 'model'
 */ 
-	update: function(view) {
+	update: function(diveGroupParticipantId, diveGroupId) {
 		var self = this,
-			resource = view.get('diveGroupParticipant');
+			resource = JustDive.restControllers.dive_group_participants.findObject(diveGroupParticipantId);
+		if (diveGroupId.length !== 36) {
+			diveGroupId = parseInt(diveGroupId);
+		}
+		
+		// Handling Update as Delete+Create because Ember seems to have hard time updating views with complex bindings
+		/*
+		var diverId = resource.get('diver_id');
+		resource.destroyResource()
+			.done( function() {
+				self.getRestController().removeObject(resource);
+				self.create(diverId, diveGroupId);
+			})
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			});
+		
+		/* */
+		// (Almost) Working code (dirty) with a normal Update
+		resource.set('dive_group_id', diveGroupId);
+		var oldContent = JustDive.restControllers.dive_group_participants.get('content');
+		JustDive.restControllers.dive_group_participants.replaceContent(0, oldContent.get('length'), oldContent);
 		resource.saveResource()
 			.fail( function(e) {
 				JustDive.displayError('jqXHR', e);
 			})
 			.done(function() {
-				$(view.get('element')).modal('hide');
-				view.destroyElement();
-				//view.set(self.get('resourceName'), resource);
-				//view.setShowing();
+				
 			});
+		//*/
 	},
 /**
     Destroy action: destroy the 'model'

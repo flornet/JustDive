@@ -10,7 +10,7 @@
 			<div class="details">
 				{{view JustDive.Views.DiveGroups.Detail diveGroupBinding="this" boatDepartureBinding="view.boatDeparture" diveEventBinding="view.diveEvent"}}
 			</div>
-			<ul class="nav nav-pills nav-stacked">
+			<ul class="nav nav-pills nav-stacked participants">
 				{{#unless this.participants.length}}
 					<li class="alert"><small>Aucun plongeur</small></li>
 				{{/unless}}

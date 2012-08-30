@@ -25,7 +25,7 @@
 		</div>
 	</div>
 
-	<div class="scrollable panel">
+	<div class="scrollable panel dive-groups-container">
 		<div class="container-fluid">
 			{{#if view.isEditing}}
 				<div class="row-fluid">
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	{{#unless view.isEditing}}
-		<div class="scrollable sub-panel">
+		<div class="scrollable sub-panel available-participants-container">
 			<div class="container-fluid">
 				{{ view JustDive.Views.DiveEventParticipants.ListAvailable diveEventBinding="view.diveEvent" boatDepartureBinding="view.boatDeparture"}}
 			</div>

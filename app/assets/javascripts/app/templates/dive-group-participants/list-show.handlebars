@@ -6,4 +6,7 @@
 	{{/each}}
 	</ul>
 </div>
-{{view.diveGroupParticipant.diver.fullname}}
+<div class="participant draggable" {{bindAttr data-diver-id="diver_id"}} {{bindAttr data-dive-group-participant-id="id"}}>
+	<span class="fn">{{this.diver.fullname}}</span>
+	<span class="le">{{this.diver.level.name}}</span>
+</div>

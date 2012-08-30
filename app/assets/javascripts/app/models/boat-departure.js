@@ -139,6 +139,7 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 									id = parseInt(id);
 								}
 							}
+							//console.log('boatDeparture.diveGroups');
 							return this.get("unfiltered").filterProperty('boat_departure_id', id);
 							/*.sort( function(a,b){
 								return a.get("id") - b.get("id");
