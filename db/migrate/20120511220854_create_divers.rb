@@ -14,6 +14,6 @@ class CreateDivers < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :divers, [:dive_club_id, :email], :unique => true
+    add_index :divers, [:dive_club_id, :google_contact_id], :unique => true
   end
 end
