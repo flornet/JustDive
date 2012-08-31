@@ -56,7 +56,27 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 										that._draggables = $(that.get('element')).find('.draggable');
 										that._droppables = $(that.get('element')).find('.droppable');
 										that._draggables.draggable({
-																helper: 	'clone', 
+																//helper: 	'clone', // Replaced by https://gist.github.com/2018290
+																helper:		function() {
+																				var clone;
+																				clone = $(this).clone();
+																				clone.find('script[id^=metamorph]').remove();
+																				clone.find('*').each(function() {
+																				  var $this;
+																				  $this = $(this);
+																				  return $.each($this[0].attributes, function(index, attr) {
+																					if (!(attr && (attr.name.indexOf('data-bindattr') || attr.name.indexOf('data-ember')))) {
+																					  return;
+																					}
+																					return $this.removeAttr(attr.name);
+																				  });
+																				});
+																				if (clone.attr('id') && clone.attr('id').indexOf('ember') !== -1) {
+																				  clone.removeAttr('id');
+																				}
+																				clone.find('[id^=ember]').removeAttr('id');
+																				return clone;
+																			},
 																appendTo: 	'body',
 																addClasses: false,
 																revert: 	'invalid',
