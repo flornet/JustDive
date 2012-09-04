@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 @media all {
 	.panel {
 		overflow                    : hidden;
@@ -257,7 +256,13 @@
 		    transition		: border 0s;
 }
 .available-participants {
-
+	height		: 110px;
+}
+.available-participants.droppable-highlight {
+	background	: #ddd;
+}
+.available-participants.droppable-over {
+	background	: lime;
 }
 .available-participants .participant,
 .participant.ui-draggable-dragging {
@@ -266,7 +271,7 @@
 	width					: 100px;
 	height					: 100px;
 	float					: left;
-	background				: #ccc;
+	background				: #fff;
 	border					: 1px #ccc solid;
 	padding					: 4px;
 	margin-right			: 5px;
@@ -276,7 +281,9 @@
 	     -moz-user-select	: none;
 	      -ms-user-select	: none;
 		      user-select	: none;
-
+	-webkit-border-radius	: 5px;
+	   -moz-border-radius	: 5px;
+			border-radius	: 5px; 
 }
 .available-participants .participant .le,
 .participant.ui-draggable-dragging .le {
@@ -286,8 +293,9 @@
 	cursor: move;
 }
 .participant.ui-draggable-dragging {
-	background: #eee;
-	border: 1px #aaa solid;
+	border: 1px #fff solid;
+	background-color: rgb(0, 136, 204);
+	color: #fff;
 }
 .available-participants .draggable:hover {
 	border: 1px #aaa solid;

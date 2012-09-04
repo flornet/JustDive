@@ -4,28 +4,32 @@ JustDive
 Work in progress...
 
 Subjects:
-- Rails 3.2.3,
+- Rails 3.2.8,
 - Ember JS,
+- Mobile UI (drag and drop, split layout, responsive CSS),
 - Offline Web App (HTML 5's localstorage, onOnline/onOffline),
 - Local To Remote Sync,
-- Google Contacts (read only).
+- Google Contacts (read only, custom fields).
 
 BugFixes:
-- Delete cascade ( + OFFLINE ?),
+- Handle cascade delete (what happens offline?),
 - UI (date picker, active menus).
 
 FeaturesRequest:
+- Desktop Drag => Mobile Touch:
+	- http://stackoverflow.com/questions/5186441/javascript-drag-and-drop-for-touch-devices
+	- http://www.stevefenton.co.uk/Content/Jquery-Mobile-Drag-And-Drop/
 - Revoir le initialize d'application côté JS,
 - Améliorer la fonctionnalité de ré-initialisation de l'app en local,
 - Mini-interface d'administration des clubs et administrateurs,
-- Gestion des conflits,
+- Gestion des conflits de vesion,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
 - Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator,
-- Dans la liste des palanquées : afficher le détail pour avoir une vision globale,
-- Dans le typeahead de palanquée : prioriser les plongeurs inscrits à la sortie mais non présents dans des palanquées (couleur, badge, ...), 
-- Gerer les certificats,
-- Fusionner les requetes de SYNC (diff) pour limiter le nombre.
+- Gerer les certificats médicaux,
+- Fusionner les requetes de SYNC (diff) pour limiter le nombre,
+- Rendre impossible l'ajout de doublons (DiveEventParticipant),
+- Update Ember.Route + Ember.Layout to match 1.0-pre.
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
@@ -42,7 +46,3 @@ Diagrams:
 [BoatDeparture]0..*-1[DiveGroup]
 [BoatDeparture]1..*-1[Boat]
 [DiveGroup]0..*-1[Diver]
-
-
-Unhandled errors:
-- 422 	{"end_date":["can't be blank"],"start_date":["can't be blank"]} 	Lundi 9 Juillet 2012 	12h30 (9s)

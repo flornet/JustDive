@@ -56,32 +56,43 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 										that._draggables = $(that.get('element')).find('.draggable');
 										that._droppables = $(that.get('element')).find('.droppable');
 										that._draggables.draggable({
-																//helper: 	'clone', // Replaced by https://gist.github.com/2018290
-																helper:		function() {
-																				var clone;
-																				clone = $(this).clone();
-																				clone.find('script[id^=metamorph]').remove();
-																				clone.find('*').each(function() {
-																				  var $this;
-																				  $this = $(this);
-																				  return $.each($this[0].attributes, function(index, attr) {
-																					if (!(attr && (attr.name.indexOf('data-bindattr') || attr.name.indexOf('data-ember')))) {
-																					  return;
+																_droppableParent:	null,
+																//helper: 			'clone', // Replaced by https://gist.github.com/2018290
+																helper:				function() {
+																						var clone;
+																						clone = $(this).clone();
+																						clone.find('script[id^=metamorph]').remove();
+																						clone.find('*').each(function() {
+																						  var $this;
+																						  $this = $(this);
+																						  return $.each($this[0].attributes, function(index, attr) {
+																							if (!(attr && (attr.name.indexOf('data-bindattr') || attr.name.indexOf('data-ember')))) {
+																							  return;
+																							}
+																							return $this.removeAttr(attr.name);
+																						  });
+																						});
+																						if (clone.attr('id') && clone.attr('id').indexOf('ember') !== -1) {
+																						  clone.removeAttr('id');
+																						}
+																						clone.find('[id^=ember]').removeAttr('id');
+																						return clone;
+																					},
+																appendTo: 			'body',
+																addClasses: 		false,
+																revert: 			'invalid',
+																revertDuration:		0,
+																scope: 				'participants',
+																cursor:				'move',
+																create: 			function(event, ui) {
+																						this._droppableParent = $(this).parentsUntil(".droppables-container", ".droppable" );
+																					},
+																start: 				function(event, ui) {
+																						this._droppableParent.droppable("disable");
+																					},
+																stop: 				function(event, ui) {
+																						this._droppableParent.droppable("enable");
 																					}
-																					return $this.removeAttr(attr.name);
-																				  });
-																				});
-																				if (clone.attr('id') && clone.attr('id').indexOf('ember') !== -1) {
-																				  clone.removeAttr('id');
-																				}
-																				clone.find('[id^=ember]').removeAttr('id');
-																				return clone;
-																			},
-																appendTo: 	'body',
-																addClasses: false,
-																revert: 	'invalid',
-																scope: 		'participants',
-																cursor:		'move'
 															});
 										that._droppables.droppable({
 																hoverClass: 	'droppable-over',
@@ -91,18 +102,24 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 																					var diverId = ui.draggable.attr('data-diver-id'),
 																						diveGroupParticipantId = ui.draggable.attr('data-dive-group-participant-id'),
 																						diveGroupId = $(this).attr('data-dive-group-id');
-																					if (diveGroupParticipantId === undefined) {
-																						// Create
-																						JustDive.Controllers.Routed.DiveGroupParticipant.create(diverId, diveGroupId);
+																					if ($(this).hasClass('available-participants')) {
+																						// Delete
+																						JustDive.Controllers.Routed.DiveGroupParticipant.destroy(diveGroupParticipantId);
 																					} else {
-																						// Update
-																						JustDive.Controllers.Routed.DiveGroupParticipant.update(diveGroupParticipantId, diveGroupId);
+																						if (diveGroupParticipantId === undefined) {
+																							// Create
+																							JustDive.Controllers.Routed.DiveGroupParticipant.create(diverId, diveGroupId);
+																						} else {
+																							// Update
+																							JustDive.Controllers.Routed.DiveGroupParticipant.update(diveGroupParticipantId, diveGroupId);
+																						}
 																					}
 																				},
 																scope:			'participants'
 															});
 										
 									});
+									//that.rerender();
 								}
 							}
 });

@@ -2,7 +2,7 @@
 	<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">{{view.diveGroupParticipant.diveRole.name}} <span class="caret"></span></button>
 	<ul class="dropdown-menu">
 	{{#each JustDive.restControllers.dive_roles}}
-		<li><a href="#">{{this.name}}</a></li>
+		<li><a href="#" {{action updateRole this target="JustDive.Controllers.Routed.DiveGroupParticipant"}}>{{this.name}}</a></li>
 	{{/each}}
 	</ul>
 </div>

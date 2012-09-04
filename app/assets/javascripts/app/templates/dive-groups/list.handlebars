@@ -3,7 +3,7 @@
 </div>
 <h2>Palanquées</h2>
 
-<ul class="dive-groups clearfix unstyled">
+<ul class="dive-groups clearfix unstyled droppables-container">
 	{{#each view.boatDeparture.diveGroups}}
 		<li class="dive-group droppable" {{bindAttr data-dive-group-id="id"}}>
 			{{view JustDive.Views.DiveGroups.Title diveGroupBinding="this"}}
