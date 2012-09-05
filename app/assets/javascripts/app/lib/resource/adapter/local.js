@@ -51,8 +51,11 @@ JustDive.Resource.Adapter.Local = Ember.Mixin.create({
 			url_parts.splice(0, 1);
 		}
 		this.store_id = url_parts[0];
-		serialized_data = localStorage.getItem(this.store_id)
-		this.data = (serialized_data && JSON.parse(serialized_data)) || {};
+		
+		// Replaced because: https://github.com/marcneuwirth/datastorage.js
+		//serialized_data = localStorage.getItem(this.store_id)
+		//this.data = (serialized_data && JSON.parse(serialized_data)) || {};
+		this.data = dataStorage.getData(this.store_id) || {};
 	},
 /**
 @private
@@ -276,8 +279,10 @@ REQUIRED: `params.url`
     
 	_saveData: function() {
 		if (this.data && this.store_id) {
-			var serialize_data = JSON.stringify(this.data);
-			localStorage.setItem(this.store_id, serialize_data);
+			// Replaced because: https://github.com/marcneuwirth/datastorage.js
+			//var serialize_data = JSON.stringify(this.data);
+			//localStorage.setItem(this.store_id, serialize_data);
+			dataStorage.putData(this.store_id, this.data);
 			return true;
 		} else {
 			return false;

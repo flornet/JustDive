@@ -1,10 +1,12 @@
 {{#if JustDive.identity.is_logged_in}}
 	<div class="btn-group pull-right">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			<i class="icon-user"></i> {{JustDive.identity.email}}
+			<i class="icon-user"></i>
 			<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
+			<li class="dropdown-menu-description">Vous êtes identifié en tant que {{JustDive.identity.email}}</li>
+			<li class="divider"></li>
 			<li><a href="#!club-admin"><i class="icon-cog"></i> Configuration du club</a>
 			<li class="divider"></li>
 			<li><a href="#" {{action clearLocalStorage target="JustDive.Controllers.Identity"}}><i class="icon-trash"></i> Reinitialiser l'application</a></li>

@@ -8,6 +8,7 @@
 #= require ./vendor/ember/ember-rest.js
 #= require ./vendor/ember/ember-routemanager.js
 #= require ./vendor/ember/ember-layout.js
+#= require ./vendor/datastorage/datastorage.js
 
 #= require_self
 #= require_tree ./lib/resource

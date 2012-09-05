@@ -13,12 +13,14 @@ Subjects:
 
 BugFixes:
 - Handle cascade delete (what happens offline?),
-- UI (date picker, active menus).
+- UI (date picker, active menus),
+- 1st load of contacts is so slow! (progress bar?).
 
 FeaturesRequest:
 - Desktop Drag => Mobile Touch:
 	- http://stackoverflow.com/questions/5186441/javascript-drag-and-drop-for-touch-devices
 	- http://www.stevefenton.co.uk/Content/Jquery-Mobile-Drag-And-Drop/
+- QuickCreate diveGroup on diveEventParticipant "drop",
 - Revoir le initialize d'application côté JS,
 - Améliorer la fonctionnalité de ré-initialisation de l'app en local,
 - Mini-interface d'administration des clubs et administrateurs,

@@ -62,7 +62,7 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 					identity.set('is_logged_in', false);
 				} else {
 					if (data.current_administrator.id !== identity.get('administrator_id')) {
-						// TODO: shold be better handled
+						// TODO: should be better handled
 						identity.set('is_logged_in', false);
 					}
 				}
@@ -76,7 +76,10 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	clearLocalStorage: function() {
 		localStorage.clear();
 		this.logout();
-		// @TODO: - recharger la page,
-		//		  - supprimer l'APP KEY sur le serveur
+		setTimeout(function() {
+			location.reload(true);
+		}, 200);
+		
+		// @TODO: - supprimer l'APP KEY sur le serveur
 	}
 });

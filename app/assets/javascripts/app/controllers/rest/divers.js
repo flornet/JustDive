@@ -6,7 +6,7 @@ JustDive.Controllers.Rest.Divers = JustDive.Resource.Controller.Synced.extend({
   
   init: 			function() {
 						this._super();
-						this.sortContent();
+						//this.sortContent();
 					},
   
   sortContent:		function() {

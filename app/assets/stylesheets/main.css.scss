@@ -2,98 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@media all {
-	.panel {
-		overflow                    : hidden;
-		position                    : absolute;
-		display                     : block;
-		width                       : 100%;
-		top                         : 0;
-		height						: 100%;
-	}
-	
-	.scrollable {
-		overflow-y                  : scroll;
-		-webkit-overflow-scrolling  : touch;
-	}
-	
-	.right .panel,
-	.left .panel	{
-		top							: 80px;
-		bottom						: 50%;
-		height						: auto;
-	}
-	.sub-panel {
-		position                    : absolute;
-		display                     : block;
-		width                       : 100%;
-		height						: auto;
-		top							: 50%;
-		bottom						: 0;
-		border-top					: 1px #ddd solid;
-		background					: #eee;
-	}
-	.right .dive-groups-container {
-		bottom						: 30%;
-	}
-	.available-participants-container {
-		top							: 70%;
-	}
-	
-	.left .panel {
-		bottom						: 0;
-	}
-	
-	.left-nav-header {
+.sub-panel {
+	border-top					: 1px #ddd solid;
+	background					: #eee;
+}
+
+.left-nav-header {
 		font-size: 1.3em;
 		line-height:40px;
 	}
-}
-/* end of medial all */
 
-@media (orientation: portrait) {
-	.left {
-		float                       : left;
-		left                        : 0%;
-		width                       : 0%;
-	}
-	.right {
-		float                       : right;
-		left                        : 0%;
-		width                       : 100%;
-	}
-}
-
-@media (orientation: landscape) {
-	.left {
-		float                       : left;
-		left                        : 0%;
-		width                       : 20%;
-	}
-	.right {
-		float                       : right;
-		left                        : 20%;
-		width                       : 80%;
-	}
-}
-.activity-monitor {
-	padding-top: 8px;
-	padding-right: 8px;
-}
 #sidebar {
 	background:#eeeeee;
 }	
-#sidebar .navbar-fixed-top,
-#content .navbar-fixed-top {
+.sub-navbar {
 	top:40px;
-}
-
-#sidebar .navbar,
-#content .navbar {
 	z-index:999;
 }
-#sidebar .navbar-inner,
-#content .navbar-inner {
+
+.sub-navbar .navbar-inner {
   min-height: 40px;
   padding-right: 20px;
   padding-left: 20px;
@@ -113,8 +40,7 @@
      -moz-box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
-#sidebar .divider-vertical,
-#content .divider-vertical{
+.sub-navbar .divider-vertical{
   width: 1px;
   height: 40px;
   margin: 0 9px;
@@ -129,11 +55,18 @@
 
 
 /* EVENTS */
+.events-by-day,
+.dive-groups {
+	white-space	: nowrap;
+    font-size	: 0;
+    overflow-x	: scroll;
+	-webkit-overflow-scrolling  : touch;
+}
+
 .events-by-day li.day,
 .dive-groups li.dive-group {
 	list-style: none;
-	display: block;
-	float:left;
+	display: inline-block;
 	width: 18%;
 	height: 260px;
 	margin-right: 10px;
@@ -256,7 +189,12 @@
 		    transition		: border 0s;
 }
 .available-participants {
-	height		: 110px;
+	bottom		: 0;
+	display		: block;
+    white-space	: nowrap;
+    font-size	: 0;
+    overflow-x	: scroll;
+	-webkit-overflow-scrolling  : touch;
 }
 .available-participants.droppable-highlight {
 	background	: #ddd;
@@ -267,10 +205,9 @@
 .available-participants .participant,
 .participant.ui-draggable-dragging {
 	font-size				: 11px;
-	display					: block;
+	display					: inline-block;
 	width					: 100px;
 	height					: 100px;
-	float					: left;
 	background				: #fff;
 	border					: 1px #ccc solid;
 	padding					: 4px;
@@ -305,7 +242,6 @@
 @media (max-width: 480px) {
 	.events-by-day li.day,
 	.dive-groups li.dive-group  {
-		float:none;
 		width: 100%;
 		margin-right: 0;
 		height: auto;

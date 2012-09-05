@@ -1,0 +1,78 @@
+@media all {
+	//---------------------------------------------------------- Pannels
+	.panel {
+		overflow                    : hidden;
+		position                    : absolute;
+		display                     : block;
+		width                       : 100%;
+		top                         : 0;
+		height						: 100%;
+	}
+	
+	.right .panel,
+	.left .panel	{
+		top							: 80px;
+		bottom						: 50%;
+		height						: auto;
+	}
+	.sub-panel {
+		position                    : absolute;
+		display                     : block;
+		width                       : 100%;
+		height						: auto;
+		top							: 50%;
+		bottom						: 0;
+	}
+	.left .panel {
+		bottom						: 0;
+	}
+	
+	//---------------------------------------------------------- Menus / Navbars
+	.activity-monitor {
+		padding-top: 8px;
+		padding-right: 8px;
+	}
+	.btn-group .dropdown-menu-description {
+		white-space	: normal;
+		padding: 3px 20px;
+	}
+	
+	//---------------------------------------------------------- Utility
+	.scrollable-y {
+		overflow-y                  : scroll;
+		-webkit-overflow-scrolling  : touch;
+	}
+	.scrollable-x {
+		overflow-x	: scroll;
+		-webkit-overflow-scrolling  : touch;
+	}
+	
+	//---------------------------------------------------------- Spec
+	.right .dive-groups-container {
+		bottom						: 30%;
+	}
+	.available-participants-container {
+		top							: 70%;
+	}
+}
+@media (orientation: landscape) {
+	.left {
+		float                       : left;
+		left                        : 0%;
+		width                       : 20%;
+	}
+	.right {
+		float                       : right;
+		left                        : 20%;
+		width                       : 80%;
+	}
+}
+@media (orientation: portrait) {
+	.left {
+		width                       : 0%;
+	}
+	.right {
+		left                        : 0%;
+		width                       : 100%;
+	}
+}
