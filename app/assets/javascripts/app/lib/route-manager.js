@@ -96,7 +96,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view = this.get('view');
-								var diverRoleId = stateManager.getPath('params.id');
+								var diverRoleId = stateManager.get('params.id');
 								var diveRole = JustDive.restControllers.dive_roles.findObject(diverRoleId);
 								if (diveRole !== false) {
 									view.set('diveRole', diveRole);
@@ -126,7 +126,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view = this.get('view');
-								var boatId = stateManager.getPath('params.id');
+								var boatId = stateManager.get('params.id');
 								var boat = JustDive.restControllers.boats.findObject(boatId);
 								if (boat !== false) {
 									view.set('boat', boat);
@@ -156,7 +156,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view = this.get('view');
-								var ffessmLevelId = stateManager.getPath('params.id');
+								var ffessmLevelId = stateManager.get('params.id');
 								var ffessmLevel = JustDive.restControllers.ffessm_levels.findObject(ffessmLevelId);
 								if (ffessmLevel !== false) {
 									view.set('ffessmLevel', ffessmLevel);
@@ -201,7 +201,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view = this.get('view');
-								var diverId = stateManager.getPath('params.id');
+								var diverId = stateManager.get('params.id');
 								var diver = JustDive.restControllers.divers.findObject(diverId);
 								if (diver !== false) {
 									view.set('diver', diver);
@@ -247,7 +247,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view = this.get('view');
-								var diveEventId = stateManager.getPath('params.id');
+								var diveEventId = stateManager.get('params.id');
 								var diveEvent = JustDive.restControllers.dive_events.findObject(diveEventId);
 								if (diveEvent !== false) {
 									view.set('diveEvent', diveEvent);
@@ -263,7 +263,7 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							viewClass: JustDive.Views.BoatDepartures.Detail,
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
-								var diveEventId = stateManager.getPath('params.id'),
+								var diveEventId = stateManager.get('params.id'),
 									diveEvent 	= JustDive.restControllers.dive_events.findObject(diveEventId);
 								if (diveEvent !== false) {
 									this.get('view').set('diveEvent', diveEvent);
@@ -281,8 +281,8 @@ JustDive.RouteManager = Ember.RouteManager.extend({
 							enter: function(stateManager, transition) {
 								this._super(stateManager, transition);
 								var view 			= this.get('view'),
-									diveEventId 	= stateManager.getPath('params.id'),
-									boatDepartureId = stateManager.getPath('params.boat_departure_id'),
+									diveEventId 	= stateManager.get('params.id'),
+									boatDepartureId = stateManager.get('params.boat_departure_id'),
 									diveEvent 		= JustDive.restControllers.dive_events.findObject(diveEventId),
 									boatDeparture 	= JustDive.restControllers.boat_departures.findObject(boatDepartureId);
 								if ((diveEvent !== false) && (boatDeparture !== false)) {

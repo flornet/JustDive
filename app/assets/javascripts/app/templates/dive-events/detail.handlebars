@@ -11,10 +11,11 @@
 					</div>
 				{{else}}
 					<div class="btn-group pull-left">
-						<a class="btn btn-inverse" href="#!dive-events"><i class="icon-chevron-left icon-white"></i>Retour</a>
+						<a class="btn" href="#!dive-events"><i class="icon-chevron-left"></i>Retour</a>
 					</div>
 					<div class="btn-group pull-right">
-						<button class="btn btn-primary" type="button" {{action startEditMode}}>Modifier</button>
+						<button class="btn" {{action startEditMode}}><i class="icon-pencil"></i></button>
+						<button class="btn" {{action new view.diveEvent target="JustDive.Controllers.Routed.BoatDeparture"}}><i class="icon-plus"></i></button>
 					</div>
 				{{/if}}
 				<ul class="nav pull-left">
@@ -24,12 +25,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="scrollable panel">
-		<div class="container-fluid">
-			{{#if view.isEditing}}
-				<div class="row-fluid">
-					<div class="span8">
-						<div class="hero-unit">
+	{{#if view.isEditing}}
+		<div class="scrollable-y panel">
+			<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="span8">
 							<h1>Evènement</h1>
 							{{#if view.error}}
 								<div class="alert alert-error">{{{view.error}}}</div>
@@ -40,33 +40,35 @@
 							<div class="field">
 								{{view JustDive.DateField valueBinding="view.diveEvent.end_date"  placeholder="Se termine le"}}
 							</div>
+							<div class="actions"> 
+								<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+							</div>
 						</div>
-						<div class="actions"> 
-							<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+						<div class="span1">
+							<dl class="dl-horizontal">
+								<dt>Id</dt><dd>{{view.diveEvent.id}}</dd>
+								<dt>Créé le</dt><dd>{{view.diveEvent.created_at}}</dd>
+								<dt>Modifié le</dt><dd>{{view.diveEvent.updated_at}}</dd>
+							</dl>
 						</div>
 					</div>
-					<div class="span1">
-						<dl class="dl-horizontal">
-							<dt>Id</dt>
-							<dd>{{view.diveEvent.id}}</dd>
-							<dt>Créé le</dt>
-							<dd>{{view.diveEvent.created_at}}</dd>
-							<dt>Modifié le</dt>
-							<dd>{{view.diveEvent.updated_at}}</dd>
-						</dl>
-					</div>
-				</div>
-			{{else}}
-				{{ view JustDive.Views.BoatDepartures.List diveEventBinding="view.diveEvent"}}
-			{{/if}}
-		</div>
-	</div>
-	{{#unless view.isEditing}}
-		<div class="scrollable sub-panel">
-			<div class="container-fluid">
-				{{ view JustDive.Views.DiveEventParticipants.List diveEventBinding="view.diveEvent"}}
 			</div>
 		</div>
-	{{/unless}}
+	{{else}}
+		<div class="scrollable-x panel-split panel-split-fixed-top-220-a events-by-day">
+			{{ 
+				view JustDive.Views.BoatDepartures.List 
+						diveEventBinding	= "view.diveEvent"
+			}}
+		</div>
+		<div class="scrollable-y panel-split panel-split-fixed-top-220-b">
+			<div class="container-fluid">
+				{{ 
+					view JustDive.Views.DiveEventParticipants.List 
+							diveEventBinding	= "view.diveEvent"
+				}}
+			</div>
+		</div>
+	{{/if}}
 </div>
 

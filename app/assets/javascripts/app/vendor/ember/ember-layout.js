@@ -51,7 +51,7 @@ Ember.LayoutState = Ember.State.extend({
       // set its content
       var parentView = get(this, 'parentView') || get(stateManager, 'rootView');
       if(parentView) {
-        Ember.setPath(parentView, get(this, 'contentPath'), view);
+        Ember.set(parentView, get(this, 'contentPath'), view);
       }
       // otherwise we just append to the rootElement on the
       // state manager
@@ -67,7 +67,7 @@ Ember.LayoutState = Ember.State.extend({
 
     var parentView = get(this, 'parentView') || get(stateManager, 'rootView');
     if(parentView) {
-      Ember.setPath(parentView, get(this, 'contentPath'), null);
+      Ember.set(parentView, get(this, 'contentPath'), null);
     }
     else {
       view.remove();
@@ -143,7 +143,7 @@ Ember.Handlebars.FrameView = Ember.ContainerView.extend({
    */
   contentDidUpdate: function() {
     var blockContainer = this.get('blockContainer');
-    var view = blockContainer.getPath(get(this, 'childPath'));
+    var view = blockContainer.get(get(this, 'childPath'));
     Ember.assert(view instanceof Ember.View, "dynamicView's content must be set to a subclass of Ember.View'");
     var childViews = this.get('_childViews');
     var len = childViews.get('length');

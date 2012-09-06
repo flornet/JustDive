@@ -14,7 +14,11 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 								this._super();
 								this._enableDragAndDrop();
 							},
-
+							
+	toggleFullView:			function () {
+								$(this.get('element')).toggleClass('full-view');
+							},
+							
 	_enableDragAndDrop:		function() {
 								var boatDeparture = this.boatDeparture,
 									that = this;

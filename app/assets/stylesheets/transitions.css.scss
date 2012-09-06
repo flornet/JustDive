@@ -1,0 +1,20 @@
+@media all {
+	.dive-groups {
+		.scrollable-item {
+					    transition		: all 0.5s;
+					 -o-transition		: all 0.5s; /* Opera */
+				   -moz-transition		: all 0.5s; /* Firefox 4 */
+				-webkit-transition		: all 0.5s; /* Safari and Chrome */
+		}
+	}
+	.full-view {
+		.dive-groups {
+			.scrollable-item {
+					    transition		: all 0.5s;
+					 -o-transition		: all 0.5s; /* Opera */
+				   -moz-transition		: all 0.5s; /* Firefox 4 */
+				-webkit-transition		: all 0.5s; /* Safari and Chrome */
+			}
+		}
+	}
+}

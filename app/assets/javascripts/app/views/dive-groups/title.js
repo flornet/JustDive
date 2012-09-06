@@ -5,6 +5,6 @@ JustDive.Views.DiveGroups.Title = JustDive.View.extend({
   classNames:   ['title'],
   tagName:		'div',
   title: 		function() {
-					return 'Palanquée n°' + (this.getPath('_parentView.contentIndex') + 1);
+					return 'Palanquée n°' + (this.get('_parentView.contentIndex') + 1);
 			    }.property()
 });

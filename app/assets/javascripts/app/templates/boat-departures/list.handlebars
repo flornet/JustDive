@@ -1,22 +1,17 @@
-﻿<div class="btn-group pull-right">
-	<a class="btn" href="#" {{action new view.diveEvent target="JustDive.Controllers.Routed.BoatDeparture"}}><i class="icon-plus"></i> Départ bateau</a>
-</div>
-<h2>Départs bateau</h2>
-
-<ul class="events-by-day clearfix unstyled">
-	{{#each view.diveEvent.possibleDates}}
-	<li class="day">
-		<div class="name">{{this.label}}</div>
-		<ul class="nav nav-pills nav-stacked">
-			{{#unless this.boatDepartures.length}}
-				<li class="alert"><small>Aucun départ bateau prévu</small></li>
-			{{/unless}}
-			{{#each this.boatDepartures}}
-				{{view JustDive.Views.BoatDepartures.ListShow 
-						boatDepartureBinding="this" 
-						diveEventBinding="view.diveEvent"}}
-			{{/each}}
-		</ul>
-	</li>
-	{{/each}}
-</ul>
+﻿{{#each view.diveEvent.possibleDates}}
+	<div class="scrollable-item">
+		<div class="day">
+			<div class="name">{{this.label}}</div>
+			<ul class="nav nav-pills nav-stacked">
+				{{#unless this.boatDepartures.length}}
+					<li class="alert"><small>Aucun départ bateau prévu</small></li>
+				{{/unless}}
+				{{#each this.boatDepartures}}
+					{{view JustDive.Views.BoatDepartures.ListShow 
+							boatDepartureBinding="this" 
+							diveEventBinding="view.diveEvent"}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+{{/each}}

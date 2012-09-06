@@ -2,166 +2,139 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.sub-panel {
-	border-top					: 1px #ddd solid;
-	background					: #eee;
-}
-
-.left-nav-header {
-		font-size: 1.3em;
-		line-height:40px;
+@media all {
+	//---------------------------------------------------------- Pannels
+	.left-nav-header {
+		font-size						: 1.3em;
+		line-height						: 40px;
 	}
-
-#sidebar {
-	background:#eeeeee;
-}	
-.sub-navbar {
-	top:40px;
-	z-index:999;
-}
-
-.sub-navbar .navbar-inner {
-  min-height: 40px;
-  padding-right: 20px;
-  padding-left: 20px;
-  background-color: #eeeeee;
-  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#cccccc));
-  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: linear-gradient(top, #eeeeee, #cccccc);
-  background-repeat: repeat-x;
-  -webkit-border-radius: 0;
-     -moz-border-radius: 0;
-          border-radius: 0;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#cccccc', GradientType=0);
-  -webkit-box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-     -moz-box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-}
-.sub-navbar .divider-vertical{
-  width: 1px;
-  height: 40px;
-  margin: 0 9px;
-  overflow: hidden;
-  background-color: #cccccc;
-  border-right: 1px solid #eeeeee;
-}
-
-.fullscreen-container {
-	padding-top: 60px;
-}
-
-
-/* EVENTS */
-.events-by-day,
-.dive-groups {
-	white-space	: nowrap;
-    font-size	: 0;
-    overflow-x	: scroll;
-	-webkit-overflow-scrolling  : touch;
-}
-
-.events-by-day li.day,
-.dive-groups li.dive-group {
-	list-style: none;
-	display: inline-block;
-	width: 18%;
-	height: 260px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	padding: 3px;
-	border: 1px #eee solid;
-	background: #f2f9fe; /* Old browsers */
-	background: -moz-linear-gradient(top,  #f2f9fe 0%, #f2f9fe 64%, #eaeaea 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f9fe), color-stop(64%,#f2f9fe), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
-	-webkit-border-radius	: 5px;
-	   -moz-border-radius	: 5px;
-			border-radius	: 5px; 
-	-webkit-box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-	  -moz--box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-			box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-		    transition		: border 0.5s;
-		 -o-transition		: border 0.5s; /* Opera */
-	   -moz-transition		: border 0.5s; /* Firefox 4 */
-	-webkit-transition		: border 0.5s; /* Safari and Chrome */
+	#sidebar {
+		background						: #eeeeee;
+	}	
+	//---------------------------------------------------------- Menus / Navbars
+	.sub-navbar {
+		.divider-vertical {
+			background-color			: #cccccc;
+			border-right				: 1px solid #eeeeee;
+		}
+		.navbar-inner {
+			-webkit-border-radius		: 0;
+			   -moz-border-radius		: 0;
+				    border-radius		: 0;
+			-webkit-box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+			   -moz-box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+				    box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		}
+	}
+	//---------------------------------------------------------- Utility
 	
-}
-.dive-groups li.dive-group {
-	width: 46%;
+	//---------------------------------------------------------- Spec
+	.dive-groups {
+		.scrollable-item {
+			.dive-group {
+				background				: #f2f9fe; /* Old browsers */
+				background				: -moz-linear-gradient(top,  #f2f9fe 0%, #f2f9fe 64%, #eaeaea 100%); /* FF3.6+ */
+				background				: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f9fe), color-stop(64%,#f2f9fe), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+				background				: -webkit-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+				background				: -o-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Opera 11.10+ */
+				background				: -ms-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* IE10+ */
+				background				: linear-gradient(to bottom,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* W3C */
+				filter					: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
+
+				.title {
+					font-size			: 11px;
+					font-weight			: bold;
+					border-bottom		: 1px #ddd solid;
+				}
+				.details {
+					font-size			: 0.8em;
+					color				: #999;
+					background			: #eee;
+					border-right		: 1px #ddd solid;
+	
+					.dive-parameters {
+						th.h {
+							background	: #dedede;
+							text-shadow	: 1px 1px 1px #ffffff;
+							filter		: dropshadow(color=#ffffff, offx=1, offy=1);
+						}
+					}
+					.dive-parameters-editing  {
+						.input-mini,
+						.add-on {
+							font-size	: 11px;
+						}
+					}
+				}
+				.participants {
+					.participant {
+						font-size		: 14px;
+						line-height		: 14px;
+						border-radius	: 5px 5px 5px 5px;
+						color			: rgb(0, 136, 204);
+						font-family		: "Helvetica Neue",Helvetica,Arial,sans-serif;
+						cursor			: default;
+					}
+					.participant:hover {
+						background-color: rgb(238, 238, 238);
+						color			: rgb(0, 85, 128);
+					}
+				}
+			}
+		}
+	}
+	.available-participants {
+		.participant {
+			font-size					: 11px;
+			background					: #fff;
+			border						: 1px #ccc solid;
+			-webkit-border-radius		: 5px;
+			   -moz-border-radius		: 5px;
+					border-radius		: 5px; 
+		}
+	}
+	//---------------------------------------------------------- Drag and drop
+	.dive-groups {
+		.scrollable-item {
+			.dive-group.droppable-highlight {
+				background				: #eaf9e7;
+				
+				.details {
+					display				: none;
+				}
+			}
+			.dive-group.droppable-over {
+				background				: #b5fc89;
+				
+				.details {
+					display				: none;
+				}
+			}
+		}
+	}
+	.available-participants {
+		.draggable:hover {
+			border: 1px #aaa solid;
+		}
+	}
+	.participant.ui-draggable-dragging {
+		font-size						: 11px;
+		border							: 1px #fff solid;
+		background-color				: rgb(0, 136, 204);
+		color							: #fff;
+		-webkit-border-radius 			: 5px;
+		   -moz-border-radius 			: 5px;
+				border-radius 			: 5px; 
+	}
+	.available-participants.droppable-highlight {
+		background						: #eaf9e7;
+	}
+	.available-participants.droppable-over {
+		background						: #b5fc89;
+	}
 }
 
-.dive-groups li .participant {
-	font-size:14px;
-	line-height:14px;
-	margin-bottom: 3px;
-	padding-top: 8px;
-	padding-bottom: 8px;
-	margin-top: 2px;
-	border-radius: 5px 5px 5px 5px;
-	padding-right: 12px;
-	padding-left: 12px;
-	color: rgb(0, 136, 204);
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	cursor: default;
-}
-.dive-groups li .participant .le {
-	display:none;
-}
 
-.dive-groups li .participant:hover {
-	background-color: rgb(238, 238, 238);
-	color: rgb(0, 85, 128);
-}
-
-.dive-groups .details {
-	font-size: 0.8em;
-	color: #999;
-	float:left;
-	background:#eee;
-	height:220px;
-	border-right: 1px #ddd solid;
-	margin-right: 5px;
-}
-
-.dive-groups .details .dive-parameters {
-	width: 160px;
-}
-.dive-groups ul.participants {
-	margin-left: 160px;
-}
-
-.dive-groups .details .dive-parameters-editing .input-mini,
-.dive-groups .details .dive-parameters-editing .add-on {
-	font-size:11px;
-}
-
-.dive-groups .details .dive-parameters th.h {
-	width:50%;
-	text-align:left;
-	background: #dedede;
-	padding-left: 4px;
-	text-shadow: 1px 1px 1px #ffffff;
-    filter: dropshadow(color=#ffffff, offx=1, offy=1);
-}
-.dive-groups .details .dive-parameters th.i {
-	width:1%;
-	text-align:left;
-	padding-left: 4px;
-}
-
-.events-by-day li.day .name,
-.dive-groups li.dive-group .title {
-	font-size:11px;
-	font-weight: bold;
-	border-bottom: 1px #ddd solid;
-}
 .events-by-day li.day .groups-count {
 	clear:both;
 	display:block;
@@ -171,72 +144,7 @@
 	padding-top:2px;
 }
 
-/* Drag and drop participants */
-.dive-groups li.dive-group.droppable-highlight {
-	border: 1px #aaa solid;
-	-webkit-box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-	  -moz--box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-			box-shadow		: 0px 0px 2px 1px  rgba(150, 150, 150, 0.5);
-}
-.dive-groups li.dive-group.droppable-over {
-	border					: 1px lime solid;
-	-webkit-box-shadow		: 0px 0px 2px 1px  rgba(0, 150, 0, 0.5);
-	  -moz--box-shadow		: 0px 0px 2px 1px  rgba(0, 150, 0, 0.5);
-			box-shadow		: 0px 0px 2px 1px  rgba(0, 150, 0, 0.5);
-	-webkit-transition		: border 0s; /* Safari and Chrome */
-	   -moz-transition		: border 0s; /* Firefox 4 */
-	     -o-transition		: border 0s; /* Opera */
-		    transition		: border 0s;
-}
-.available-participants {
-	bottom		: 0;
-	display		: block;
-    white-space	: nowrap;
-    font-size	: 0;
-    overflow-x	: scroll;
-	-webkit-overflow-scrolling  : touch;
-}
-.available-participants.droppable-highlight {
-	background	: #ddd;
-}
-.available-participants.droppable-over {
-	background	: lime;
-}
-.available-participants .participant,
-.participant.ui-draggable-dragging {
-	font-size				: 11px;
-	display					: inline-block;
-	width					: 100px;
-	height					: 100px;
-	background				: #fff;
-	border					: 1px #ccc solid;
-	padding					: 4px;
-	margin-right			: 5px;
-	-webkit-touch-callout	: none;
-	  -webkit-user-select	: none;
-	   -khtml-user-select	: none;
-	     -moz-user-select	: none;
-	      -ms-user-select	: none;
-		      user-select	: none;
-	-webkit-border-radius	: 5px;
-	   -moz-border-radius	: 5px;
-			border-radius	: 5px; 
-}
-.available-participants .participant .le,
-.participant.ui-draggable-dragging .le {
-	display: block;
-}
-.available-participants .draggable {
-	cursor: move;
-}
-.participant.ui-draggable-dragging {
-	border: 1px #fff solid;
-	background-color: rgb(0, 136, 204);
-	color: #fff;
-}
-.available-participants .draggable:hover {
-	border: 1px #aaa solid;
-}
+
 
 /* Landscape phones and down */
 @media (max-width: 480px) {

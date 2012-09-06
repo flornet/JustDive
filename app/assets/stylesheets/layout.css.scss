@@ -1,78 +1,238 @@
 @media all {
 	//---------------------------------------------------------- Pannels
 	.panel {
-		overflow                    : hidden;
-		position                    : absolute;
-		display                     : block;
-		width                       : 100%;
-		top                         : 0;
-		height						: 100%;
+		overflow                    	: hidden;
+		position                    	: absolute;
+		display                     	: block;
+		width                       	: 100%;
+		top                         	: 0;
+		height							: 100%;
 	}
 	
 	.right .panel,
 	.left .panel	{
-		top							: 80px;
-		bottom						: 50%;
-		height						: auto;
+		top								: 80px;
+		bottom							: 0;
 	}
-	.sub-panel {
-		position                    : absolute;
-		display                     : block;
-		width                       : 100%;
-		height						: auto;
-		top							: 50%;
-		bottom						: 0;
+	.right .panel .container-fluid {
+		padding-top						: 10px;
 	}
 	.left .panel {
-		bottom						: 0;
+		bottom							: 0;
 	}
-	
+	.fullscreen-container {
+		padding-top						: 60px;
+	}
+	.panel-split {
+		position                    	: absolute;
+		display                     	: block;
+		width                       	: 100%;
+		height							: auto;
+	}
+	.panel-split-fixed-top-220-a {
+		top								: 80px;
+		bottom							: auto;
+		height							: 220px;
+	}
+	.panel-split-fixed-top-220-b {
+		top								: 300px;
+		bottom							: 0;
+	}
+	.panel-split-fixed-bottom-135-a {
+		top								: 80px;
+		bottom							: 135px;
+	}
+	.panel-split-fixed-bottom-135-b {
+		height							: 135px;
+		top								: auto;
+		bottom							: 0;
+	}
 	//---------------------------------------------------------- Menus / Navbars
 	.activity-monitor {
-		padding-top: 8px;
-		padding-right: 8px;
+		padding-top						: 8px;
+		padding-right					: 8px;
 	}
 	.btn-group .dropdown-menu-description {
-		white-space	: normal;
-		padding: 3px 20px;
+		white-space						: normal;
+		padding							: 3px 20px;
 	}
-	
+	.sub-navbar {
+		top								: 40px;
+		z-index							: 999;
+		
+		.divider-vertical {
+			width						: 1px;
+			height						: 40px;
+			margin						: 0 9px;
+			overflow					: hidden;
+			background-color			: #cccccc;
+			border-right				: 1px solid #eeeeee;
+		}
+	}
 	//---------------------------------------------------------- Utility
 	.scrollable-y {
-		overflow-y                  : scroll;
-		-webkit-overflow-scrolling  : touch;
+		overflow-y                  	: scroll;
+		-webkit-overflow-scrolling 	 	: touch;
 	}
 	.scrollable-x {
-		overflow-x	: scroll;
-		-webkit-overflow-scrolling  : touch;
+		overflow-x						: scroll;
+		-webkit-overflow-scrolling  	: touch;
+		display							: block;
+		white-space						: nowrap;
+		font-size						: 0;
 	}
-	
+	.scrollable-x .scrollable-item {
+		float							: none;
+		display							: inline-block;
+		width							: 100px;
+		font-size						: 12px;
+		white-space						: normal;
+	}
+	.draggable {
+		cursor							: move;
+		-webkit-touch-callout			: none;
+		  -webkit-user-select			: none;
+		   -khtml-user-select			: none;
+			 -moz-user-select			: none;
+			  -ms-user-select			: none;
+				  user-select			: none;
+	}
 	//---------------------------------------------------------- Spec
-	.right .dive-groups-container {
-		bottom						: 30%;
+	.dive-groups {
+		.scrollable-item {
+			width						: 85%;
+			
+			.dive-group {
+				position				: absolute;
+				top						: 0;
+				bottom					: 0;
+				width					: inherit;		
+					
+				.details {
+					position			: absolute;
+					top					: 20px;
+					bottom				: 0;
+					
+					.dive-parameters {
+						width			: 160px;
+						
+						th.h {
+							width		: 50%;
+							text-align	: left;
+							padding-left: 4px;
+						}
+						th.i {
+							width		: 1%;
+							text-align	: left;
+							padding-left: 4px;
+						}
+					}
+				}
+				.participants {
+					padding-left		: 163px;
+					padding-right		: 3px;
+					width				: auto;
+					
+					.participant {
+						margin			: 2px 0 3px 0;
+						padding			: 8px 12px 8px 12px;
+						
+						.le {
+							display		: none;
+						}
+					}
+				}
+			}
+		}
 	}
-	.available-participants-container {
-		top							: 70%;
+	.available-participants {
+		.participant {
+			width						: 100px;
+			height						: 100px;
+			padding						: 4px;
+			margin-right				: 5px;
+			
+			.le {
+				display					: block;
+			}
+		}
+	}
+	.full-view {
+		.dive-groups {
+			.scrollable-item {
+				width					: 25%;
+				
+				.dive-group {
+					
+					
+					.details {
+						display			: none;
+					}
+					
+					.participants {
+						padding-left	: 3px;
+						border-left		: 1px #ccc solid;
+						position		: absolute;
+						top				: 20px;
+						bottom			: 0;
+						width			: 96%;
+						
+						.btn-group {
+							display		: none;
+						}
+					}
+				}
+				
+			}
+		}
+	}
+	//---------------------------------------------------------- Drag and drop
+	.participant.ui-draggable-dragging {
+		width							: 100px;
+		height							: 100px;
+		padding							: 4px;
+		margin-right					: 5px; 
+		
+		.le {
+			display						: block;
+		}
+	}
+}
+@media (min-width: 767px) {
+	.navbar-fixed-top, 
+	.navbar-fixed-bottom {
+		position						: fixed;
+		margin-right					: 0;
+		margin-left						: 0;
+	}
+	.navbar-fixed-top .navbar-inner, 
+	.navbar-fixed-bottom .navbar-inner {
+		padding							: 0px;
+	}
+	.navbar .brand {
+		padding-right					: 20px;
+		padding-left					: 20px;
+		margin							: 0 0 0 -20px;
 	}
 }
 @media (orientation: landscape) {
 	.left {
-		float                       : left;
-		left                        : 0%;
-		width                       : 20%;
+		float                       	: left;
+		left                        	: 0%;
+		width                      		: 20%;
 	}
 	.right {
-		float                       : right;
-		left                        : 20%;
-		width                       : 80%;
+		float                       	: right;
+		left                        	: 20%;
+		width                       	: 80%;
 	}
 }
 @media (orientation: portrait) {
 	.left {
-		width                       : 0%;
+		width                       	: 0%;
 	}
 	.right {
-		left                        : 0%;
-		width                       : 100%;
+		left                        	: 0%;
+		width                       	: 100%;
 	}
 }
