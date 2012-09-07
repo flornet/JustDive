@@ -49,12 +49,24 @@
 	}
 	//---------------------------------------------------------- Menus / Navbars
 	.activity-monitor {
-		padding-top						: 8px;
-		padding-right					: 8px;
+		padding-top						: 10px;
+		padding-right					: 10px;
+		
+		.icon-signal {
+			margin-top					: 2px;
+		}
+		
+		#loading {
+			width						: 16px;
+			height						: 16px;
+			line-height					: 16px;
+		}
 	}
+	
 	.btn-group .dropdown-menu-description {
 		white-space						: normal;
 		padding							: 3px 20px;
+		margin							: 9px 0 5px 0;
 	}
 	.sub-navbar {
 		top								: 40px;

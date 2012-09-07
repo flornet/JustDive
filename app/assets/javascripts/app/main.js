@@ -129,8 +129,7 @@ JustDive = Ember.Application.create({
 		});
 		
 		// Creates the ui adapter
-		app.ui = JustDive.UiScreenAdapter.create();
-		//$(window).trigger('resize');
+		app.ui = JustDive.Ui.Adapter.create();
 		
 		/* 
 		 *	This is needed:

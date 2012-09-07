@@ -1,1 +1,1 @@
-JustDive.UiAbstractAdapter = JustDive.CoreObject.extend();
+JustDive.Ui.AbstractAdapter = JustDive.CoreObject.extend();

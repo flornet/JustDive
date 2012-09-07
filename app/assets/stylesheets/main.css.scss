@@ -12,6 +12,23 @@
 		background						: #eeeeee;
 	}	
 	//---------------------------------------------------------- Menus / Navbars
+	ul.dropdown-menu {
+		li {
+			.disabled {
+				opacity							: 0.65;
+				cursor							: default;
+			}
+			.disabled:hover {
+				background						: transparent;
+				color							: rgb(51, 51, 51);
+				
+				i {
+					background-image			: url("glyphicons-halflings.png");
+				}
+			}
+		}
+	}
+	
 	.sub-navbar {
 		.divider-vertical {
 			background-color			: #cccccc;
@@ -24,6 +41,23 @@
 			-webkit-box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 			   -moz-box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 				    box-shadow			: 0 0 3px -3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+		}
+	}
+	.activity-monitor {
+		.disabled {
+			opacity						: 0.65;
+		}
+		#loading {
+			background-image			: url(activity-indicator.gif);
+			background-position			: 0 0;
+		}
+	}
+	.btn-group {
+		.dropdown-menu-description {
+			font-size						: 11px;
+			color							: #666;
+			background-color				: rgb(229, 229, 229);
+			border-top						: 1px solid rgb(255, 255, 255);
 		}
 	}
 	//---------------------------------------------------------- Utility
