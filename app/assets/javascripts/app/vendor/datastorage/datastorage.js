@@ -3,7 +3,7 @@ var dataStorage = (function(cache, async) {
 		data: {},
 		dataQueue: [],
 		cache: cache || false, //Time in seconds, ie 1 hour = 3600
-		async: async || false, //true,
+		async: async || true, //true,
 		init: function(){
 			if(_ds.async){
 				setInterval(function() {
@@ -11,7 +11,7 @@ var dataStorage = (function(cache, async) {
 					if (first && first.key && first.value) {
 						_ds._save(first.key, first.value);
 					}
-				}, 200);
+				}, 15); //200
 			}
 		},
 		_save: function(key, value){

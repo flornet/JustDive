@@ -1,4 +1,5 @@
 #= require ./vendor/jquery/jquery-ui-1.8.23.custom.min.js
+#= require ./vendor/jquery/jquery.ui.touch-punch.min.js
 #= require ./vendor/twitter/bootstrap.min.js
 #= require ./vendor/twitter/bootstrap-datepicker.js
 #= require ./vendor/twitter/bootstrap-datepicker.fr.js
