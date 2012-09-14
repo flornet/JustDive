@@ -1,9 +1,9 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<a class="brand" href="#!account/welcome">Just Dive</a>
 			{{ view JustDive.Views.Main.UserMenu }}
 			{{ view JustDive.Views.Main.Nav }}
+			<span class="brand">Just Dive <small>(v{{JustDive.version}})</small></span>
 		</div><!--/.container-fluid -->
 	</div><!--/.navbar-inner -->
 </header>

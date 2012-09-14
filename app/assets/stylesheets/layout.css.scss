@@ -35,7 +35,7 @@
 		height							: 220px;
 	}
 	.panel-split-fixed-top-220-b {
-		top								: 300px;
+		top								: 342px;
 		bottom							: 0;
 	}
 	.panel-split-fixed-bottom-135-a {
@@ -48,6 +48,26 @@
 		bottom							: 0;
 	}
 	//---------------------------------------------------------- Menus / Navbars
+	.container-fluid {
+			padding: 0 10px 0 10px;
+		}
+	
+	header {
+		.container-fluid {
+			padding: 0 10px 0 0;
+		}
+	}
+	.navbar {
+		.brand {
+			position				: absolute;
+			left					: 50%;
+			top						: 0;
+			display					: block;
+			float					: none;
+			text-align				: center;
+		}
+	}
+	
 	.activity-monitor {
 		padding-top						: 10px;
 		padding-right					: 10px;
@@ -80,7 +100,16 @@
 			background-color			: #cccccc;
 			border-right				: 1px solid #eeeeee;
 		}
+		
+		.navbar-text {
+			display						: block;
+			text-align					: center;
+		}
 	}
+	.sub-navbar-bottom {
+		top								: 300px;
+	}
+	
 	//---------------------------------------------------------- Utility
 	.scrollable-y {
 		overflow-y                  	: scroll;
@@ -157,6 +186,52 @@
 			}
 		}
 	}
+	.events-by-day {
+		.scrollable-item {
+			width						: 220px;
+			
+			.day {
+				position				: absolute;
+				top						: 0;
+				bottom					: 0;
+				width					: inherit;		
+				
+				.name {
+					padding-left		: 10px;
+				}
+				ul.nav {
+					position			: absolute;
+					top					: 31px;
+					bottom				: 0;
+					width				: 218px;
+					margin				: 0;
+					padding				: 0;
+					
+					li {
+						margin			: 0;
+
+						a {
+							margin			: 0;
+							padding			: 0 8px 0 8px;
+							display			: block;
+							
+							.groups-count {
+								padding-top : 4px;
+							}
+							.boat-name {
+								clear	: right;
+							}
+						}
+					}
+					li.alert {
+						margin-left		: 8px;
+						margin-right	: 8px;
+						margin-top		: 8px;
+					}
+				}
+			}
+		}
+	}
 	.available-participants {
 		.participant {
 			width						: 100px;
@@ -220,11 +295,6 @@
 	.navbar-fixed-top .navbar-inner, 
 	.navbar-fixed-bottom .navbar-inner {
 		padding							: 0px;
-	}
-	.navbar .brand {
-		padding-right					: 20px;
-		padding-left					: 20px;
-		margin							: 0 0 0 -20px;
 	}
 }
 @media (orientation: landscape) {
