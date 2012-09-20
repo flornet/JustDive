@@ -15,6 +15,8 @@ BugFixes:
 - Handle cascade delete (what happens offline?),
 - UI (date picker, active menus),
 - 1st load of contacts is so slow! (progress bar?).
+- http://stackoverflow.com/questions/6598111/ios-web-app-disable-offset-scrolling
+
 
 FeaturesRequest:
 - Desktop Drag => Mobile Touch:
