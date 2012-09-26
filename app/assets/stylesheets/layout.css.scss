@@ -141,21 +141,21 @@
 	//---------------------------------------------------------- Spec
 	.dive-groups {
 		.scrollable-item {
-			width						: 85%;
+			width						: 360px;
 			
 			.dive-group {
 				position				: absolute;
 				top						: 0;
 				bottom					: 0;
-				width					: inherit;		
-					
+				width					: inherit;
+				
+				.title {
+					padding-left		: 10px;
+				}
 				.details {
-					position			: absolute;
-					top					: 20px;
-					bottom				: 0;
+					height				: 110px;
 					
 					.dive-parameters {
-						width			: 160px;
 						
 						th.h {
 							width		: 50%;
@@ -170,18 +170,33 @@
 					}
 				}
 				.participants {
-					padding-left		: 163px;
-					padding-right		: 3px;
-					width				: auto;
+					position			: absolute;
+					top					: 142px;
+					bottom				: 0;
+					width				: 358px;
+					margin				: 0;
+					
+					.btn-group.pull-right {
+						margin-top		: 6px;
+						margin-right	: 12px;
+					}
 					
 					.participant {
 						margin			: 2px 0 3px 0;
-						padding			: 8px 12px 8px 12px;
-						
+						padding			: 12px;
+
 						.le {
 							display		: none;
 						}
 					}
+				}
+				.gradient {
+					position				: absolute;
+					bottom					: 0;
+					display					: block;
+					line-height				: 30px;
+					height					: 30px;
+					width					: 100%;
 				}
 			}
 		}
@@ -211,9 +226,9 @@
 						margin			: 0;
 
 						a {
-							margin			: 0;
-							padding			: 0 8px 0 8px;
-							display			: block;
+							margin		: 0;
+							padding		: 0 8px 0 8px;
+							display		: block;
 							
 							.groups-count {
 								padding-top : 4px;
@@ -233,14 +248,21 @@
 		}
 	}
 	.available-participants {
+		padding							: 0 20px 0 20px;
+		
 		.participant {
-			width						: 100px;
-			height						: 100px;
-			padding						: 4px;
-			margin-right				: 5px;
+			width						: 114px;
+			height						: 56px;
+			padding						: 15px;
+			margin-top					: 20px;
+			margin-right				: 10px;
+			position					: relative;
 			
 			.le {
 				display					: block;
+				position				: absolute;
+				bottom					: 10px;
+				right					: 15px;
 			}
 		}
 	}
@@ -250,7 +272,6 @@
 				width					: 25%;
 				
 				.dive-group {
-					
 					
 					.details {
 						display			: none;
@@ -275,13 +296,16 @@
 	}
 	//---------------------------------------------------------- Drag and drop
 	.participant.ui-draggable-dragging {
-		width							: 100px;
-		height							: 100px;
-		padding							: 4px;
-		margin-right					: 5px; 
+		width							: 114px;
+		height							: 56px;
+		padding							: 15px;
+		position						: relative;
 		
 		.le {
 			display						: block;
+			position					: absolute;
+			bottom						: 10px;
+			right						: 15px;
 		}
 	}
 }

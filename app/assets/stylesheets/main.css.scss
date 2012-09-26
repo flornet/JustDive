@@ -146,29 +146,30 @@
 	.dive-groups {
 		.scrollable-item {
 			.dive-group {
-				background				: #f2f9fe; /* Old browsers */
-				background				: -moz-linear-gradient(top,  #f2f9fe 0%, #f2f9fe 64%, #eaeaea 100%); /* FF3.6+ */
-				background				: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f9fe), color-stop(64%,#f2f9fe), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
-				background				: -webkit-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
-				background				: -o-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* Opera 11.10+ */
-				background				: -ms-linear-gradient(top,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* IE10+ */
-				background				: linear-gradient(to bottom,  #f2f9fe 0%,#f2f9fe 64%,#eaeaea 100%); /* W3C */
-				filter					: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#eaeaea',GradientType=0 ); /* IE6-9 */
-
 				.title {
+					color 				: #888888;
 					font-size			: 11px;
-					font-weight			: bold;
-					border-bottom		: 1px #ddd solid;
+					line-height			: 30px;
+					background			: rgb(255,255,255);
+					background			: -moz-linear-gradient(top,  rgba(255,255,255,1) 66%, rgba(228,228,228,1) 100%);
+					background			: -webkit-gradient(linear, left top, left bottom, color-stop(66%,rgba(255,255,255,1)), color-stop(100%,rgba(228,228,228,1)));
+					background			: -webkit-linear-gradient(top,  rgba(255,255,255,1) 66%,rgba(228,228,228,1) 100%);
+					background			: -o-linear-gradient(top,  rgba(255,255,255,1) 66%,rgba(228,228,228,1) 100%);
+					background			: -ms-linear-gradient(top,  rgba(255,255,255,1) 66%,rgba(228,228,228,1) 100%);
+					background			: linear-gradient(to bottom,  rgba(255,255,255,1) 66%,rgba(228,228,228,1) 100%);
+					filter				: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e4e4e4',GradientType=0 );
+					border-bottom		: 1px #fff solid;
 				}
 				.details {
 					font-size			: 0.8em;
 					color				: #999;
-					background			: #eee;
-					border-right		: 1px #ddd solid;
+					background			: #f5f5f5;
+					border-right		: 1px #e2e2e2 solid;
+					border-left			: 1px #fff solid;
+					border-bottom		: 1px #e7e7e7 solid;
 	
 					.dive-parameters {
 						th.h {
-							background	: #dedede;
 							text-shadow	: 1px 1px 1px #ffffff;
 							filter		: dropshadow(color=#ffffff, offx=1, offy=1);
 						}
@@ -181,18 +182,32 @@
 					}
 				}
 				.participants {
+					border-right		: 1px #d7d7d7 solid;
+					border-left			: 1px #fff solid;
+					background			: #eeeeee;
+							
 					.participant {
 						font-size		: 14px;
 						line-height		: 14px;
-						border-radius	: 5px 5px 5px 5px;
-						color			: rgb(0, 136, 204);
+						color			: #693a5f;
 						font-family		: "Helvetica Neue",Helvetica,Arial,sans-serif;
-						cursor			: default;
+						border-bottom	: 1px #f3f3f3 solid;
 					}
 					.participant:hover {
-						background-color: rgb(238, 238, 238);
-						color			: rgb(0, 85, 128);
+						background-color: #d214a8;
+						color			: #fff;
 					}
+				}
+				.gradient {
+					border-top		: 1px #fff solid;
+					background		: rgb(228,228,228);
+					background		: -moz-linear-gradient(top,  rgba(228,228,228,1) 0%, rgba(255,255,255,1) 34%);
+					background		: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(228,228,228,1)), color-stop(34%,rgba(255,255,255,1)));
+					background		: -webkit-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background		: -o-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background		: -ms-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background		: linear-gradient(to bottom,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					filter			: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4e4e4', endColorstr='#ffffff',GradientType=0 );
 				}
 			}
 		}
@@ -250,12 +265,17 @@
 	}
 	.available-participants {
 		.participant {
-			font-size					: 11px;
-			background					: #fff;
-			border						: 1px #ccc solid;
-			-webkit-border-radius		: 5px;
-			   -moz-border-radius		: 5px;
-					border-radius		: 5px; 
+			font-size					: 14px;
+			color						: #693a5f;
+			background					: #eeeeee;
+			-webkit-box-shadow			: 1px 1px 0px 0px #d7d7d7;
+			   -moz-box-shadow			: 1px 1px 0px 0px #d7d7d7;
+					box-shadow			: 1px 1px 0px 0px #d7d7d7; 
+			
+			.le {
+				font-size				: 11px;
+				color					: #878787;
+			}
 		}
 	}
 	//---------------------------------------------------------- Drag and drop
@@ -279,17 +299,22 @@
 	}
 	.available-participants {
 		.draggable:hover {
-			border: 1px #aaa solid;
+			background					: #3f0031;
+			color						: #fff;
 		}
 	}
 	.participant.ui-draggable-dragging {
-		font-size						: 11px;
-		border							: 1px #fff solid;
-		background-color				: rgb(0, 136, 204);
+		font-size						: 14px;
+		background						: #3f0031;
 		color							: #fff;
-		-webkit-border-radius 			: 5px;
-		   -moz-border-radius 			: 5px;
-				border-radius 			: 5px; 
+		-webkit-box-shadow				: 0px 0px 20px 4px #ffffff;
+		   -moz-box-shadow				: 0px 0px 20px 4px #ffffff;
+			    box-shadow				: 0px 0px 20px 4px #ffffff; 
+				
+		.le {
+			font-size					: 11px;
+			color						: #878787;
+		}
 	}
 	.available-participants.droppable-highlight {
 		background						: #eaf9e7;

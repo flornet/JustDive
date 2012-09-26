@@ -66,6 +66,8 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 																						var clone;
 																						clone = $(this).clone();
 																						clone.find('script[id^=metamorph]').remove();
+																						// @TODO: commented because don't understand the use
+																						/*																						
 																						clone.find('*').each(function() {
 																						  var $this;
 																						  $this = $(this);
@@ -76,6 +78,7 @@ JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
 																							return $this.removeAttr(attr.name);
 																						  });
 																						});
+																						*/
 																						if (clone.attr('id') && clone.attr('id').indexOf('ember') !== -1) {
 																						  clone.removeAttr('id');
 																						}

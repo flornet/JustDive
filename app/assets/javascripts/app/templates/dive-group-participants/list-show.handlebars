@@ -1,5 +1,5 @@
 <div class="btn-group pull-right">
-	<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">{{view.diveGroupParticipant.diveRole.name}} <span class="caret"></span></button>
+	<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">{{view.diveGroupParticipant.diveRole.name}} <span class="caret"></span></button>
 	<ul class="dropdown-menu">
 	{{#each JustDive.restControllers.dive_roles}}
 		<li><a href="#" {{action updateRole this target="JustDive.Controllers.Routed.DiveGroupParticipant"}}>{{this.name}}</a></li>

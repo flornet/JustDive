@@ -23,6 +23,7 @@ FeaturesRequest:
 	- http://stackoverflow.com/questions/5186441/javascript-drag-and-drop-for-touch-devices
 	- http://www.stevefenton.co.uk/Content/Jquery-Mobile-Drag-And-Drop/
 - http://colorschemedesigner.com/#5131IsYGr----
+- Custom Scrollbar when browser isn't mobile: http://manos.malihu.gr/tuts/jquery_custom_scrollbar.html
 - QuickCreate diveGroup on diveEventParticipant "drop",
 - Revoir le initialize d'application côté JS,
 - Améliorer la fonctionnalité de ré-initialisation de l'app en local,

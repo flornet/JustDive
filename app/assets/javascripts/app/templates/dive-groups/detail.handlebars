@@ -1,4 +1,18 @@
 {{#if view.isEditing}}
+	<div class="btn-group pull-left">
+		<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+	</div>
+	<div class="btn-group pull-right">
+		<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
+		<button class="btn btn-success" type="submit">Enregistrer</button>
+	</div>
+{{else}}
+	<div class="btn-group pull-right">
+		<button class="btn btn-mini" type="button" {{action startEditMode}}><i class="icon-pencil"></i></button>
+	</div>
+{{/if}}
+
+{{#if view.isEditing}}
 	<table class="dive-parameters dive-parameters-editing">
 		<tr>
 			<th colspan="2" class="h">Prévu</th>
@@ -80,18 +94,4 @@
 			<td>{{view.diveGroup.immersion_end_time}}</td>
 		</tr>
 	</table>
-{{/if}}
-
-{{#if view.isEditing}}
-	<div class="btn-group pull-left">
-		<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
-	</div>
-	<div class="btn-group pull-right">
-		<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
-		<button class="btn btn-success" type="submit">Enregistrer</button>
-	</div>
-{{else}}
-	<div class="btn-group pull-right">
-		<button class="btn btn-mini" type="button" {{action startEditMode}}><i class="icon-pencil"></i></button>
-	</div>
 {{/if}}
