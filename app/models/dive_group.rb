@@ -1,5 +1,5 @@
 class DiveGroup < Synced
-  attr_accessible :boat_departure_id, :estimated_dive_depth, :estimated_dive_time, :immersion_end_time, :immersion_start_time, :realized_dive_depth, :realized_dive_time, :created_by_app_key_id, :last_updated_by_app_key_id, :deleted_by_app_key_id
+  attr_accessible :boat_departure_id, :estimated_dive_depth, :estimated_dive_time, :immersion_start_time, :realized_dive_depth, :realized_dive_time, :m9_stop_time, :m6_stop_time, :m3_stop_time, :created_by_app_key_id, :last_updated_by_app_key_id, :deleted_by_app_key_id
   
   belongs_to :boat_departure
   has_many :dive_group_participants, :dependent => :destroy

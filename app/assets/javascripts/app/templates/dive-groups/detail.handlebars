@@ -1,66 +1,82 @@
 {{#if view.isEditing}}
-	<div class="btn-group pull-left">
-		<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
-	</div>
-	<div class="btn-group pull-right">
-		<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
-		<button class="btn btn-success" type="submit">Enregistrer</button>
+	<div class="btn-group-container btn-group-container-editing">
+		<div class="btn-group pull-left">
+			<button class="btn btn-mini btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+		</div>
+		<div class="btn-group pull-right">
+			<button class="btn btn-mini btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
+			<button class="btn btn-mini btn-success" type="submit">Enregistrer</button>
+		</div>
 	</div>
 {{else}}
-	<div class="btn-group pull-right">
-		<button class="btn btn-mini" type="button" {{action startEditMode}}><i class="icon-pencil"></i></button>
+	<div class="btn-group-container">
+		<div class="btn-group pull-right">
+			<button class="btn btn-mini" type="button" {{action startEditMode}}><i class="icon-pencil"></i></button>
+		</div>
 	</div>
 {{/if}}
+
 
 {{#if view.isEditing}}
 	<table class="dive-parameters dive-parameters-editing">
 		<tr>
 			<th colspan="2" class="h">Prévu</th>
 			<th colspan="2" class="h">Réalisé</th>
+			<th colspan="2" class="h">Paliers</th>
 		</tr>
 		<tr>
 			<th class="i"><i class="icon-time"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.estimated_dive_time"  placeholder="Durée prévue"}}<span class="add-on">minutes</span>
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.estimated_dive_time"}}<span class="add-on">min</span>
 				</div>
 			</td>
 			<th class="i"><i class="icon-time"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.realized_dive_time"  placeholder="Durée réalisée"}}<span class="add-on">minutes</span>
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.realized_dive_time"}}<span class="add-on">min</span>
+				</div>
+			</td>
+			<th class="i">-3m</th>
+			<td>
+				<div class="input-append">
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.m3_stop_time"}}<span class="add-on">min</span>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<th class="i"><i class="icon-flag"></i></th>
+			<th class="i"><i class="icon-download-alt"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.estimated_dive_depth"  placeholder="Profondeur prévue"}}<span class="add-on">mètres</span>
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.estimated_dive_depth"}}<span class="add-on">m</span>
 				</div>
 			</td>
-			<th class="i"><i class="icon-flag"></i></th>
+			<th class="i"><i class="icon-download-alt"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.realized_dive_depth"  placeholder="Profondeur réalisée"}}<span class="add-on">mètres</span>
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.realized_dive_depth"}}<span class="add-on">m</span>
+				</div>
+			</td>
+			<th class="i">-6m</th>
+			<td>
+				<div class="input-append">
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.m6_stop_time"}}<span class="add-on">min</span>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<th rowspan="2" class="i">&nbsp;</th>
-			<td rowspan="2">&nbsp;</td>
+			<th rowspan="1" class="i">&nbsp;</th>
+			<td rowspan="1">&nbsp;</td>
 			<th class="i"><i class="icon-thumbs-down"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.immersion_start_time"  placeholder="Heure d'immersion"}}
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.immersion_start_time"}}
 				</div>
 			</td>
-		</tr>
-		<tr>
-			<th class="i"><i class="icon-thumbs-up"></i></th>
+			<th class="i">-9m</th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.immersion_end_time"  placeholder="Heure de sortie"}}
+					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.m9_stop_time"}}<span class="add-on">min</span>
 				</div>
 			</td>
 		</tr>
@@ -70,28 +86,31 @@
 		<tr>
 			<th colspan="2" class="h">Prévu</th>
 			<th colspan="2" class="h">Réalisé</th>
+			<th colspan="2" class="h">Paliers</th>
 		</tr>
 		<tr>
 			<th class="i"><i class="icon-time"></i></th>
-			<td>{{view.diveGroup.estimated_dive_time}}</td>
+			<td><span class="data">{{view.diveGroup.estimated_dive_time}}</span><span class="add-on">min</span></td>
 			<th class="i"><i class="icon-time"></i></th>
-			<td>{{view.diveGroup.realized_dive_time}}</td>
+			<td><span class="data">{{view.diveGroup.realized_dive_time}}</span><span class="add-on">min</span></td>
+			<th class="i">-3m</th>
+			<td><span class="data">{{view.diveGroup.m3_stop_time}}</span><span class="add-on">min</span></td>
 		</tr>
 		<tr>
-			<th class="i"><i class="icon-flag"></i></th>
-			<td>{{view.diveGroup.estimated_dive_depth}}</td>
-			<th class="i"><i class="icon-flag"></i></th>
-			<td>{{view.diveGroup.realized_dive_depth}}</td>
+			<th class="i"><i class="icon-download-alt"></i></th>
+			<td><span class="data">{{view.diveGroup.estimated_dive_depth}}</span><span class="add-on">m</span></td>
+			<th class="i"><i class="icon-download-alt"></i></th>
+			<td><span class="data">{{view.diveGroup.realized_dive_depth}}</span><span class="add-on">m</span></td>
+			<th class="i">-6m</th>
+			<td><span class="data">{{view.diveGroup.m6_stop_time}}</span><span class="add-on">min</span></td>
 		</tr>
 		<tr>
-			<th rowspan="2" class="i">&nbsp;</th>
-			<td rowspan="2">&nbsp;</td>
+			<th rowspan="1" class="i">&nbsp;</th>
+			<td rowspan="1">&nbsp;</td>
 			<th class="i"><i class="icon-thumbs-down"></i></th>
-			<td>{{view.diveGroup.immersion_start_time}}</td>
-		</tr>
-		<tr>
-			<th class="i"><i class="icon-thumbs-up"></i></th>
-			<td>{{view.diveGroup.immersion_end_time}}</td>
+			<td><span class="data">{{view.diveGroup.immersion_start_time}}</span></td>
+			<th class="i">-9m</th>
+			<td><span class="data">{{view.diveGroup.m9_stop_time}}</span><span class="add-on">min</span></td>
 		</tr>
 	</table>
 {{/if}}

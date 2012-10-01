@@ -155,24 +155,62 @@
 				.details {
 					height				: 110px;
 					
+					.btn-group-container {
+						position		: absolute;
+						top				: 0px;
+						left			: 3px;
+						width			: 352px;
+						line-height		: 30px;
+					}
+					
 					.dive-parameters {
-						
+						width			: 100%;
+						td, 
+						th {
+							line-height	: 0;
+						}
 						th.h {
-							width		: 50%;
 							text-align	: left;
 							padding-left: 4px;
+							line-height : 14px;
 						}
 						th.i {
-							width		: 1%;
+							width		: 20px;
 							text-align	: left;
 							padding-left: 4px;
+							line-height : 14px;
+						}
+						.input-append {
+							margin		: 0;
+						}
+						.data,
+						.input-mini {
+							display			: inline-block;
+							padding			: 0;
+							padding-left	: 2px;
+							padding-right	: 2px;
+							line-height		: 20px;
+							height			: 18px;
+							width			: 34px;
+						}
+						.add-on {
+							display			: inline-block;
+							padding			: 0;
+							background		: transparent;
+							border			: none;
+							margin			: 0;
+							text-align		: left;
+							line-height		: 20px;
+							height			: 20px;
+							padding-left	: 3px;
+							vertical-align	: top;
 						}
 					}
 				}
 				.participants {
 					position			: absolute;
 					top					: 142px;
-					bottom				: 0;
+					bottom				: 21px;
 					width				: 358px;
 					margin				: 0;
 					
@@ -194,8 +232,8 @@
 					position				: absolute;
 					bottom					: 0;
 					display					: block;
-					line-height				: 30px;
-					height					: 30px;
+					line-height				: 20px;
+					height					: 20px;
 					width					: 100%;
 				}
 			}
@@ -269,21 +307,17 @@
 	.full-view {
 		.dive-groups {
 			.scrollable-item {
-				width					: 25%;
+				width					: 200px;
 				
 				.dive-group {
-					
 					.details {
 						display			: none;
 					}
-					
 					.participants {
-						padding-left	: 3px;
-						border-left		: 1px #ccc solid;
 						position		: absolute;
-						top				: 20px;
-						bottom			: 0;
-						width			: 96%;
+						top				: 30px;
+						bottom			: 21px;
+						width			: 198px;
 						
 						.btn-group {
 							display		: none;

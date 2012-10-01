@@ -12,7 +12,9 @@ JustDive.Models.DiveGroup = JustDive.Resource.Synced.extend({
 							'realized_dive_time',
 							'realized_dive_depth',
 							'immersion_start_time',
-							'immersion_end_time',
+							'm9_stop_time',
+							'm6_stop_time',
+							'm3_stop_time',
 							'created_at',
 							'updated_at'
 						],

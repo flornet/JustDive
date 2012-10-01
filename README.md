@@ -19,6 +19,7 @@ BugFixes:
 
 
 FeaturesRequest:
+- Gestion des versions (installedVersion vs latestVersion + migrate)
 - Desktop Drag => Mobile Touch:
 	- http://stackoverflow.com/questions/5186441/javascript-drag-and-drop-for-touch-devices
 	- http://www.stevefenton.co.uk/Content/Jquery-Mobile-Drag-And-Drop/
@@ -28,7 +29,7 @@ FeaturesRequest:
 - Revoir le initialize d'application côté JS,
 - Améliorer la fonctionnalité de ré-initialisation de l'app en local,
 - Mini-interface d'administration des clubs et administrateurs,
-- Gestion des conflits de vesion,
+- Gestion des conflits de vesion de données,
 - Gestion des erreurs de login,
 - Gestion des erreurs,
 - Gérer la synchro Google côté serveur ET par dive_club plutôt que par administrator,
