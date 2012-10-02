@@ -141,6 +141,11 @@
 		}
 	}
 	//---------------------------------------------------------- Utility
+	.btn.no-right-corner-radius {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	
 	
 	//---------------------------------------------------------- Spec
 	.dive-groups {

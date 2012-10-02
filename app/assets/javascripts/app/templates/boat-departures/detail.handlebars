@@ -1,102 +1,25 @@
 <div class="panel right" id="content">
-	<div class="navbar navbar-fixed-top sub-navbar right">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				{{#if view.isEditing}}
-					<div class="btn-group pull-left">
-						<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
-					</div>
-					<div class="btn-group pull-right">
-						<button class="btn btn-success" type="submit">Enregistrer</button>
-					</div>
-				{{else}}
-					<div class="btn-group pull-left">
-						<a class="btn" href="#" {{action show view.diveEvent target="JustDive.Controllers.Routed.DiveEvent"}}><i class="icon-chevron-left"></i>{{view.diveEvent.title}}</a>
-					</div>
-					<div class="btn-group pull-right">
-						<button class="btn" {{action startEditMode}}><i class="icon-pencil"></i></button>
-						<button type="button" class="btn" {{action toggleFullView}} data-toggle="button"><i class="icon-th-large"></i></button>
-						<button class="btn" {{action create view.boatDeparture target="JustDive.Controllers.Routed.DiveGroup"}}><i class="icon-plus"></i></button>
-					</div>
-				{{/if}}
-				<span class="navbar-text">{{view.boatDeparture.fulltitle}} sur {{view.boatDeparture.boat.name}}</span>
-			</div>
+	{{ 
+		view JustDive.Views.BoatDepartures.Edit 
+				diveEventBinding		= "view.diveEvent" 
+				boatDepartureBinding	= "view.boatDeparture"
+	}}
+
+	<div class="scrollable-x panel-split panel-split-fixed-bottom-135-a dive-groups droppables-container">
+		{{ 
+			view JustDive.Views.DiveGroups.List 
+					diveEventBinding		= "view.diveEvent" 
+					boatDepartureBinding	= "view.boatDeparture"
+		}}
+	</div>
+	<div class="droppables-container">
+		<div class="scrollable-x panel-split panel-split-fixed-bottom-135-b available-participants droppable">
+			{{#each view.boatDeparture.availableParticipants}}
+				<div class="scrollable-item participant draggable" {{bindAttr data-diver-id="diver_id"}}>
+					<span class="fn">{{diver.fullname}}</span>
+					<span class="le">{{diver.level.name}}</span>
+				</div>
+			{{/each}}
 		</div>
 	</div>
-
-	{{#if view.isEditing}}
-		<div class="scrollable-y panel">
-			<div class="container-fluid">
-					<div class="row-fluid">
-						<div class="span6 well">
-							<h1>Départ bateau</h1>
-							<div class="field">
-								{{
-									view JustDive.Select 
-											viewName		= "select"
-											contentBinding	= "view.boatDeparture.diveEvent.possibleDates"
-											optionLabelPath	= "content.label"
-											optionValuePath	= "content.id"
-											prompt			= "Jour de départ :"
-											valueBinding	= "view.boatDeparture.departureDate"
-								}}
-							</div>
-							<div class="field">
-								{{
-									view JustDive.Select 
-											viewName		= "select"
-											contentBinding	= "view.boatDeparture.possibleTimes"
-											optionLabelPath	= "content.label"
-											optionValuePath	= "content.id"
-											prompt			= "Heure de départ :"
-											valueBinding	= "view.boatDeparture.departureTime"
-								}}
-							</div>
-							<div class="field">
-								{{
-									view JustDive.Select 
-											viewName		= "select"
-											contentBinding	= "JustDive.restControllers.boats"
-											optionLabelPath	= "content.name"
-											optionValuePath	= "content.id"
-											prompt			= "Bateau :"
-											valueBinding	= "view.boatDeparture.boat_id"
-								}}
-							</div>
-							<div class="actions"> 
-								<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
-							</div>
-						</div>
-						
-						<div class="span3">
-							<dl class="dl-horizontal">
-								<dt>Id</dt><dd>{{view.boatDeparture.id}}</dd>
-								<dt>Boat</dt><dd>{{view.boatDeparture.boat_id}}</dd>
-								<dt>Id évènement</dt><dd>{{view.boatDeparture.dive_event_id}}</dd>
-								<dt>Créé le</dt><dd>{{view.boatDeparture.created_at}}</dd>
-								<dt>Modifié le</dt><dd>{{view.boatDeparture.updated_at}}</dd>
-							</dl>
-						</div>
-					</div>
-			</div>
-		</div>
-	{{else}}
-		<div class="scrollable-x panel-split panel-split-fixed-bottom-135-a dive-groups droppables-container">
-			{{ 
-				view JustDive.Views.DiveGroups.List 
-						diveEventBinding		= "view.diveEvent" 
-						boatDepartureBinding	= "view.boatDeparture"
-			}}
-		</div>
-		<div class="droppables-container">
-			<div class="scrollable-x panel-split panel-split-fixed-bottom-135-b available-participants droppable">
-				{{#each view.boatDeparture.availableParticipants}}
-					<div class="scrollable-item participant draggable" {{bindAttr data-diver-id="diver_id"}}>
-						<span class="fn">{{diver.fullname}}</span>
-						<span class="le">{{diver.level.name}}</span>
-					</div>
-				{{/each}}
-			</div>
-		</div>
-	{{/if}}
 </div>

@@ -1,0 +1,57 @@
+﻿<div class="navbar navbar-fixed-top sub-navbar right">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+				<div class="btn-group pull-left">
+					<a class="btn" href="#" {{action show view.diveEvent target="JustDive.Controllers.Routed.DiveEvent"}}><i class="icon-chevron-left"></i>{{view.diveEvent.title}}</a>
+				</div>
+				<div class="btn-group pull-right">
+					<a href="#" class="btn dropdown-toggle no-right-corner-radius" data-toggle="dropdown" {{action toggleEditMode}}>
+						<i class="icon-pencil"></i>
+						<span class="caret"></span>
+					</a>
+					<div class="dropdown-menu dropdown-form">
+						{{
+							view JustDive.Select 
+									viewName		= "select"
+									contentBinding	= "view.boatDeparture.diveEvent.possibleDates"
+									optionLabelPath	= "content.label"
+									optionValuePath	= "content.id"
+									prompt			= "Jour de départ :"
+									valueBinding	= "view.boatDeparture.departureDate"
+						}}
+						{{
+							view JustDive.Select 
+									viewName		= "select"
+									contentBinding	= "view.boatDeparture.possibleTimes"
+									optionLabelPath	= "content.label"
+									optionValuePath	= "content.id"
+									prompt			= "Heure de départ :"
+									valueBinding	= "view.boatDeparture.departureTime"
+									classNames		= "input-medium"
+						}}
+						{{
+							view JustDive.Select 
+									viewName		= "select"
+									contentBinding	= "JustDive.restControllers.boats"
+									optionLabelPath	= "content.name"
+									optionValuePath	= "content.id"
+									prompt			= "Bateau :"
+									valueBinding	= "view.boatDeparture.boat_id"
+									classNames		= "input-medium"
+						}}
+						<div class="btn-group pull-left">
+							<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
+						</div>
+						<div class="btn-group pull-right">
+							<button class="btn btn-inverse" type="button" {{action toggleEditMode}}>Annuler</button>
+							<button class="btn btn-success" type="submit">Enregistrer</button>
+						</div>
+					</div>
+					
+					<button type="button" class="btn" {{action toggleFullView}} data-toggle="button"><i class="icon-th-large"></i></button>
+					<button class="btn" {{action create view.boatDeparture target="JustDive.Controllers.Routed.DiveGroup"}}><i class="icon-plus"></i></button>
+				</div>
+			<span class="navbar-text">{{view.boatDeparture.fulltitle}} sur {{view.boatDeparture.boat.name}}</span>
+		</div>
+	</div>
+</div>

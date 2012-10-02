@@ -23,7 +23,7 @@
 
 JustDive = Ember.Application.create({
 	APP_KEY: 			null, // JustDive 'App Key'
-	version:			'1.0.0',
+	version:			'1.0.<%= JustDive::LAST_COMMIT_TIMESTAMP %>',
 	mainNav:			Ember.Object.create({
 		domEl:		null,
 		activate:	function(navItemClass) {
@@ -100,6 +100,18 @@ JustDive = Ember.Application.create({
 		
 		// Initialize the AppKey on first run
 		app.set('APP_KEY', app.getAppKey());
+		
+		// Compare version numbers and update if required
+		var installedVersion 	= app.APP_KEY.split('_')[0].replace('JD(', '').replace(')', '').replace(/\./g, ''),
+			currentVersion 		= parseInt(app.version.replace(/\./g, ''));
+		if (installedVersion.length !== 12) { // Old version number, do some right padding
+			installedVersion = installedVersion.rpad('0', 12);
+		}
+		installedVersion = parseInt(installedVersion);
+		if (installedVersion < currentVersion) {
+			alert('We need to update!');
+			JustDive.Controllers.Identity.clearLocalStorage();
+		}
 		
 		// Creates the Data Syncing components
 		app.dataSync 		= JustDive.DataSync.create();

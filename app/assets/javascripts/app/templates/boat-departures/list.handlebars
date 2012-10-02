@@ -1,15 +1,33 @@
 ﻿{{#each view.diveEvent.possibleDates}}
 	<div class="scrollable-item">
 		<div class="day">
-			<div class="name">{{this.label}}</div>
+			<div class="name">
+				<div class="btn-group pull-right">
+					<a href="#" class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-plus"></i>
+						<span class="caret"></span>
+					</a>
+					<div class="dropdown-menu dropdown-form">
+						{{
+							view JustDive.Views.BoatDepartures.QuickCreate 
+									dayBinding				= "this" 
+									diveEventBinding		= "view.diveEvent"
+						}}
+					</div>
+				</div>
+				{{this.label}}
+			</div>
 			<ul class="nav nav-pills nav-stacked">
 				{{#unless this.boatDepartures.length}}
 					<li class="alert"><small>Aucun départ bateau prévu</small></li>
 				{{/unless}}
+				
 				{{#each this.boatDepartures}}
-					{{view JustDive.Views.BoatDepartures.ListShow 
-							boatDepartureBinding="this" 
-							diveEventBinding="view.diveEvent"}}
+					{{
+						view JustDive.Views.BoatDepartures.ListShow 
+								boatDepartureBinding	= "this" 
+								diveEventBinding		= "view.diveEvent"
+					}}
 				{{/each}}
 			</ul>
 		</div>

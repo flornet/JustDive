@@ -6,7 +6,7 @@
 		display                     	: block;
 		width                       	: 100%;
 		top                         	: 0;
-		height							: 100%;
+		bottom							: 0;
 	}
 	
 	.right .panel,
@@ -129,6 +129,9 @@
 		font-size						: 12px;
 		white-space						: normal;
 	}
+	.content.insideScrollablePanel {
+		padding							: 20px;
+	}
 	.draggable {
 		cursor							: move;
 		-webkit-touch-callout			: none;
@@ -137,6 +140,10 @@
 			 -moz-user-select			: none;
 			  -ms-user-select			: none;
 				  user-select			: none;
+	}
+	.dropdown-form {
+		padding							: 15px;
+		min-width						: 0;
 	}
 	//---------------------------------------------------------- Spec
 	.dive-groups {
@@ -251,6 +258,10 @@
 				
 				.name {
 					padding-left		: 10px;
+					
+					.btn-group {
+						margin-right	: 4px;
+					}
 				}
 				ul.nav {
 					position			: absolute;

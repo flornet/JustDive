@@ -95,7 +95,7 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 							if (minutes.length === 1) {
 								minutes = '0' + minutes;
 							}
-							return 'Sortie du ' + day + ' ' + month + ' à ' + hours + 'h' + minutes;
+							return day + ' ' + month + ' à ' + hours + 'h' + minutes;
 						}).property('departure_date'),
 	
 	boat: 				Ember.computed(function() {
@@ -196,5 +196,20 @@ JustDive.Models.BoatDeparture = JustDive.Resource.Synced.extend({
 								}
 							});
 							return availableParticipants;
-						}).property('unfilteredParticipants.@each', 'diveGroups.@each', 'unfilteredEventParticipants.@each').cacheable() 
+						}).property('unfilteredParticipants.@each', 'diveGroups.@each', 'unfilteredEventParticipants.@each').cacheable(),
+						
+	isValid: 			Ember.computed(function() {
+							if (   this.get('dive_event_id') !== undefined 
+								&& this.get('dive_event_id') !== null
+								&& this.get('departure_date') !== undefined
+								&& this.get('departure_date') !== null
+								&& this.get('departureDate') !== null
+								&& this.get('departureTime') !== null
+								&& this.get('boat_id') !== undefined
+								&& this.get('boat_id') !== null   ) {
+								return true;
+							} else {
+								return false;
+							}
+						}).property('dive_event_id', 'departure_date', 'boat_id').cacheable()
 });

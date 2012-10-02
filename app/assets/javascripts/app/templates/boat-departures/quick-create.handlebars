@@ -1,0 +1,33 @@
+﻿<div class="field">
+	{{
+		view JustDive.Select 
+				viewName		= "select"
+				contentBinding	= "view.boatDeparture.possibleTimes"
+				optionLabelPath	= "content.label"
+				optionValuePath	= "content.id"
+				prompt			= "Heure de départ :"
+				valueBinding	= "view.boatDeparture.departureTime"
+				classNames		= "input-medium"
+	}}
+</div>
+<div class="field">
+	{{
+		view JustDive.Select 
+				viewName		= "select"
+				contentBinding	= "JustDive.restControllers.boats"
+				optionLabelPath	= "content.name"
+				optionValuePath	= "content.id"
+				prompt			= "Bateau :"
+				valueBinding	= "view.boatDeparture.boat_id"
+				classNames		= "input-medium"
+	}}
+</div>
+{{#if view.boatDeparture.isValid}}
+	<div class="btn-group pull-right">
+		<button class="btn btn-success" type="button" {{action submit}}>Ajouter</button>
+	</div>
+{{else}}
+	<div class="btn-group pull-right">
+		<button class="btn disabled" type="button">Ajouter</button>
+	</div>
+{{/if}}

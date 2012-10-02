@@ -75,7 +75,9 @@ JustDive.Controllers.Identity = JustDive.ArrayController.create({
 	
 	clearLocalStorage: function() {
 		localStorage.clear();
-		this.logout();
+		if (JustDive.identity) {
+			this.logout();
+		}
 		setTimeout(function() {
 			location.reload(true);
 		}, 200);

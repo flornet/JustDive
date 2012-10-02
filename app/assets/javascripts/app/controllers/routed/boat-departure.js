@@ -9,18 +9,6 @@ JustDive.Controllers.Routed.BoatDeparture = JustDive.RoutedController.create({
 	},
 	
 /**
-    New action: loads the data and appends the view
-*/
-	new: function(event) {
-		var router = JustDive.router;
-		event.preventDefault();
-		var mainRoute = this.get('mainRoute');
-		var newMainRoute = mainRoute.replace(':id', event.context.id);
-		this.set('mainRoute', newMainRoute);
-		router.set('location', this.get('mainRoute') + '/new');
-		this.set('mainRoute', mainRoute);
-	},
-/**
     Show action: loads the data and appends the view
 */
 	show: function(event) {
@@ -35,17 +23,21 @@ JustDive.Controllers.Routed.BoatDeparture = JustDive.RoutedController.create({
 /**
     Create action: save the newly created 'model'
 */   
-	create: function(view) {
-		var mainRoute = this.get('mainRoute'),
-			diveEventId = view.diveEvent.id;
+	create: function(boatDeparture, diveEvent) {
+		var resource = boatDeparture,
+			diveEventId = diveEvent.id,
+			self = this;
 		if (diveEventId.length !== 36) {
 			diveEventId = parseInt(diveEventId);
 		}
-		var newMainRoute = mainRoute.replace(':id', diveEventId);
-		view.boatDeparture.set('dive_event_id', diveEventId); // Refreshes the dive_event_id since it might have changed
-		this.set('mainRoute', newMainRoute);
-		this._super(view);
-		this.set('mainRoute', mainRoute);
+		resource.set('dive_event_id', diveEventId); // Refreshes the dive_event_id since it might have changed
+		resource.saveResource()
+			.fail( function(e) {
+				JustDive.displayError('jqXHR', e);
+			})
+			.done( function() {
+				self.getRestController().pushObject(resource);
+			});
 	}, 
 	
 /**

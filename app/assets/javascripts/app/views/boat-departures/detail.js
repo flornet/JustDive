@@ -1,14 +1,11 @@
 #= require ../boat-departures.js
 
-JustDive.Views.BoatDepartures.Detail = JustDive.CrudFormView.extend({
+JustDive.Views.BoatDepartures.Detail = JustDive.View.extend({
 	templateName: 			'app/templates/boat-departures/detail',
 	classNames:   			['boat-departure-details'],
 	_draggables:			null,	//jQuery objects array
 	_droppables:			null,	//jQuery objects array
 	_created:				false,
-	getCrudController: 		function() {
-								return JustDive.Controllers.Routed.BoatDeparture;
-						    },
   
 	didInsertElement: 		function() {
 								this._super();

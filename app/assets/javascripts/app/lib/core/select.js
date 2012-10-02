@@ -3,7 +3,7 @@ JustDive.Select = Ember.Select.extend({
 		var content = this.get('content'),
 			value = this.get('value'),
 			valuePath = this.get('optionValuePath').replace(/^content\.?/, ''),
-			selectedValue = (valuePath ? this.getPath('selection.' + valuePath) : this.get('selection')),
+			selectedValue = (valuePath ? this.get('selection.' + valuePath) : this.get('selection')),
 			selection;
 
 		if (value !== selectedValue) {
