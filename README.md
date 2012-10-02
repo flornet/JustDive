@@ -16,7 +16,7 @@ BugFixes:
 - UI (date picker, active menus),
 - 1st load of contacts is so slow! (progress bar?).
 - http://stackoverflow.com/questions/6598111/ios-web-app-disable-offset-scrolling
-
+- Fix listeners on HTML (click.dropdown.custom-toggle)
 
 FeaturesRequest:
 - Gestion des versions (installedVersion vs latestVersion + migrate)
@@ -36,7 +36,8 @@ FeaturesRequest:
 - Gerer les certificats médicaux,
 - Fusionner les requetes de SYNC (diff) pour limiter le nombre,
 - Rendre impossible l'ajout de doublons (DiveEventParticipant),
-- Update Ember.Route + Ember.Layout to match 1.0-pre.
+- Update Ember.Route + Ember.Layout to match 1.0-pre,
+- Fonction "ping" en plus du "browser.offline".
 
 Diagrams:
 - http://yuml.me/diagram/class/draw
