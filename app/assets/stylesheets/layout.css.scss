@@ -29,13 +29,13 @@
 		width                       	: 100%;
 		height							: auto;
 	}
-	.panel-split-fixed-top-220-a {
+	.panel-split-fixed-top-240-a {
 		top								: 80px;
 		bottom							: auto;
-		height							: 220px;
+		height							: 240px;
 	}
-	.panel-split-fixed-top-220-b {
-		top								: 342px;
+	.panel-split-fixed-top-240-b {
+		top								: 362px;
 		bottom							: 0;
 	}
 	.panel-split-fixed-bottom-135-a {
@@ -107,12 +107,19 @@
 		}
 	}
 	.sub-navbar-bottom {
-		top								: 300px;
+		top								: 320px;
+	}
+	footer {
+		position						: fixed;
+		right							: 0;
+		bottom							: 0;
+		z-index							: 1030;
+		margin-bottom					: 0;
 	}
 	
 	//---------------------------------------------------------- Utility
 	.scrollable-y {
-		overflow-y                  	: scroll;
+		overflow-y                  	: auto;
 		-webkit-overflow-scrolling 	 	: touch;
 	}
 	.scrollable-x {
@@ -266,7 +273,7 @@
 				ul.nav {
 					position			: absolute;
 					top					: 31px;
-					bottom				: 0;
+					bottom				: 21px;
 					width				: 218px;
 					margin				: 0;
 					padding				: 0;
@@ -292,6 +299,14 @@
 						margin-right	: 8px;
 						margin-top		: 8px;
 					}
+				}
+				.gradient {
+					position				: absolute;
+					bottom					: 0;
+					display					: block;
+					line-height				: 20px;
+					height					: 20px;
+					width					: 100%;
 				}
 			}
 		}

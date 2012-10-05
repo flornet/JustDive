@@ -5,14 +5,20 @@ var dataStorage = (function(cache, async) {
 		cache: cache || false, //Time in seconds, ie 1 hour = 3600
 		async: async || true, //true,
 		init: function(){
+			var that = this;
 			if(_ds.async){
 				setInterval(function() {
 					var first = _ds.dataQueue.shift();
 					if (first && first.key && first.value) {
+						that.onQueueProcess(_ds.dataQueue.length);
 						_ds._save(first.key, first.value);
 					}
-				}, 15); //200 @TODO: tweak and display progress bar
+					
+				}, 200); //200 @TODO: tweak and display progress bar
 			}
+		},
+		onQueueProcess: function(length) {
+			return false;
 		},
 		_save: function(key, value){
 			localStorage[key] = JSON.stringify(value);
@@ -57,7 +63,10 @@ var dataStorage = (function(cache, async) {
 	return {
 		getData: _ds.getData,
 		putData: _ds.putData,
-		removeData: _ds.removeData
+		removeData: _ds.removeData,
+		onQueueProcess: function(funct) {
+			_ds.onQueueProcess = funct;
+		}
 	};
 
 })(false);

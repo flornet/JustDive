@@ -72,6 +72,7 @@ JustDive = Ember.Application.create({
 	dataSync:			null,
 	syncCue: 			null,
 	dataSyncMonitor:	null,
+	localQueueLength:	0,
 	router:				null,
 	ui: 				null,
 	
@@ -144,6 +145,14 @@ JustDive = Ember.Application.create({
 		// Creates the ui adapter
 		app.ui = JustDive.Ui.Adapter.create();
 		
+		// Binds the local queue to the info panel
+		dataStorage.onQueueProcess(function(length) {
+			app.set('localQueueLength', length);
+			/*if (length > 50) {
+				app.disable()
+			}*/
+		});
+		
 		/* 
 		 *	This is needed:
 		 *		1. identity MUST be before monitor,
@@ -155,6 +164,10 @@ JustDive = Ember.Application.create({
 		// Creates a monitor
 		app.monitor = JustDive.Monitor.create();
 	},
+	
+	localQueueEndTime: Ember.computed(function() {
+		return Number(this.localQueueLength * 0.2).toFixed(0) + ' secondes'; //200 / 1000
+	}).property('localQueueLength'),
 	
 	getAppKey: function() {
 		var localStorage = this.get('localStorage');

@@ -20,6 +20,9 @@
 	}
 	#sidebar {
 		background						: #3f0031;
+		-webkit-box-shadow				: inset -20px 20px 25px 3px rgba(0, 0, 0, 1);
+		   -moz-box-shadow				: inset -20px 20px 25px 3px rgba(0, 0, 0, 1);
+		        box-shadow				: inset -20px 20px 25px 3px rgba(0, 0, 0, 1);
 		
 		.nav-pills > li > a {
 			color						: #ffffff;
@@ -122,6 +125,7 @@
 	.sub-navbar-bottom {
 		border-top						: 1px solid #ddd;
 		border-left						: 1px solid #ccc;
+		//background
 	}
 	.activity-monitor {
 		.disabled {
@@ -139,6 +143,10 @@
 			background-color			: rgb(229, 229, 229);
 			border-top					: 1px solid rgb(255, 255, 255);
 		}
+	}
+	footer {
+		font-size						: 11px;
+		color							: #888;
 	}
 	//---------------------------------------------------------- Utility
 	.btn.no-right-corner-radius {
@@ -289,6 +297,17 @@
 							}
 						}
 					}
+				}
+				.gradient {
+					border-top			: 1px #fff solid;
+					background			: rgb(228,228,228);
+					background			: -moz-linear-gradient(top,  rgba(228,228,228,1) 0%, rgba(255,255,255,1) 34%);
+					background			: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(228,228,228,1)), color-stop(34%,rgba(255,255,255,1)));
+					background			: -webkit-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background			: -o-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background			: -ms-linear-gradient(top,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					background			: linear-gradient(to bottom,  rgba(228,228,228,1) 0%,rgba(255,255,255,1) 34%);
+					filter				: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4e4e4', endColorstr='#ffffff',GradientType=0 );
 				}
 			}
 		}

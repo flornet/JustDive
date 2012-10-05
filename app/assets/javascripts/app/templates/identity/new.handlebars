@@ -1,15 +1,17 @@
-<h1>Identification requise</h1>
-{{#if view.error}}
-	<div class="alert alert-error">{{view.error}}</div>
-{{/if}}
-{{#with JustDive.identity}}
-	<div class="field">
-		{{view Ember.TextField valueBinding="email" placeholder="E-mail" size="30" type="email"}}
-	</div>
-	<div class="field">
-		{{view Ember.TextField valueBinding="password"  placeholder="Mot de passe" size="30" type="password"}}
-	</div>
-	<div class="actions"> 
-		<button type="submit">Connexion</button>
-	</div>	
-{{/with}}
+<div class="hero-unit">
+	<h1>Identification</h1>
+	{{#if view.error}}
+		<div class="alert alert-error">{{view.error}}</div>
+	{{/if}}
+	{{#with JustDive.identity}}
+		<div class="field">
+			{{view Ember.TextField valueBinding="email" placeholder="E-mail" size="30" type="email"}}
+		</div>
+		<div class="field">
+			{{view Ember.TextField valueBinding="password"  placeholder="Mot de passe" size="30" type="password"}}
+		</div>
+		<div class="actions"> 
+			<button type="submit" class="btn btn-primary">Connexion</button>
+		</div>	
+	{{/with}}
+</div>

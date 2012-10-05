@@ -2,9 +2,27 @@
 	<div class="navbar navbar-fixed-top sub-navbar right">
 		<div class="navbar-inner">
 			<div class="container-fluid">
-				<div class="btn-group pull-left">
-					<a class="btn btn-inverse" href="#!club-admin/dive-roles"><i class="icon-chevron-left icon-white"></i>Rôles</a>
-				</div>
+				{{#if view.isEditing}}
+					{{#if view.isCreating}}
+					<div class="btn-group pull-left">
+						<a class="btn  btn-inverse" href="#!club-admin/dive-roles">Annuler</a>
+					</div>
+					{{else}}
+					<div class="btn-group pull-left">
+						<button class="btn btn-inverse" type="button" {{action stopEditMode}}>Annuler</button>
+					</div>
+					{{/if}}
+					<div class="btn-group pull-right">
+						<button class="btn btn-success" type="submit">Enregistrer</button>
+					</div>
+				{{else}}
+					<div class="btn-group pull-left">
+						<a class="btn" href="#!club-admin/dive-roles"><i class="icon-chevron-left"></i>Rôles</a>
+					</div>
+					<div class="btn-group pull-right">
+						<button class="btn" {{action startEditMode}}><i class="icon-pencil"></i></button>
+					</div>
+				{{/if}}
 				<span class="navbar-text">{{view.diveRole.name}}</span>
 			</div>
 		</div>
@@ -33,10 +51,6 @@
 			<div class="actions"> 
 				{{#if view.isEditing}}
 					<button class="btn btn-danger" type="button" {{action destroyObject}}>Supprimer</button>
-					<button class="btn" type="button" {{action stopEditMode}}>Annuler</button>
-					<button class="btn btn-success" type="submit">Enregistrer</button>
-				{{else}}
-					<button class="btn btn-primary" type="button" {{action startEditMode}}>Modifier</button>
 				{{/if}}
 			</div>
 		</div>
