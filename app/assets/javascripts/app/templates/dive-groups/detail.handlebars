@@ -70,7 +70,10 @@
 			<th class="i"><i class="icon-thumbs-down"></i></th>
 			<td>
 				<div class="input-append">
-					{{view JustDive.TextFieldMini valueBinding="view.diveGroup.immersion_start_time" tabindex=5}}
+					{{view JustDive.TimeField 
+							valueBinding	= "view.diveGroup.immersion_start_time" 
+							classNames		= "input-mini"
+							tabindex		= 5}}<span class="add-on"><i class="icon-time"></i></span>
 				</div>
 			</td>
 			<th class="i">-9m</th>
@@ -108,7 +111,7 @@
 			<th rowspan="1" class="i">&nbsp;</th>
 			<td rowspan="1">&nbsp;</td>
 			<th class="i"><i class="icon-thumbs-down"></i></th>
-			<td><span class="data">{{view.diveGroup.immersion_start_time}}</span></td>
+			<td><span class="data">{{view.diveGroup.immersion_start_time}}</span><span class="add-on"><i class="icon-time"></i></span></td>
 			<th class="i">-9m</th>
 			<td><span class="data">{{view.diveGroup.m9_stop_time}}</span><span class="add-on">min</span></td>
 		</tr>

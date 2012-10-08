@@ -6,6 +6,11 @@ class DiveGroup < Synced
   
   validates :boat_departure_id, :presence => true
   
+  def immersion_start_time
+	self[:immersion_start_time].strftime('%H:%M') unless self[:immersion_start_time].nil? 
+  end
+
+  
   def self.findCreatedDiff(app_key_id, sync_date)
 	if not sync_date.nil?
 		conditions = [" (dive_groups.created_by_app_key_id IS NULL OR dive_groups.created_by_app_key_id  <> ?)

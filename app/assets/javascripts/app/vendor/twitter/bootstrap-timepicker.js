@@ -1,4 +1,4 @@
-/* =========================================================
+﻿/* =========================================================
  * bootstrap-timepicker.js
  * http://www.github.com/jdewit/bootstrap-timepicker
  * =========================================================
@@ -280,7 +280,7 @@
                 case 'modal':
                     template = '<div class="bootstrap-timepicker modal hide fade in" style="top: 30%; margin-top: 0; width: 200px; margin-left: -100px;" data-backdrop="false">'+
                                    '<div class="modal-header">'+
-                                       '<a href="#" class="close" data-action="hide">�</a>'+
+                                       '<a href="#" class="close" data-action="hide">×</a>'+
                                        '<h3>Pick a Time</h3>'+
                                    '</div>'+
                                    '<div class="modal-content">'+
