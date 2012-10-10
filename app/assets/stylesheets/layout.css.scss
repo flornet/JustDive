@@ -408,6 +408,7 @@
 		top								: 40px;
 		bottom							: 0;
 		overflow						: auto;
+		-webkit-overflow-scrolling 	 	: touch;
 		padding							: 10px;
 	}
 	div.span8.fullscreen-container {

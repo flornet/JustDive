@@ -97,6 +97,12 @@ JustDive = Ember.Application.create({
 			return false;
 		}
 		
+		// Disable global scroll
+		document.ontouchstart = function(e){ 
+			e.preventDefault(); 
+		}
+
+		
 		// Maps localStorage
 		app.set('localStorage', localStorage);
 		
