@@ -14,7 +14,7 @@ var dataStorage = (function(cache, async) {
 						_ds._save(first.key, first.value);
 					}
 					
-				}, 200); //200 @TODO: tweak and display progress bar
+				}, 30); //200 @TODO: tweak and display progress bar
 			}
 		},
 		onQueueProcess: function(length) {

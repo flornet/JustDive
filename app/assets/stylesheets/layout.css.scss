@@ -8,7 +8,16 @@
 		top                         	: 0;
 		bottom							: 0;
 	}
-	
+	.left {
+		float                       	: left;
+		left                        	: 0%;
+		width                      		: 20%;
+	}
+	.right {
+		float                       	: right;
+		left                        	: 20%;
+		width                       	: 80%;
+	}
 	.right .panel,
 	.left .panel	{
 		top								: 80px;
@@ -54,10 +63,13 @@
 	
 	header {
 		.container-fluid {
-			padding: 0 10px 0 0;
+			padding: 0 0 0 0;
 		}
 	}
 	.navbar {
+		.nav {
+			margin					: 0;
+		}
 		.brand {
 			position				: absolute;
 			left					: 50%;
@@ -369,6 +381,246 @@
 		}
 	}
 }
+/* Landscape phones and down */
+@media (max-width: 767px) {
+	body {
+		padding							: 0;
+	}
+	//---------------------------------------------------------- Pannels
+	.panel {}
+	.left {
+		float                       	: none;
+		left                        	: 0;
+		width                      		: 100%;
+	}
+	.right {
+		float                       	: none;
+		left                        	: 0;
+		width                       	: 100%;
+	}
+	.panel.right.index {
+		display							: none;
+	}
+	.right .panel .container-fluid {}
+	.left .panel {}
+	.fullscreen-container {
+		position						: absolute;
+		top								: 40px;
+		bottom							: 0;
+		overflow						: auto;
+		padding							: 10px;
+	}
+	div.span8.fullscreen-container {
+		width							: 100%;
+	}
+	.panel-split {}
+	.panel-split-fixed-top-240-a,
+	.panel-split-fixed-bottom-135-a {
+		bottom							: 0;
+		height							: auto;
+	}
+	.panel-split-fixed-top-240-b,
+	.panel-split-fixed-bottom-135-b {
+		display							: none;
+	}
+
+	//---------------------------------------------------------- Menus / Navbars
+	.container-fluid {
+		padding							: 0;
+	}
+	header {
+		.container-fluid {
+			li.errors {
+				display					: none;
+			}
+		}
+	}
+	.navbar {
+		.nav {}
+		.brand {
+			display						: none;
+		}
+	}
+	.navbar-fixed-top {
+		position						: fixed;
+		margin							: 0;
+		
+		.navbar-inner {
+			padding						: 0;
+		}
+	}
+	.navbar-fixed-bottom {
+		position						: fixed;
+		margin							: 0;
+		
+		.navbar-inner {
+			padding						: 0;
+		}
+	}
+	.sub-navbar {
+		.navbar-inner {
+			padding-right				: 10px;
+			padding-left				: 10px;
+			
+			.pull-right {
+				display					: none;
+			}
+		}
+	}
+	.sub-navbar-bottom {}
+	footer {}
+	
+	//---------------------------------------------------------- Spec
+	tr.app-key,
+	tr.auth-token {
+		display							: none;
+	}
+	
+	.dive-groups {
+		.scrollable-item {
+			display						: block;
+			height						: auto;
+			width						: auto;
+			position					: inherit;
+			top							: auto;
+			bottom						: auto;
+			
+			.dive-group {
+				display					: block;
+				height					: auto;
+				width					: auto;
+				position				: inherit;
+				top						: auto;
+				bottom					: auto;
+				
+				
+				.title {
+					position			: relative;
+					width				: auto;
+					top					: auto;
+					bottom				: auto;
+					
+					
+				}
+				
+				.details {
+					display			: none;
+				}
+				
+				ul.nav {
+					position			: relative;
+					width				: auto;
+					margin				: 0px;
+					margin-left			: 8px;
+					margin-right		: 8px;
+					padding				: 0px;
+					top					: auto;
+					bottom				: auto;
+					
+					li.alert {
+						margin			: 0;
+					}
+					.btn-group.pull-right {
+						display			: none;
+					}
+				}
+				.gradient  {
+					display				: none;
+				}
+			}
+		}
+	}
+	
+	.events-by-day {
+		.scrollable-item {
+			display						: block;
+			height						: auto;
+			width						: auto;
+			position					: inherit;
+			top							: auto;
+			bottom						: auto;
+			
+			.day {
+				display					: block;
+				height					: auto;
+				width					: auto;
+				position				: inherit;
+				top						: auto;
+				bottom					: auto;
+				
+				
+				.name {
+					position			: relative;
+					width				: auto;
+					top					: auto;
+					bottom				: auto;
+					
+					.btn-group.pull-right {
+						display			: none;
+					}
+				}
+				
+				ul.nav {
+					position			: relative;
+					width				: auto;
+					margin				: 0px;
+					margin-left			: 8px;
+					margin-right		: 8px;
+					padding				: 0px;
+					top					: auto;
+					bottom				: auto;
+					
+					li.alert {
+						margin			: 0;
+					}
+				}
+				.gradient  {
+					display				: none;
+				}
+			}
+		}
+	}
+	
+	.row-fluid [class*="span"] {
+		min-height						: 0;
+	}
+	
+	.hero-unit {
+		padding							: 15px;
+		margin-bottom					: 8px;
+		
+		h1 {
+			font-size					: 20px;
+			padding-bottom				: 8px;
+		}
+	}
+	//---------------------------------------------------------- Utility
+	.scrollable-y {
+		overflow-y                  	: auto;
+		-webkit-overflow-scrolling 	 	: touch;
+	}
+	.scrollable-x {
+		overflow-x						: hidden;
+		overflow-y						: auto;
+		-webkit-overflow-scrolling  	: touch;
+		display							: block;
+		white-space						: normal;
+		font-size						: inherit;
+	}
+	.scrollable-x .scrollable-item {
+		float							: none;
+		display							: block;
+		width							: auto;
+		font-size						: 12px;
+		white-space						: normal;
+	}
+	
+	//---------------------------------------------------------- Drag and drop
+	.available-participants {
+		display: none;
+	}
+	
+}
 @media (min-width: 767px) {
 	.navbar-fixed-top, 
 	.navbar-fixed-bottom {
@@ -379,26 +631,5 @@
 	.navbar-fixed-top .navbar-inner, 
 	.navbar-fixed-bottom .navbar-inner {
 		padding							: 0px;
-	}
-}
-@media (orientation: landscape) {
-	.left {
-		float                       	: left;
-		left                        	: 0%;
-		width                      		: 20%;
-	}
-	.right {
-		float                       	: right;
-		left                        	: 20%;
-		width                       	: 80%;
-	}
-}
-@media (orientation: portrait) {
-	.left {
-		width                       	: 0%;
-	}
-	.right {
-		left                        	: 0%;
-		width                       	: 100%;
 	}
 }

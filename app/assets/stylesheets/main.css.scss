@@ -400,58 +400,99 @@
 		}
 	}
 	.available-participants.droppable-highlight {
-		background			: #eaf9e7;
-		-webkit-box-shadow	: inset 0px 0px 30px 0px #c9ff8c;
-		   -moz-box-shadow	: inset 0px 0px 30px 0px #c9ff8c;
-				box-shadow	: inset 0px 0px 30px 0px #c9ff8c; 
+		background						: #eaf9e7;
+		-webkit-box-shadow				: inset 0px 0px 30px 0px #c9ff8c;
+		   -moz-box-shadow				: inset 0px 0px 30px 0px #c9ff8c;
+				box-shadow				: inset 0px 0px 30px 0px #c9ff8c; 
 	}
 	.available-participants.droppable-over {
-		background			: #c9ff8c;
-		-webkit-box-shadow	: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
-		   -moz-box-shadow	: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
-				box-shadow	: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
+		background						: #c9ff8c;
+		-webkit-box-shadow				: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
+		   -moz-box-shadow				: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
+				box-shadow				: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.27);
 	}
 }
-
-
-.events-by-day li.day .groups-count {
-	clear:both;
-	display:block;
-	font-size:10px;
-	text-align:right;
-	color: #666666;
-	padding-top:2px;
-}
-
-
 
 /* Landscape phones and down */
-@media (max-width: 480px) {
-	.events-by-day li.day,
-	.dive-groups li.dive-group  {
-		width: 100%;
-		margin-right: 0;
-		height: auto;
+@media (max-width: 767px) {
+	.sub-navbar .navbar-text,
+	.left-nav-header {
+		font-size						: 13px;
 	}
-}
- 
-/* Landscape phone to portrait tablet */
-@media (min-width: 480px) and (max-width: 767px) { 
-	.events-by-day li.day  {
-		width: 45%;
+	.sub-navbar a.btn {
+		line-height:0;
+		font-size:0;
 	}
-}
- 
-/* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-	.events-by-day li.day {
-		width: 30%;
+	
+	//---------------------------------------------------------- Pannels
+	.panel-split-fixed-top-240-a,
+	.panel-split-fixed-bottom-135-a {
+		background						: none repeat scroll 0% 0% rgb(238, 238, 238);
 	}
-}
- 
-/* Large desktop */
-@media (min-width: 979px) and (max-width: 1200px){
-	.events-by-day li.day  {
-		width: 22%;
+	
+	//---------------------------------------------------------- Spec
+	.dive-groups {
+		.scrollable-item {
+			.dive-group {
+				background				: transparent;
+				padding-bottom			: 8px;
+				
+				.title {
+					background			: transparent;
+					border				: none;
+				}
+				
+				ul.nav.participants {
+					border				: 1px #ddd solid;
+					border-radius		: 5px;
+					background			: #fff;
+					.participant {
+						border			: none;
+						cursor			: default;
+					}
+					.participant:hover {
+						border			: none;
+						background		: transparent;
+						cursor			: default;
+						color			: #693a5f;
+					}
+					li.alert {
+						border			: none;
+					}
+				}
+			}
+		}
+	}
+	
+	.events-by-day {
+		.scrollable-item {
+			.day {
+				background				: transparent;
+				padding-bottom			: 8px;
+				
+				.name {
+					background			: transparent;
+					border				: none;
+				}
+				
+				ul.nav {
+					border				: 1px #ddd solid;
+					border-radius		: 5px;
+					background			: #fff;
+					li {
+						a {
+							border		: none;
+						}
+						a:hover {
+							border		: none;
+							border-radius	: 5px;
+						}
+					}
+					li.alert {
+						border			: none;
+					}
+				}
+			}
+		}
 	}
 }
