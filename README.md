@@ -18,6 +18,7 @@ BugFixes:
 - http://stackoverflow.com/questions/6598111/ios-web-app-disable-offset-scrolling
 - Fix listeners on HTML (click.dropdown.custom-toggle)
 - ActivityIndicator isn't reliable
+- iOS Scroll: https://github.com/joelambert/ScrollFix
 
 FeaturesRequest:
 - Gestion des versions (installedVersion vs latestVersion + migrate)
