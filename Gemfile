@@ -45,6 +45,7 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 gem 'activemodel'
-gem 'gdata'
+#gem 'gdata'
+gem 'gdata', :git => 'git://github.com/flornet/gdata-1.1.2.git'
 gem 'ember-rails'
 gem 'paranoia'
